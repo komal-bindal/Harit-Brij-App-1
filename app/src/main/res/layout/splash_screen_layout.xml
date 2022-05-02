@@ -7,39 +7,4 @@
     android:background="@drawable/splash_screen_image"
     tools:context=".SplashScreenActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="223dp"
-        android:layout_height="383dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="163dp"
-        android:background="#FBFAFA" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="191dp"
-        android:layout_height="33dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="106dp"
-        android:layout_marginBottom="164dp"
-        android:background="#FBF7F7" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="186dp"
-        android:layout_marginEnd="113dp"
-        android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:textSize="48sp"
-        android:textStyle="bold" />
 </RelativeLayout>
