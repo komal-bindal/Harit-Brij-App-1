@@ -7,7 +7,11 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+
+import java.util.Objects;
 
 public class ChooseLanguageFragment extends Fragment {
     OnboardingViewModel viewModel;
@@ -30,6 +34,7 @@ public class ChooseLanguageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 viewModel.setEnglishLanguage();
+                navigateToChooseUser();
             }
         });
 
@@ -37,7 +42,17 @@ public class ChooseLanguageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 viewModel.setHindiLanguage();
+                navigateToChooseUser();
             }
         });
+    }
+
+    private void navigateToChooseUser() {
+        Fragment fragment = new UserTypeFragment();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container_view, fragment);
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out);
+        fragmentTransaction.commit();
     }
 }
