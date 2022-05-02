@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "731401199494",
+    "firebase_url": "https://harit-brij-default-rtdb.firebaseio.com",
+    "project_id": "harit-brij",
+    "storage_bucket": "harit-brij.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731401199494:android:3efd483bd03464b7e49607",
+        "android_client_info": {
+          "package_name": "com.haritbrij.haritBrij"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731401199494-o97vrskl6m5dmfcmtid15ogluncjvps2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_gUnxXiUreQ2hjKe8_pNejTciRdJRkug"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "731401199494-o97vrskl6m5dmfcmtid15ogluncjvps2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
