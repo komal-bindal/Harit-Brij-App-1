@@ -39,7 +39,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/choose_english_button"
         android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -52,7 +52,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/choose_hindi_button"
         android:layout_width="264dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

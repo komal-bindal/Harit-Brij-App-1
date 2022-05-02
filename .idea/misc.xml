@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ayaan/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable/gradient_drawable.xml" value="0.1" />
+        <entry key="..\:/Users/ayaan/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable/gradientbhagwa.xml" value="0.1" />
         <entry key="..\:/Users/ayaan/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable/splash_screen_layout.xml" value="0.184" />
         <entry key="..\:/Users/ayaan/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/ayaan/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/activity_onboarding.xml" value="0.1" />
+        <entry key="..\:/Users/ayaan/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/fragment_choose_language.xml" value="0.1" />
         <entry key="..\:/Users/ayaan/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/splash_screen_layout.xml" value="0.1" />
       </map>
     </option>
