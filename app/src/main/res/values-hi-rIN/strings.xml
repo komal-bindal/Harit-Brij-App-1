@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Harit-Brij</string>
     <string name="choose_language">भाषा चयन पटल</string>
+    <string name="app_name"> हरित ब्रज</string>
+    <string name="title_activity_maps">Maps</string>
 </resources>
