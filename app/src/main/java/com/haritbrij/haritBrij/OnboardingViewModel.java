@@ -5,6 +5,7 @@ import static android.provider.Settings.System.getString;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,6 +23,8 @@ public class OnboardingViewModel extends AndroidViewModel {
         public void setEnglishLanguage() {
                 editor.putString(getApplication().getString(R.string.user_language), "english");
                 editor.apply();
+
+                Toast.makeText(getApplication(), "Set Language to English", Toast.LENGTH_SHORT).show();
         }
 
         public void setHindiLanguage() {
