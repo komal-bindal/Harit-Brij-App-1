@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/user_type_root_view"
-    tools:context=".OnboardingActivity"
+    tools:context=".onboarding.OnboardingActivity"
     android:background="@color/white">
 
     <TextView

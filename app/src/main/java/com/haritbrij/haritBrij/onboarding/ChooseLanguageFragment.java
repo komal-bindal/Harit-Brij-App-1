@@ -1,4 +1,4 @@
-package com.haritbrij.haritBrij;
+package com.haritbrij.haritBrij.onboarding;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.Objects;
+import com.haritbrij.haritBrij.R;
 
 public class ChooseLanguageFragment extends Fragment {
     OnboardingViewModel viewModel;

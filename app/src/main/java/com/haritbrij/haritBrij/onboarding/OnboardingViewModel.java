@@ -1,4 +1,4 @@
-package com.haritbrij.haritBrij;
+package com.haritbrij.haritBrij.onboarding;
 
 import static android.provider.Settings.System.getString;
 
@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
+
+import com.haritbrij.haritBrij.R;
 
 public class OnboardingViewModel extends AndroidViewModel {
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(getApplication().getString(R.string.preference_file_key), Context.MODE_PRIVATE);

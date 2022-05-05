@@ -1,10 +1,11 @@
-package com.haritbrij.haritBrij;
+package com.haritbrij.haritBrij.onboarding;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.haritbrij.haritBrij.R;
 
 public class OnboardingActivity extends AppCompatActivity {
     @Override
