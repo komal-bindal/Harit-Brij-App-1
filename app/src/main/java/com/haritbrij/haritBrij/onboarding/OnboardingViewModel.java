@@ -33,4 +33,8 @@ public class OnboardingViewModel extends AndroidViewModel {
                 editor.putString(getApplication().getString(R.string.user_language), "hindi");
                 editor.apply();
         }
+
+        public SharedPreferences.Editor getSharedPreferenceEditor() {
+                return editor;
+        }
 }
