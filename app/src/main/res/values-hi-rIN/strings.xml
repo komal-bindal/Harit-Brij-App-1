@@ -3,4 +3,47 @@
     <string name="choose_language">भाषा चयन पटल</string>
     <string name="app_name"> हरित ब्रज</string>
     <string name="title_activity_maps">Maps</string>
+
+
+
+
+
+    <string name="selectLangHeading">Select the language</string>
+    <string name="Hindi">Hindi</string>
+    <string name="Admin">Admin</string>
+    <string name="User">User</string>
+    <string name="SelectProfile">Select the Profile</string>
+    <string name="Signin">Sign in</string>
+    <string name="mobile">Enter the registered mobile number</string>
+    <string name="DontHaveAnAccount">Dont have an account?</string>
+    <string name="Register">Register here</string>
+    <string name="OTP">OTP Verification</string>
+    <string name="Submit">Send OTP</string>
+    <string name="SendOTP">Enter the OTP send on your registered mobile number</string>
+    <string name="SubmitOTP">Submit</string>
+    <string name="Registeration">Register</string>
+    <string name="EnterUsername">Enter Username</string>
+    <string name="EnterMobileNumber">Enter mobile number</string>
+    <string name="NumberOfTrees">Number of trees</string>
+    <string name="RegisterMobileNumber">Submit mobile number</string>
+    <string name="HaveAccount">Already have an account?</string>
+    <string name="SignInrhere">Sign in</string>
+    <string name="NameOfOrg">Name of Organization</string>
+    <string name="MobileNumber">Mobile Number :</string>
+    <string name="RegisteredTrees">Registered number of trees :</string>
+    <string name="RegNumber">Registration number :</string>
+    <string name="RegisterTree">Tree Register</string>
+    <string name="TreeProfile">Tree Profile</string>
+    <string name="Map">Map</string>
+    <string name="AdminProfile">Name of Admin</string>
+    <string name="DataView">Data View</string>
+    <string name="SearchByUTID">Search by UTID</string>
+    <string name="Search">Search</string>
+    <string name="District">District</string>
+    <string name="Block">Block</string>
+    <string name="Village">Village</string>
+    <string name="Species">Species</string>
+    <string name="UTID">UTID</string>
+    <string name="download">Download</string>
+
 </resources>

@@ -2,4 +2,86 @@
     <string name="app_name">Harit-Brij</string>
     <string name="choose_language">Please Choose your Language</string>
     <string name="title_activity_maps">MapsActivity</string>
+
+
+
+
+
+    <string name="selectLangHeading">भाषा का चयन करें</string>
+    <string name="Hindi">हिन्दी</string>
+    <string name="Admin">व्यवस्थापक</string>
+    <string name="User">उपयोगकर्ता</string>
+    <string name="SelectProfile">कृपया प्रोफ़ाइल का चयन करें</string>
+    <string name="Signin">साइन इन करें</string>
+    <string name="mobile">पंजीकृत मोबाइल नंबर दर्ज करें</string>
+    <string name="DontHaveAnAccount">खाता नहीं है?</string>
+    <string name="Register">यहां पंजीकरण करें</string>
+    <string name="OTP">ओटीपी सत्यापन</string>
+    <string name="Submit">ओटीपी भेजें</string>
+    <string name="SendOTP">अपने रिजस्टडर् मोबाइल नंबर पर भेजे गए ओटीपी को दजर् करें</string>
+    <string name="SubmitOTP">प्रस्तुत कर</string>
+    <string name="Registeration">पंजीकरण</string>
+    <string name="EnterUsername">उपयोगकतार् का नाम दजर् करें</string>
+    <string name="EnterMobileNumber">मोबाइल नंबर दजर् करें</string>
+    <string name="NumberOfTrees">पेड़ों की संख्या</string>
+    <string name="RegisterMobileNumber">मोबाइल नंबर सत्यापीत करें</string>
+    <string name="HaveAccount">खाता है?</string>
+    <string name="SignInrhere">साइन इन करें</string>
+    <string name="NameOfOrg">संगठन का नाम</string>
+    <string name="MobileNumber">मोबाइल नंबर :</string>
+    <string name="RegisteredTrees">पंजीकृत वृक्ष संख्या:</string>
+    <string name="RegNumber">पंजीकरण संख्या:</string>
+    <string name="RegisterTree">वृक्ष पंजीकरण</string>
+    <string name="TreeProfile">वृक्ष के आंकड़े</string>
+    <string name="Map">नक्शा</string>
+    <string name="AdminProfile">व्यवस्थापक का नाम</string>
+    <string name="DataView">आँकड़ों का खाका</string>
+    <string name="SearchByUTID">यूटीआईडी द्वारा खोजें</string>
+    <string name="Search">खोज</string>
+    <string name="District">जिला</string>
+    <string name="Block">खंड</string>
+    <string name="Village">गांव</string>
+    <string name="Species">प्रजातियाँ</string>
+    <string name="UTID">यूटीआईडी</string>
+    <string name="download">डाउनलोड</string>
+    <string name="preference_file_key" translatable="false">com.haritbrij.haritbrij.PREFERENCE_FILE_KEY</string>
+    <string name="user_language" translatable="false">user_language</string>
+    <string-array name="District">
+        <item>C</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>VisualBasic</item>
+    </string-array>
+
+    <string-array name="Block">
+        <item>C</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>VisualBasic</item>
+    </string-array>
+
+    <string-array name="Villages">
+        <item>C</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>VisualBasic</item>
+    </string-array>
+
+    <string-array name="Species">
+        <item>C</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>VisualBasic</item>
+    </string-array>
+    <string-array name="Organization">
+        <item>C</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>VisualBasic</item>
+    </string-array>
 </resources>

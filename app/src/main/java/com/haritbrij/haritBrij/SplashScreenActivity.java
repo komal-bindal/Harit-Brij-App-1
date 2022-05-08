@@ -9,7 +9,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Objects;
+import com.haritbrij.haritBrij.onboarding.OnboardingActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
     @Override
@@ -23,7 +23,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.splash_screen_layout);
 
         //redirects to MainActivity after 2 seconds.
-        Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+        Intent intent = new Intent(SplashScreenActivity.this, OnboardingActivity.class);
         Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
