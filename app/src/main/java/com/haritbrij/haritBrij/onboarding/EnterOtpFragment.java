@@ -9,12 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import com.google.firebase.auth.FirebaseAuth;
 
 import com.haritbrij.haritBrij.R;
 
 public class EnterOtpFragment extends Fragment {
+    private FirebaseAuth mAuth;
     public EnterOtpFragment() {
         super(R.layout.fragment_enter_otp);
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override

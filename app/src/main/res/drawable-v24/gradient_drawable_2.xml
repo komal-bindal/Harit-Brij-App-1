@@ -1,0 +1,17 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<shape
+    android:shape = "rectangle"
+    xmlns:android = "http://schemas.android.com/apk/res/android" >
+
+    <gradient
+        android:startColor = "#104c43"
+        android:endColor = "#089f39"
+        android:angle = "270"
+        android:type = "linear" />
+    <corners android:topLeftRadius="50dp" android:topRightRadius="50dp"/>
+
+    <!-- This is the border color -->
+    <stroke android:width="1dp" android:color="@color/black"/>
+
+
+</shape>

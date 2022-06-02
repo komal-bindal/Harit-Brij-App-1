@@ -4,9 +4,6 @@
     <string name="title_activity_maps">MapsActivity</string>
 
 
-
-
-
     <string name="selectLangHeading">भाषा का चयन करें</string>
     <string name="Hindi">हिन्दी</string>
     <string name="Admin">व्यवस्थापक</string>
@@ -84,4 +81,6 @@
         <item>JavaScript</item>
         <item>VisualBasic</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

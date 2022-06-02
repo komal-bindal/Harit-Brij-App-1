@@ -10,10 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.haritbrij.haritBrij.R;
 
 public class EnterMobileFragment extends Fragment {
+    OnboardingViewModel viewModel;
     public EnterMobileFragment() {
         super(R.layout.fragment_enter_mobile);
     }
@@ -21,6 +23,8 @@ public class EnterMobileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        viewModel = new ViewModelProvider(requireActivity()).get(OnboardingViewModel.class);
 
         EditText mobileNumberEditText = view.findViewById(R.id.mobile_num_edit_text);
         Button sendOtpButton = view.findViewById(R.id.send_otp_button);
@@ -32,6 +36,7 @@ public class EnterMobileFragment extends Fragment {
                 Toast.makeText(getContext(), "OTP Sent", Toast.LENGTH_LONG);
 
                 //call the api passing the enteredMobileNumber.
+//                viewModel.sendVerificationCode(enteredMobileNumber, getActivity());
 
                 //navigate to enterotpfragment
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

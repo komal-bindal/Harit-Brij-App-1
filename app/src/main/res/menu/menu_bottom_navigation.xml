@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_tree_register"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_how_to_reg_24"
+        android:title="@string/RegisterTree"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_tree_data"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_article_24"
+        android:title="@string/TreeProfile"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_tree_map"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="@string/Map"
+        app:showAsAction="ifRoom" />
+</menu>
