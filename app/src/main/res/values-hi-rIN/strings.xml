@@ -45,5 +45,7 @@
     <string name="Species">Species</string>
     <string name="UTID">UTID</string>
     <string name="download">Download</string>
+    <string name="password">Password</string>
+    <string name="upload">Upload</string>
 
 </resources>
