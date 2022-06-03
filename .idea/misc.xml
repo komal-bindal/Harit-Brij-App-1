@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/drawable/gradient_drawable_1.xml" value="0.109" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/drawable/gradientbhagwa.xml" value="0.124" />
         <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/drawable/stroke1.xml" value="0.109" />
         <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/drawable/stroke2.xml" value="0.109" />
         <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/drawable/stroke3.xml" value="0.109" />
@@ -14,6 +15,7 @@
         <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/activity_main_user.xml" value="0.25052083333333336" />
         <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/activity_maps.xml" value="0.25052083333333336" />
         <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/activity_onboarding.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/adminupperpart.xml" value="0.25052083333333336" />
         <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/bottomnavigationuser.xml" value="0.24947916666666667" />
         <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_choose_language.xml" value="0.25052083333333336" />
         <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_enter_mobile.xml" value="0.25052083333333336" />
