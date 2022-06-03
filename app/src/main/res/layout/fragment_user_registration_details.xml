@@ -82,7 +82,7 @@
             android:background="@drawable/stroke1"/>
 
         <Button
-            android:id="@+id/button30"
+            android:id="@+id/submit_registration_details_button"
             android:layout_width="216dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"

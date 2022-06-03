@@ -105,7 +105,7 @@
             app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName8" />
 
         <Button
-            android:id="@+id/button29"
+            android:id="@+id/submit_otp_button"
             android:layout_width="216dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

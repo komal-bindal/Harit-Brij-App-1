@@ -17,32 +17,26 @@
             android:id="@+id/upperlayoutuser"
             layout="@layout/upperlayoutuser"
             android:layout_width="match_parent"
-            android:layout_height="233dp"
+            android:layout_height="265dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/bottomnavigationuser"
-            layout="@layout/bottomnavigationuser"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <EditText
             android:id="@+id/editTextTextPersonName"
-            android:layout_width="363dp"
+            android:layout_width="0dp"
             android:layout_height="41dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="28dp"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/strokebhagwa"
             android:ems="10"
+            android:hint="@string/SearchByUTID"
             android:inputType="textPersonName"
+            android:padding="10dp"
             android:text=""
             app:layout_constraintEnd_toEndOf="@+id/upperlayoutuser"
             app:layout_constraintStart_toStartOf="@+id/upperlayoutuser"
-            app:layout_constraintTop_toBottomOf="@+id/upperlayoutuser"
-            android:hint="@string/SearchByUTID"
-            android:padding="10dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/upperlayoutuser" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -55,11 +49,12 @@
             app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="376dp"
+            android:id="@+id/search_tree_recycler_view"
+            android:layout_width="0dp"
             android:layout_height="323dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
+            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
 

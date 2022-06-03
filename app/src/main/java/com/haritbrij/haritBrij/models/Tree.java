@@ -1,20 +1,20 @@
 package com.haritbrij.haritBrij.models;
 
 public class Tree {
-    String time;
-    String id;
-    String district;
-    String block;
-    String village;
-    String species;
-    double latitude;
-    double longitude;
-    String image1;
-    String image2;
-    String image3;
-    String image4;
-    String status1;
-    String status2;
-    String status3;
-    String status4;
+    public String time;
+    public String id;
+    public String district;
+    public String block;
+    public String village;
+    public String species;
+    public double latitude;
+    public double longitude;
+    public String image1;
+    public String image2;
+    public String image3;
+    public String image4;
+    public String status1;
+    public String status2;
+    public String status3;
+    public String status4;
 }

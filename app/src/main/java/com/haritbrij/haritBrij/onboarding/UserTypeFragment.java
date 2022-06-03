@@ -22,7 +22,7 @@ public class UserTypeFragment extends Fragment {
     Button chooseAdminButton, chooseUserButton;
     private final String TAG = "UserTypeFragment";
 
-    UserTypeFragment() {
+    public UserTypeFragment() {
         super(R.layout.fragment_user_type);
     }
 

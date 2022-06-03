@@ -13,26 +13,28 @@
         android:layout_marginTop="188dp"
         android:background="@drawable/gradientbhagwa"
         android:paddingTop="4dp"
+        android:paddingLeft="70pt"
         android:text="Text"
+
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30dp"
+
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
 
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="42dp"
         android:layout_height="45dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/stroke1"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:srcCompat="@drawable/femaleavatar_removebg_preview"
-        android:background="@drawable/stroke1"/>
+        app:srcCompat="@drawable/femaleavatar_removebg_preview" />
 </androidx.constraintlayout.widget.ConstraintLayout>
