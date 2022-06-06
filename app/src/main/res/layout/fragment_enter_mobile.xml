@@ -60,13 +60,14 @@
 
         <EditText
             android:id="@+id/mobile_num_edit_text"
+            android:paddingHorizontal="16dp"
             android:layout_width="330dp"
             android:layout_height="46dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/stroke1"
             android:ems="10"
             android:hint="@string/mobile"
-            android:inputType="textPersonName"
+            android:inputType="phone"
             android:text=""
             app:layout_constraintStart_toStartOf="@+id/textView88"
             app:layout_constraintTop_toBottomOf="@+id/textView88" />
@@ -94,7 +95,7 @@
             app:layout_constraintTop_toBottomOf="@+id/send_otp_button" />
 
         <TextView
-            android:id="@+id/textView90"
+            android:id="@+id/go_to_user_registration_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

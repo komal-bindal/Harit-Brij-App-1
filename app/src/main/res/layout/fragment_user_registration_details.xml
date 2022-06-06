@@ -35,7 +35,7 @@
             app:layout_constraintTop_toBottomOf="@+id/secondupperpart" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName12"
+            android:id="@+id/user_name_edit_text"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
@@ -51,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName13"
+            android:id="@+id/user_mobile_edit_text"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="20dp"
@@ -61,13 +61,13 @@
             android:inputType="textPersonName"
             android:text=""
             android:textColorHint="#838080"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName12"
+            app:layout_constraintEnd_toEndOf="@+id/user_name_edit_text"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName12"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName12" />
+            app:layout_constraintStart_toStartOf="@+id/user_name_edit_text"
+            app:layout_constraintTop_toBottomOf="@+id/user_name_edit_text" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName14"
+            android:id="@+id/user_tree_target_edit_text"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="28dp"
@@ -76,9 +76,9 @@
             android:inputType="textPersonName"
             android:text=""
             android:textColorHint="#838080"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName13"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName13"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName13"
+            app:layout_constraintEnd_toEndOf="@+id/user_mobile_edit_text"
+            app:layout_constraintStart_toStartOf="@+id/user_mobile_edit_text"
+            app:layout_constraintTop_toBottomOf="@+id/user_mobile_edit_text"
             android:background="@drawable/stroke1"/>
 
         <Button
@@ -88,19 +88,20 @@
             android:layout_marginTop="28dp"
             android:background="@drawable/gradientbhagwa"
             android:text="@string/SubmitOTP"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName14"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName14"
-            app:layout_constraintTop_toBottomOf="@+id/button31" />
+            app:layout_constraintEnd_toEndOf="@+id/user_tree_target_edit_text"
+            app:layout_constraintStart_toStartOf="@+id/user_tree_target_edit_text"
+            app:layout_constraintTop_toBottomOf="@+id/upload_user_image_button" />
 
         <Button
-            android:id="@+id/button31"
+            android:id="@+id/upload_user_image_button"
             android:layout_width="135dp"
             android:layout_height="41dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/uploadbutton"
             android:text="@string/upload"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName14"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName14" />
+            app:layout_constraintEnd_toEndOf="@+id/user_tree_target_edit_text"
+            app:layout_constraintStart_toStartOf="@+id/user_tree_target_edit_text"
+            app:layout_constraintTop_toBottomOf="@+id/user_tree_target_edit_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

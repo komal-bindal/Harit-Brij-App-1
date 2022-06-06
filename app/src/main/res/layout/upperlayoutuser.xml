@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="284dp"
-        android:layout_height="295dp"
+        android:layout_width="207dp"
+        android:layout_height="217dp"
         android:alpha="0.3"
         app:layout_constraintBottom_toBottomOf="@+id/textView41"
         app:layout_constraintEnd_toEndOf="parent"

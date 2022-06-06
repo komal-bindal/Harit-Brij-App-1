@@ -1,9 +1,11 @@
 package com.haritbrij.haritBrij.onboarding;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ public class EnterMobileFragment extends Fragment {
 
         EditText mobileNumberEditText = view.findViewById(R.id.mobile_num_edit_text);
         Button sendOtpButton = view.findViewById(R.id.send_otp_button);
+        TextView goToUserRegistrationTextView = view.findViewById(R.id.go_to_user_registration_text_view);
 
         sendOtpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,12 +38,20 @@ public class EnterMobileFragment extends Fragment {
                 String enteredMobileNumber = mobileNumberEditText.getText().toString();
                 Toast.makeText(getContext(), "OTP Sent", Toast.LENGTH_LONG);
 
-                //call the api passing the enteredMobileNumber.
-//                viewModel.sendVerificationCode(enteredMobileNumber, getActivity());
+//                viewModel.addPhoneNumber(Long.valueOf(enteredMobileNumber));
+//                viewModel.sendOtp();
 
                 //navigate to enterotpfragment
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container_view, new EnterOtpFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        goToUserRegistrationTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container_view, new UserRegistrationDetailsFragment()).addToBackStack(null).commit();
             }
         });
     }

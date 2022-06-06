@@ -56,64 +56,34 @@
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName6"
-            android:layout_width="70dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/otpbox"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text=""
-            app:layout_constraintStart_toStartOf="@+id/textView11"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName7"
-            android:layout_width="70dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/otpbox"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text=""
-            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName6"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName6" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName8"
-            android:layout_width="70dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/otpbox"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text=""
-            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName7"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName7" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName9"
-            android:layout_width="70dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/otpbox"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text=""
-            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName8"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName8" />
+        <in.aabhasjindal.otptextview.OtpTextView
+            android:id="@+id/otp_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:bar_enabled="true"
+            app:bar_height="2dp"
+            app:height="40dp"
+            app:layout_constraintBottom_toTopOf="@+id/submit_otp_button"
+            app:layout_constraintEnd_toEndOf="@+id/textView9"
+            app:layout_constraintStart_toStartOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
+            app:length="4"
+            app:otp=""
+            app:otp_text_size="24dp"
+            app:width="40dp" />
 
         <Button
             android:id="@+id/submit_otp_button"
             android:layout_width="216dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/gradientbhagwa"
             android:text="@string/SubmitOTP"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName9"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName6"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintEnd_toEndOf="@+id/otp_view"
+            app:layout_constraintHorizontal_bias="0.615"
+            app:layout_constraintStart_toStartOf="@+id/otp_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

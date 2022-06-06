@@ -13,27 +13,19 @@
         android:layout_height="match_parent"
         tools:context=".SearchTreeFragment">
 
-        <include
-            android:id="@+id/upperlayoutuser"
-            layout="@layout/upperlayoutuser"
-            android:layout_width="match_parent"
-            android:layout_height="216dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="169dp"
             android:layout_height="36dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:hint="@string/NameOfOrg"
             android:text=""
             android:textColorHint="#000000"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/upperlayoutuser"
-            app:layout_constraintTop_toBottomOf="@+id/upperlayoutuser" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView8"

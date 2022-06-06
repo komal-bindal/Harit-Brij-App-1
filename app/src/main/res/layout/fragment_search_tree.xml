@@ -1,42 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/white">
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".SearchTreeFragment">
 
-        <include
-            android:id="@+id/upperlayoutuser"
-            layout="@layout/upperlayoutuser"
-            android:layout_width="match_parent"
-            android:layout_height="265dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="0dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/strokebhagwa"
-            android:ems="10"
-            android:hint="@string/SearchByUTID"
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            android:text=""
-            app:layout_constraintEnd_toEndOf="@+id/upperlayoutuser"
-            app:layout_constraintStart_toStartOf="@+id/upperlayoutuser"
-            app:layout_constraintTop_toBottomOf="@+id/upperlayoutuser" />
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/strokebhagwa"
+        android:ems="10"
+        android:hint="@string/SearchByUTID"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -51,13 +37,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_tree_recycler_view"
             android:layout_width="0dp"
-            android:layout_height="323dp"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
             app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
             app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
