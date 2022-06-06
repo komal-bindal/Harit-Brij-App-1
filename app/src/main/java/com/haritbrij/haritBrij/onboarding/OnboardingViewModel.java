@@ -3,6 +3,7 @@ package com.haritbrij.haritBrij.onboarding;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -23,6 +24,8 @@ public class OnboardingViewModel extends AndroidViewModel {
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(getApplication().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor;
         private long phoneNumber;
+        private Bitmap userImage;
+        private int otp;
 
         public OnboardingViewModel(@NonNull Application application) {
                 super(application);
@@ -51,12 +54,15 @@ public class OnboardingViewModel extends AndroidViewModel {
 
         private int generateRandomNumber() {
                 Random rnd = new Random();
-                return rnd.nextInt(9999);
+                int randomOtp = rnd.nextInt(9999);
+                String otpString = String.format("%04d", randomOtp);
+                return Integer.parseInt(otpString);
         }
 
         public void sendOtp() {
-                int otp = generateRandomNumber();
+                otp = generateRandomNumber();
 
+                /* Sends generated otp to given number. Replaced it with Toast for now.
                 String myUrl = "http://sms.vrinfosoft.co.in/unified.php?usr=27280&pwd=8126253636&ph=+91" + phoneNumber + "&text=" + "Your Harit-Brij OTP is - " + otp + ". Please do not share with anyone";
                 StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                         response -> {
@@ -67,6 +73,13 @@ public class OnboardingViewModel extends AndroidViewModel {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplication());
                 requestQueue.add(myRequest);
+                 */
+
+                Toast.makeText(getApplication(), String.valueOf(otp), Toast.LENGTH_LONG).show();
+        }
+
+        public int getOtp() {
+                return otp;
         }
 
         public void sendUserDetails(String userName, long userMobileNumber, int userTreeTarget) {
@@ -87,4 +100,7 @@ public class OnboardingViewModel extends AndroidViewModel {
                 requestQueue.add(myRequest);
         }
 
+        public void setUserImage(Bitmap userImage) {
+                this.userImage = userImage;
+        }
 }

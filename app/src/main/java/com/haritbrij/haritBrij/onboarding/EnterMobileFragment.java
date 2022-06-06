@@ -38,8 +38,8 @@ public class EnterMobileFragment extends Fragment {
                 String enteredMobileNumber = mobileNumberEditText.getText().toString();
                 Toast.makeText(getContext(), "OTP Sent", Toast.LENGTH_LONG);
 
-//                viewModel.addPhoneNumber(Long.valueOf(enteredMobileNumber));
-//                viewModel.sendOtp();
+                viewModel.addPhoneNumber(Long.valueOf(enteredMobileNumber));
+                viewModel.sendOtp();
 
                 //navigate to enterotpfragment
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

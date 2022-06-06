@@ -29,13 +29,13 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
             android:background="@drawable/gradientbhagwa"
             android:text="@string/Admin"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/choose_admin_image"
+            app:layout_constraintStart_toStartOf="@+id/choose_admin_image"
             app:layout_constraintTop_toBottomOf="@+id/choose_admin_image" />
 
         <Button
@@ -50,6 +50,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/choose_admin_image"
             app:layout_constraintStart_toStartOf="@+id/choose_user_image"
             app:layout_constraintTop_toBottomOf="@+id/choose_user_image" />
 
@@ -76,9 +77,9 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             app:layout_constraintBottom_toBottomOf="@+id/choose_user_image"
+            app:layout_constraintStart_toEndOf="@+id/choose_user_image"
             app:layout_constraintTop_toTopOf="@+id/choose_user_image"
-            app:srcCompat="@drawable/maleavatar_removebg_preview"
-            tools:layout_editor_absoluteX="205dp" />
+            app:srcCompat="@drawable/maleavatar_removebg_preview" />
 
         <ImageView
             android:id="@+id/choose_user_image"
