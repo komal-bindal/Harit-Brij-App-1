@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/registerTreeImageView"
             android:layout_width="128dp"
             android:layout_height="99dp"
             android:layout_marginStart="28dp"
@@ -36,7 +36,7 @@
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="@+id/textView2"
             app:layout_constraintVertical_bias="0.523"
-            tools:src="@tools:sample/avatars" />
+            android:src="@android:drawable/ic_input_add" />
 
         <TextView
             android:id="@+id/textView3"
@@ -47,9 +47,9 @@
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/spinner"
-            app:layout_constraintEnd_toStartOf="@+id/spinner"
-            app:layout_constraintTop_toTopOf="@+id/spinner"
+            app:layout_constraintBottom_toBottomOf="@+id/districtSpinner"
+            app:layout_constraintEnd_toStartOf="@+id/districtSpinner"
+            app:layout_constraintTop_toTopOf="@+id/districtSpinner"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
@@ -89,62 +89,62 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/districtSpinner"
             android:layout_width="213dp"
             android:layout_height="33dp"
             android:layout_marginTop="48dp"
             android:background="@drawable/stroke"
             android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="@+id/imageView8"
-            app:layout_constraintStart_toStartOf="@+id/imageView8"
-            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+            app:layout_constraintEnd_toEndOf="@+id/registerTreeImageView"
+            app:layout_constraintStart_toStartOf="@+id/registerTreeImageView"
+            app:layout_constraintTop_toBottomOf="@+id/registerTreeImageView" />
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/blockSpinner"
             android:layout_width="213dp"
             android:layout_height="33dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/stroke"
             android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="@+id/spinner"
+            app:layout_constraintEnd_toEndOf="@+id/districtSpinner"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/spinner"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            app:layout_constraintStart_toStartOf="@+id/districtSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/districtSpinner" />
 
         <Spinner
-            android:id="@+id/spinner3"
+            android:id="@+id/villageSpinner"
             android:layout_width="213dp"
             android:layout_height="33dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/stroke"
             android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="@+id/spinner2"
+            app:layout_constraintEnd_toEndOf="@+id/blockSpinner"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/spinner2"
-            app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+            app:layout_constraintStart_toStartOf="@+id/blockSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/blockSpinner" />
 
         <Spinner
-            android:id="@+id/spinner4"
+            android:id="@+id/speciesSpinner"
             android:layout_width="213dp"
             android:layout_height="33dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/stroke"
             android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="@+id/spinner3"
+            app:layout_constraintEnd_toEndOf="@+id/villageSpinner"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/spinner3"
-            app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+            app:layout_constraintStart_toStartOf="@+id/villageSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/villageSpinner" />
 
         <Button
-            android:id="@+id/button30"
+            android:id="@+id/treeRegisterSubmitButton"
             android:layout_width="216dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="68dp"
             android:background="@drawable/gradientbhagwa"
             android:text="@string/SubmitOTP"
-            app:layout_constraintEnd_toEndOf="@+id/spinner4"
+            app:layout_constraintEnd_toEndOf="@+id/speciesSpinner"
             app:layout_constraintStart_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/spinner4" />
+            app:layout_constraintTop_toBottomOf="@+id/speciesSpinner" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

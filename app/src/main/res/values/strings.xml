@@ -46,42 +46,26 @@
     <string name="password">पासवर्ड दर्ज करें</string>
     <string name="upload">अपलोड</string>
     <string-array name="District">
-        <item>C</item>
-        <item>C++</item>
-        <item>Java</item>
-        <item>JavaScript</item>
-        <item>VisualBasic</item>
+        <item>Mathura</item>
     </string-array>
 
     <string-array name="Block">
-        <item>C</item>
-        <item>C++</item>
-        <item>Java</item>
-        <item>JavaScript</item>
-        <item>VisualBasic</item>
+        <item>Vrindavan</item>
     </string-array>
 
     <string-array name="Villages">
-        <item>C</item>
-        <item>C++</item>
-        <item>Java</item>
-        <item>JavaScript</item>
-        <item>VisualBasic</item>
+        <item>Jait</item>
+        <item>Chaumuhan</item>
     </string-array>
 
     <string-array name="Species">
-        <item>C</item>
-        <item>C++</item>
-        <item>Java</item>
-        <item>JavaScript</item>
-        <item>VisualBasic</item>
+        <item>Mango</item>
+        <item>Papaya</item>
+        <item>Guava</item>
     </string-array>
+
     <string-array name="Organization">
-        <item>C</item>
-        <item>C++</item>
-        <item>Java</item>
-        <item>JavaScript</item>
-        <item>VisualBasic</item>
+        <item>RSS</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

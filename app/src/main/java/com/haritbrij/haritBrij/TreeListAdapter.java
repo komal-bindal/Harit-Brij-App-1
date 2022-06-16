@@ -1,8 +1,12 @@
 package com.haritbrij.haritBrij;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +25,7 @@ public class TreeListAdapter extends RecyclerView.Adapter<TreeListAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView treeIdTextView;
-        public TextView treeImageView;
+        public ImageView treeImageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -43,6 +47,11 @@ public class TreeListAdapter extends RecyclerView.Adapter<TreeListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull TreeListAdapter.ViewHolder holder, int position) {
         holder.treeIdTextView.setText(treesList.get(position).id);
+
+        byte[] decodedString = Base64.decode(treesList.get(position).image1, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+        holder.treeImageView.setImageBitmap(decodedByte);
     }
 
     @Override

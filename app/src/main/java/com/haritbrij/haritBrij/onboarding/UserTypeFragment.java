@@ -38,7 +38,7 @@ public class UserTypeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container_view, new EnterMobileFragment()).addToBackStack(null).commit();
+                fragmentTransaction.replace(R.id.fragment_container_view, new AdminLoginFragment()).addToBackStack(null).commit();
                 Toast.makeText(getContext(), "Admin Profile", Toast.LENGTH_LONG).show();
                 viewModel.getSharedPreferenceEditor().putString("profile", "admin");
             }

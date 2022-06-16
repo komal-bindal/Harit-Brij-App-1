@@ -1,6 +1,5 @@
 package com.haritbrij.haritBrij.onboarding;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.haritbrij.haritBrij.R;
 
+import java.util.Objects;
+
 public class EnterMobileFragment extends Fragment {
     OnboardingViewModel viewModel;
     public EnterMobileFragment() {
@@ -30,28 +31,19 @@ public class EnterMobileFragment extends Fragment {
 
         EditText mobileNumberEditText = view.findViewById(R.id.mobile_num_edit_text);
         Button sendOtpButton = view.findViewById(R.id.send_otp_button);
-        TextView goToUserRegistrationTextView = view.findViewById(R.id.go_to_user_registration_text_view);
 
         sendOtpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String enteredMobileNumber = mobileNumberEditText.getText().toString();
-                Toast.makeText(getContext(), "OTP Sent", Toast.LENGTH_LONG);
+                Toast.makeText(getContext(), "OTP Sent", Toast.LENGTH_LONG).show();
 
-                viewModel.addPhoneNumber(Long.valueOf(enteredMobileNumber));
+                viewModel.addMobileNumber(Long.parseLong(enteredMobileNumber));
                 viewModel.sendOtp();
 
                 //navigate to enterotpfragment
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container_view, new EnterOtpFragment()).addToBackStack(null).commit();
-            }
-        });
-
-        goToUserRegistrationTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container_view, new UserRegistrationDetailsFragment()).addToBackStack(null).commit();
             }
         });
     }

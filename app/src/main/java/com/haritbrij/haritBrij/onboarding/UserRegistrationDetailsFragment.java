@@ -83,12 +83,9 @@ public class UserRegistrationDetailsFragment extends Fragment {
                 //get all the data from the edit texts
                 String userName = userNameEditText.getText().toString();
                 long userMobileNumber = Long.parseLong(userMobileNumberEditText.getText().toString());
-                int userTreeTarget = Integer.parseInt(userTreeTargetEditText.getText().toString());
+                String userTreeTarget = userTreeTargetEditText.getText().toString();
 
-                //save the phone number
-                viewModel.addPhoneNumber(userMobileNumber);
-
-                //send the user details to api
-                viewModel.sendUserDetails(userName, userMobileNumber, userTreeTarget);
+                viewModel.setUserDetails(userName, userMobileNumber, userTreeTarget);
+                viewModel.sendUserDetails();
     }
 }

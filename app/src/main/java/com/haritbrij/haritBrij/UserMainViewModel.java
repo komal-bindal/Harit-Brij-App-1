@@ -1,6 +1,8 @@
 package com.haritbrij.haritBrij;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -8,11 +10,16 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.haritbrij.haritBrij.models.Tree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserMainViewModel extends AndroidViewModel {
+    SharedPreferences sharedPreferences = getApplication().getSharedPreferences(getApplication().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+    private SharedPreferences.Editor editor;
+
     public UserMainViewModel(@NonNull Application application) {
         super(application);
+        editor = sharedPreferences.edit();
     }
 
     private final MutableLiveData<List<Tree>> treeList = new MutableLiveData<List<Tree>>();
@@ -25,7 +32,15 @@ public class UserMainViewModel extends AndroidViewModel {
         treeList.setValue(tempTreeList);
     }
 
+    public void setTreeList(List<Tree> treeList) {
+        this.treeList.setValue(treeList);
+    }
+
     public List<Tree> getTreeList() {
         return treeList.getValue();
+    }
+
+    public SharedPreferences.Editor getEditor() {
+        return editor;
     }
 }

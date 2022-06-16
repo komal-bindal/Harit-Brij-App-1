@@ -3,27 +3,32 @@ package com.haritbrij.haritBrij.onboarding;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import com.android.volley.Request;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.haritbrij.haritBrij.R;
+import com.haritbrij.haritBrij.utils.SharedPrefConstants;
+import com.haritbrij.haritBrij.utils.VolleySingleton;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Random;
 
 public class OnboardingViewModel extends AndroidViewModel {
         SharedPreferences sharedPreferences = getApplication().getSharedPreferences(getApplication().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor;
-        private long phoneNumber;
+        private final SharedPreferences.Editor editor;
+        private long userMobileNumber;
+        private String userName;
+        private String userTreeTarget;
         private Bitmap userImage;
         private int otp;
 
@@ -35,6 +40,14 @@ public class OnboardingViewModel extends AndroidViewModel {
         public void setEnglishLanguage() {
                 editor.putString(getApplication().getString(R.string.user_language), "english");
                 editor.apply();
+
+                //Set language to hindi
+                Locale locale = new Locale("hi");
+                Locale.setDefault(locale);
+                Resources resources = getApplication().getResources();
+                Configuration config = resources.getConfiguration();
+                config.setLocale(locale);
+                resources.updateConfiguration(config, resources.getDisplayMetrics());
 
                 Toast.makeText(getApplication(), "Set Language to English", Toast.LENGTH_SHORT).show();
         }
@@ -48,8 +61,8 @@ public class OnboardingViewModel extends AndroidViewModel {
                 return editor;
         }
 
-        public void addPhoneNumber(long phoneNumber) {
-                this.phoneNumber = phoneNumber;
+        public void addMobileNumber(long mobileNum) {
+                userMobileNumber = mobileNum;
         }
 
         private int generateRandomNumber() {
@@ -82,8 +95,9 @@ public class OnboardingViewModel extends AndroidViewModel {
                 return otp;
         }
 
-        public void sendUserDetails(String userName, long userMobileNumber, int userTreeTarget) {
-                String url = "http://172.16.78.53/api/signup.php/";
+        public void sendUserDetails() {
+                String baseUrl = VolleySingleton.getBaseUrl();
+                String url = baseUrl + "api/signup.php/";
 
                 HashMap<String, String> params = new HashMap<String, String>();
                 params.put("name", userName);
@@ -100,7 +114,20 @@ public class OnboardingViewModel extends AndroidViewModel {
                 requestQueue.add(myRequest);
         }
 
+        public void setUserDetails(String userName, long userMobileNumber, String userTreeTarget) {
+                this.userName = userName;
+                this.userMobileNumber = userMobileNumber;
+                this.userTreeTarget = userTreeTarget;
+
+                editor.putString(SharedPrefConstants.target, userTreeTarget).commit();
+                editor.putString(SharedPrefConstants.name, userName).commit();
+        }
+
         public void setUserImage(Bitmap userImage) {
                 this.userImage = userImage;
+        }
+
+        public long getMobileNumber() {
+                return userMobileNumber;
         }
 }
