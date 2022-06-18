@@ -8,7 +8,7 @@
         tools:context=".SearchTreeFragment">
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/searchTreeByUtid"
         android:layout_width="0dp"
         android:layout_height="41dp"
         android:layout_marginStart="8dp"
@@ -25,14 +25,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/searchTreeIcon"
             android:layout_width="35dp"
             android:layout_height="34dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/searchicon_removebg_preview"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName" />
+            app:layout_constraintEnd_toEndOf="@+id/searchTreeByUtid"
+            app:layout_constraintTop_toTopOf="@+id/searchTreeByUtid" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_tree_recycler_view"
@@ -40,9 +40,9 @@
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+            app:layout_constraintEnd_toEndOf="@+id/searchTreeByUtid"
+            app:layout_constraintStart_toStartOf="@+id/searchTreeByUtid"
+            app:layout_constraintTop_toBottomOf="@+id/searchTreeByUtid" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

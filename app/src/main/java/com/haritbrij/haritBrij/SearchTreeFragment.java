@@ -2,6 +2,7 @@ package com.haritbrij.haritBrij;
 
 import android.os.Bundle;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,12 +30,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class SearchTreeFragment extends Fragment {
     UserMainViewModel viewModel;
+    ArrayList<Tree> mData = new ArrayList<>();
+    TreeListAdapter mTreeListAdapter;
 
     public SearchTreeFragment() {
         // Required empty public constructor
@@ -51,18 +57,23 @@ public class SearchTreeFragment extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(UserMainViewModel.class);
 
+        EditText searchTreeEditText = view.findViewById(R.id.searchTreeByUtid);
+        ImageView searchTreeImageView = view.findViewById(R.id.searchTreeIcon);
+
         RecyclerView searchRecyclerView = view.findViewById(R.id.search_tree_recycler_view);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         String baseUrl = VolleySingleton.getBaseUrl();
-        String myUrl = baseUrl + "getalltree.php/";
+
+        //TODO: Commenting the below line for now. The api is not returning the correct trees according to the user id.
+//        String myUrl = baseUrl + "readusertree.php/?uid=" + String.valueOf(viewModel.sharedPreferences.getString("uid", "0"));
+        String myUrl = baseUrl + "getalltree.php";
         StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                 response -> {
                     try{
                         //Create a JSON object containing information from the API.
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
-                        List<Tree> treeList = new ArrayList<>();
 
                         //save the from response in new tree object
                         for(int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
@@ -76,21 +87,39 @@ public class SearchTreeFragment extends Fragment {
                             tree.image1 = indexedTree.getString("img1");
                             tree.latitude = indexedTree.getDouble("lat");
                             tree.longitude = indexedTree.getDouble("long");
-                            treeList.add(tree);
+                            mData.add(tree);
                         }
 
-                        viewModel.setTreeList(treeList);
+                        viewModel.setTreeList(mData);
 
-                        searchRecyclerView.setAdapter(new TreeListAdapter(treeList));
+                        mTreeListAdapter = new TreeListAdapter(mData);
+                        searchRecyclerView.setAdapter(mTreeListAdapter);
 
                         Toast.makeText(getContext(), "Number of Trees - " + myJsonObject.getString("itemCount"), Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
-                volleyError -> Log.e(getClass().getSimpleName(), volleyError.getMessage())
+                volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
         );
 
         VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+
+        searchTreeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(getClass().getSimpleName(), "onClick: ");
+                String enteredUtid = searchTreeEditText.getText().toString();
+                mData = viewModel.getTreeList();
+                for(Tree tree: mData) {
+                    if(enteredUtid.equals(tree.id)) {
+                        mData.clear();
+                        mData.add(tree);
+                        mTreeListAdapter.notifyDataSetChanged();
+                        break;
+                    }
+                }
+            }
+        });
     }
 }

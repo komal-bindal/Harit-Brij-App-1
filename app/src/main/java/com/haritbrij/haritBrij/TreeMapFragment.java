@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,15 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.haritbrij.haritBrij.models.Tree;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class TreeMapFragment extends Fragment {
     MapView mapView;
+    UserMainViewModel viewModel;
+    GoogleMap mGoogleMap;
     public TreeMapFragment() {
         // Required empty public constructor
     }
@@ -34,6 +41,7 @@ public class TreeMapFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(UserMainViewModel.class);
 
         // Gets the MapView from the XML layout and creates it
         mapView = (MapView) view.findViewById(R.id.user_map_view);
@@ -43,22 +51,34 @@ public class TreeMapFragment extends Fragment {
             @SuppressLint("MissingPermission")
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
+                mGoogleMap = googleMap;
                 googleMap.getUiSettings().setMyLocationButtonEnabled(true);
                 googleMap.setMyLocationEnabled(true);
                 // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
                 try {
-                    MapsInitializer.initialize(getActivity());
+                    MapsInitializer.initialize(requireActivity());
                     LatLng sydney = new LatLng(27.60522281732449, 77.59289534421812);
                     googleMap.addMarker(new MarkerOptions()
-                            .position(sydney)
-                            .title("Marker in Sydney"));
+                            .position(sydney));
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
                     googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f));
+
+                    setTreeMarker();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    private void setTreeMarker() {
+        ArrayList<Tree> treeList = viewModel.getTreeList();
+        for(Tree tree: treeList) {
+            double latitude = tree.latitude;
+            double longitude = tree.longitude;
+            LatLng treeMarker = new LatLng(latitude, longitude);
+            mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+        }
     }
 
     @Override

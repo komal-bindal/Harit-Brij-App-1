@@ -36,8 +36,8 @@ public class UserMainViewModel extends AndroidViewModel {
         this.treeList.setValue(treeList);
     }
 
-    public List<Tree> getTreeList() {
-        return treeList.getValue();
+    public ArrayList<Tree> getTreeList() {
+        return (ArrayList<Tree>) treeList.getValue();
     }
 
     public SharedPreferences.Editor getEditor() {
