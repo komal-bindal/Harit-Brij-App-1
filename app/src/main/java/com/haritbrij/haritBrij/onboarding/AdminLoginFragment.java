@@ -1,5 +1,6 @@
 package com.haritbrij.haritBrij.onboarding;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.haritbrij.haritBrij.AdminMainActivity;
 import com.haritbrij.haritBrij.R;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
@@ -53,6 +55,9 @@ public class AdminLoginFragment extends Fragment {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                         response -> {
                             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(getActivity(), AdminMainActivity.class);
+                            startActivity(intent);
                         },
                         error -> {
                             Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_SHORT).show();

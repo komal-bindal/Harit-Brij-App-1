@@ -50,6 +50,7 @@
         </activity>
         <activity android:name=".onboarding.OnboardingActivity" />
         <activity android:name=".UserMainActivity" />
+        <activity android:name=".AdminMainActivity" />
     </application>
 
 </manifest>

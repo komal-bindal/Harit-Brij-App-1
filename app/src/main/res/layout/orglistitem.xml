@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/orglistitem_01"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/organisationNameTextView"
+        android:layout_width="316dp"
+        android:layout_height="66dp"
+        android:paddingLeft="40pt"
+        android:paddingTop="5pt"
+        android:text="Text"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/treesPlantedOrganisation"
+        android:layout_width="71dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="16dp"
+        android:text="Targ"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/organisationNameTextView"
+        app:layout_constraintTop_toTopOf="@+id/organisationNameTextView" />
+
+    <TextView
+        android:id="@+id/organisationId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="16dp"
+        android:text="1"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/organisationNameTextView"
+        app:layout_constraintTop_toTopOf="@+id/organisationNameTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
