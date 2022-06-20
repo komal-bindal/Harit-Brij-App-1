@@ -14,22 +14,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/main_user_bottom_navigation_view"
+        android:id="@+id/main_admin_bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:background="@drawable/gradient_drawable_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom_navigation"
+        app:menu="@menu/menu_admin_bottom_navigation"
         app:itemIconTint="@drawable/hover"
         app:itemTextColor="@drawable/hover"/>
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/main_user_fragment_container_view"
+        android:id="@+id/main_admin_fragment_container_view"
         android:name="com.haritbrij.haritBrij.OrganisationListFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/main_user_bottom_navigation_view"
+        app:layout_constraintBottom_toTopOf="@+id/main_admin_bottom_navigation_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />

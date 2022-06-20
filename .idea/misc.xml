@@ -6,6 +6,7 @@
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable-v24/gradient_drawable_2.xml" value="0.2595" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable-v24/hover.xml" value="0.2595" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable-v24/ic_baseline_article_24.xml" value="0.2595" />
+        <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable/strokebhagwa1.xml" value="0.1235" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/activity_admin_login_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/activity_dashboard.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/activity_main.xml" value="0.1125" />
@@ -17,6 +18,8 @@
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/adminupperpart.xml" value="0.1962962962962963" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/bottomnavigationuser.xml" value="0.1125" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/fragment_admin_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/fragment_admin_search_tree.xml" value="0.365625" />
+        <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/fragment_admin_tree_map.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/fragment_choose_language.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/fragment_enter_mobile.xml" value="0.264" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/fragment_enter_otp.xml" value="0.2825520833333333" />
@@ -31,6 +34,7 @@
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/tree_profile_fragment.xml" value="0.264" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/treelistitem.xml" value="0.2" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/layout/upperlayoutuser.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/menu/menu_admin_bottom_navigation.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ayaan/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable/gradient_drawable.xml" value="0.1" />
         <entry key="..\:/Users/ayaan/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable/gradientbhagwa.xml" value="0.1" />

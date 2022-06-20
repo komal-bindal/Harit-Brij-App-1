@@ -8,7 +8,7 @@
     tools:context=".TreeProfileFragment">
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/treeProfileImageView"
         android:layout_width="123dp"
         android:layout_height="110dp"
         android:layout_marginTop="28dp"
@@ -29,7 +29,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/treeProfileImageView" />
 
     <TextView
             android:id="@+id/textView8"
@@ -68,7 +68,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/utidTextView"
         android:layout_width="213dp"
         android:layout_height="33dp"
         android:layout_marginEnd="16dp"
@@ -85,7 +85,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/districtTextView"
         android:layout_width="213dp"
         android:layout_height="33dp"
         android:background="@drawable/strokebhagwa1"
@@ -96,13 +96,13 @@
         android:textSize="17dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="@+id/textView16"
-        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintEnd_toEndOf="@+id/utidTextView"
+        app:layout_constraintStart_toStartOf="@+id/utidTextView"
         app:layout_constraintTop_toTopOf="@+id/textView8"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/blockTextView"
         android:layout_width="213dp"
         android:layout_height="33dp"
         android:background="@drawable/strokebhagwa1"
@@ -113,13 +113,13 @@
         android:textSize="17dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
-        app:layout_constraintEnd_toEndOf="@+id/textView18"
-        app:layout_constraintStart_toStartOf="@+id/textView18"
+        app:layout_constraintEnd_toEndOf="@+id/districtTextView"
+        app:layout_constraintStart_toStartOf="@+id/districtTextView"
         app:layout_constraintTop_toTopOf="@+id/textView12"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/villageTextView"
         android:layout_width="213dp"
         android:layout_height="33dp"
         android:background="@drawable/strokebhagwa1"
@@ -130,11 +130,11 @@
         android:textSize="17dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView15"
-        app:layout_constraintEnd_toEndOf="@+id/textView19"
-        app:layout_constraintStart_toStartOf="@+id/textView19"
+        app:layout_constraintEnd_toEndOf="@+id/blockTextView"
+        app:layout_constraintStart_toStartOf="@+id/blockTextView"
         app:layout_constraintTop_toTopOf="@+id/textView15"
         app:layout_constraintVertical_bias="0.0" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
