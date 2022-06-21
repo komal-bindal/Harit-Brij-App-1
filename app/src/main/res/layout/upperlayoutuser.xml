@@ -39,18 +39,19 @@
         app:srcCompat="@drawable/maleavatar_removebg_preview" />
 
     <TextView
-        android:id="@+id/textView76"
+        android:id="@+id/userNameTextView"
         android:layout_width="218dp"
         android:layout_height="39dp"
-        android:layout_marginStart="140dp"
         android:layout_marginTop="40dp"
+        android:gravity="center"
         android:hint="@string/User"
         android:text=""
         android:textColor="#F4F3F3"
         android:textColorHint="#C1BEBE"
         android:textSize="20dp"
         android:textStyle="normal"
-        app:layout_constraintStart_toStartOf="@+id/textView41"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView41" />
 
     <TextView
@@ -63,7 +64,7 @@
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView14"
-        app:layout_constraintTop_toBottomOf="@+id/textView76" />
+        app:layout_constraintTop_toBottomOf="@+id/userNameTextView" />
 
     <TextView
         android:id="@+id/textView79"
@@ -83,18 +84,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="TextView"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/textView78"
         app:layout_constraintStart_toEndOf="@+id/textView78"
         app:layout_constraintTop_toTopOf="@+id/textView78" />
 
     <TextView
-        android:id="@+id/textView82"
+        android:id="@+id/registeredTreesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="28dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView79"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/treeTargetTextView"
+        app:layout_constraintStart_toStartOf="@+id/treeTargetTextView"
         app:layout_constraintTop_toBottomOf="@+id/treeTargetTextView" />
 
 

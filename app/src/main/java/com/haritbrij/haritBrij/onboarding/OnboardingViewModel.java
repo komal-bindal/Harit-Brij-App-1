@@ -6,10 +6,12 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -17,6 +19,7 @@ import com.haritbrij.haritBrij.R;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -97,21 +100,31 @@ public class OnboardingViewModel extends AndroidViewModel {
 
         public void sendUserDetails() {
                 String baseUrl = VolleySingleton.getBaseUrl();
-                String url = baseUrl + "api/signup.php/";
+                String url = baseUrl + "signup.php/";
 
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("name", userName);
-                params.put("mobile", String.valueOf(userMobileNumber));
-                params.put("target", String.valueOf(userTreeTarget));
+                JSONObject object = new JSONObject();
+                try {
+                        object.put("name", userName);
+                        object.put("mobile", String.valueOf(userMobileNumber));
+                        object.put("target", String.valueOf(userTreeTarget));
+                        object.put("display", "/asdf/");
+                } catch (JSONException e) {
+                        e.printStackTrace();
+                }
 
-                JsonObjectRequest myRequest = new JsonObjectRequest(url, new JSONObject(params), response -> {
-
-                }, error -> {
-
-                });
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
+                        response -> {
+                                Toast.makeText(getApplication(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                                Log.d(getClass().getSimpleName(), response.toString());
+                        },
+                        error -> {
+                                Toast.makeText(getApplication(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                                Log.d(getClass().getSimpleName(), error.toString());
+                        }
+                );
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplication());
-                requestQueue.add(myRequest);
+                requestQueue.add(jsonObjectRequest);
         }
 
         public void setUserDetails(String userName, long userMobileNumber, String userTreeTarget) {

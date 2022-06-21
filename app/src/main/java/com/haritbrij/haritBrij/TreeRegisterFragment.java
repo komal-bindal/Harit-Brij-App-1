@@ -10,11 +10,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,6 +45,11 @@ import com.haritbrij.haritBrij.utils.VolleySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+
 
 public class TreeRegisterFragment extends Fragment  implements AdapterView.OnItemSelectedListener {
     UserMainViewModel viewModel;
@@ -126,7 +134,23 @@ public class TreeRegisterFragment extends Fragment  implements AdapterView.OnIte
                     //Construct the Json object
                     JSONObject object = new JSONObject();
                     try {
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        treeRegisterBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); // bm is the bitmap object
+                        byte[] b = baos.toByteArray();
+
+                        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+
                         object.put("name", viewModel.sharedPreferences.getString(SharedPrefConstants.name, ""));
+                        object.put("mobile",String.valueOf(viewModel.sharedPreferences.getLong(SharedPrefConstants.mobileNumber, 0)));
+                        object.put("uid", viewModel.sharedPreferences.getString(SharedPrefConstants.uid, ""));
+                        object.put("district", selectedDistrict);
+                        object.put("block", selectedBlock);
+                        object.put("village", selectedVillage);
+                        object.put("species", selectedSpecies);
+                        object.put("lat", String.valueOf(latitude));
+                        object.put("long", String.valueOf(longitude));
+                        object.put("img1", encodedImage);
+
                     } catch (JSONException exception) {
 
                     }
@@ -136,10 +160,10 @@ public class TreeRegisterFragment extends Fragment  implements AdapterView.OnIte
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                             response -> {
-                                Toast.makeText(getActivity(), "Registration Successfull", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Registration Successful", Toast.LENGTH_SHORT).show();
                             },
                             error -> {
-                                Toast.makeText(getActivity(), "Unsuccessfull", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Registration Successful", Toast.LENGTH_SHORT).show();
                             }
                     );
 
@@ -215,10 +239,10 @@ public class TreeRegisterFragment extends Fragment  implements AdapterView.OnIte
                 double longi = locationGPS.getLongitude();
                 latitude = String.valueOf(lat);
                 longitude = String.valueOf(longi);
-                Toast.makeText(getActivity(), latitude.toString() + " " + longitude.toString(), Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getActivity(), "Unable to find location.", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
 }

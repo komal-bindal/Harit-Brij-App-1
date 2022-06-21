@@ -2,6 +2,7 @@ package com.haritbrij.haritBrij;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,24 +19,34 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.haritbrij.haritBrij.models.Tree;
 import com.haritbrij.haritBrij.onboarding.UserRegistrationDetailsFragment;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class UserMainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     UserMainViewModel viewModel;
     TextView treeTargetTextView;
+    TextView userNameTextView;
+    TextView treesPlantedTextView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_user);
         treeTargetTextView = findViewById(R.id.treeTargetTextView);
+        userNameTextView = findViewById(R.id.userNameTextView);
+        treesPlantedTextView = findViewById(R.id.registeredTreesTextView);
 
         viewModel = new ViewModelProvider(this).get(UserMainViewModel.class);
 
         treeTargetTextView.setText(viewModel.sharedPreferences.getString(SharedPrefConstants.target, ""));
+        userNameTextView.setText(viewModel.sharedPreferences.getString(SharedPrefConstants.name, ""));
         bottomNavigationView = findViewById(R.id.main_user_bottom_navigation_view);
 
         final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -76,5 +87,22 @@ public class UserMainActivity extends AppCompatActivity {
 
         VolleySingleton.getInstance(this).addToRequestQueue(myRequest);
 
+        //set the number of registered trees.
+        String url = baseUrl + "getalltree.php";
+        StringRequest request = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try{
+                        //Create a JSON object containing information from the API.
+                        JSONObject myJsonObject = new JSONObject(response);
+                        JSONArray jsonArray = myJsonObject.getJSONArray("body");
+
+                        treesPlantedTextView.setText(String.valueOf(jsonArray.length()));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
+        );
+        VolleySingleton.getInstance(this).addToRequestQueue(request);
     }
 }

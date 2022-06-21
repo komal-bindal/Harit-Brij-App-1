@@ -46,7 +46,7 @@ public class UserRegistrationDetailsFragment extends Fragment {
         submitRegistrationDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                getDataAndCallApi();
+                getDataAndCallApi();
 
 
                 Intent intent = new Intent(getActivity(), UserMainActivity.class);

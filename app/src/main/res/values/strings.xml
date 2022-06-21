@@ -16,7 +16,7 @@
     <string name="OTP">ओटीपी सत्यापन</string>
     <string name="Submit">ओटीपी भेजें</string>
     <string name="SendOTP">अपने रिजस्टडर् मोबाइल नंबर पर भेजे गए ओटीपी को दजर् करें</string>
-    <string name="SubmitOTP">प्रस्तुत कर</string>
+    <string name="SubmitOTP">प्रस्तुत करे</string>
     <string name="Registeration">पंजीकरण</string>
     <string name="EnterUsername">उपयोगकतार् का नाम दजर् करें</string>
     <string name="EnterMobileNumber">मोबाइल नंबर दजर् करें</string>

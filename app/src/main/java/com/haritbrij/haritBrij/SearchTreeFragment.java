@@ -6,6 +6,7 @@ import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.haritbrij.haritBrij.R;
 import com.haritbrij.haritBrij.models.Tree;
+import com.haritbrij.haritBrij.onboarding.EnterOtpFragment;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
 import org.json.JSONArray;
@@ -62,12 +64,13 @@ public class SearchTreeFragment extends Fragment {
 
         RecyclerView searchRecyclerView = view.findViewById(R.id.search_tree_recycler_view);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        mTreeListAdapter = new TreeListAdapter(mData);
 
         String baseUrl = VolleySingleton.getBaseUrl();
 
         //TODO: Commenting the below line for now. The api is not returning the correct trees according to the user id.
-//        String myUrl = baseUrl + "readusertree.php/?uid=" + String.valueOf(viewModel.sharedPreferences.getString("uid", "0"));
-        String myUrl = baseUrl + "getalltree.php";
+        String myUrl = baseUrl + "readusertree.php/?uid=" + String.valueOf(viewModel.sharedPreferences.getString("uid", "0"));
+//        String myUrl = baseUrl + "getalltree.php";
         StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                 response -> {
                     try{
@@ -75,8 +78,10 @@ public class SearchTreeFragment extends Fragment {
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
 
+                        mData.clear();
                         //save the from response in new tree object
                         for(int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+
                             JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
                             Tree tree = new Tree();
                             tree.id = indexedTree.getString("strutid");
@@ -105,6 +110,15 @@ public class SearchTreeFragment extends Fragment {
 
         VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
 
+        mTreeListAdapter.setOnItemClickListener(new TreeListAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                TreeProfileFragment treeProfileFragment = new TreeProfileFragment();
+                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_user_fragment_container_view, treeProfileFragment).addToBackStack(null).commit();
+            }
+        });
+
         searchTreeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +129,6 @@ public class SearchTreeFragment extends Fragment {
                     if(enteredUtid.equals(tree.id)) {
                         mData.clear();
                         mData.add(tree);
-                        mTreeListAdapter.notifyDataSetChanged();
                         break;
                     }
                 }
