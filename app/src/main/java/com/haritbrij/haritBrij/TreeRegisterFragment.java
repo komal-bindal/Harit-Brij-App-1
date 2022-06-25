@@ -40,6 +40,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.haritbrij.haritBrij.onboarding.UserRegistrationDetailsFragment;
+import com.haritbrij.haritBrij.utils.ImageHelper;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
@@ -134,11 +135,7 @@ public class TreeRegisterFragment extends Fragment  implements AdapterView.OnIte
                     //Construct the Json object
                     JSONObject object = new JSONObject();
                     try {
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        treeRegisterBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); // bm is the bitmap object
-                        byte[] b = baos.toByteArray();
-
-                        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+                        String encodedImage = ImageHelper.encodeImage(treeRegisterBitmap);
 
                         object.put("name", viewModel.sharedPreferences.getString(SharedPrefConstants.name, ""));
                         object.put("mobile",String.valueOf(viewModel.sharedPreferences.getLong(SharedPrefConstants.mobileNumber, 0)));

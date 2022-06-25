@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.haritbrij.haritBrij.models.Tree;
+import com.haritbrij.haritBrij.utils.ImageHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +64,7 @@ public class TreeListAdapter extends RecyclerView.Adapter<TreeListAdapter.ViewHo
     public void onBindViewHolder(@NonNull TreeListAdapter.ViewHolder holder, int position) {
         holder.treeIdTextView.setText(treesList.get(position).id);
 
-        byte[] decodedString = Base64.decode(treesList.get(position).image1, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        Bitmap decodedByte = ImageHelper.decodeImage(treesList.get(position).image1);
 
         holder.treeImageView.setImageBitmap(decodedByte);
 

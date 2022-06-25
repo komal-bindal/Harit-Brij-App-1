@@ -16,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.haritbrij.haritBrij.R;
+import com.haritbrij.haritBrij.utils.ImageHelper;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
@@ -107,7 +108,7 @@ public class OnboardingViewModel extends AndroidViewModel {
                         object.put("name", userName);
                         object.put("mobile", String.valueOf(userMobileNumber));
                         object.put("target", String.valueOf(userTreeTarget));
-                        object.put("display", "/asdf/");
+                        object.put("display", ImageHelper.encodeImage(userImage));
                 } catch (JSONException e) {
                         e.printStackTrace();
                 }

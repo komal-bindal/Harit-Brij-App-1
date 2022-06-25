@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.haritbrij.haritBrij.models.Tree;
 import com.haritbrij.haritBrij.onboarding.UserRegistrationDetailsFragment;
+import com.haritbrij.haritBrij.utils.ImageHelper;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
@@ -34,6 +36,7 @@ public class UserMainActivity extends AppCompatActivity {
     TextView treeTargetTextView;
     TextView userNameTextView;
     TextView treesPlantedTextView;
+    ImageView userImageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class UserMainActivity extends AppCompatActivity {
         treeTargetTextView = findViewById(R.id.treeTargetTextView);
         userNameTextView = findViewById(R.id.userNameTextView);
         treesPlantedTextView = findViewById(R.id.registeredTreesTextView);
+        userImageView = findViewById(R.id.userImageView);
 
         viewModel = new ViewModelProvider(this).get(UserMainViewModel.class);
 
@@ -79,6 +83,13 @@ public class UserMainActivity extends AppCompatActivity {
         String myUrl = baseUrl + "login.php/" + "?mobile=" + mobileNumber;
         StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                 response -> {
+            try{
+                JSONObject myJsonObject = new JSONObject(response);
+                String display = myJsonObject.getString("display");
+                userImageView.setImageBitmap(ImageHelper.decodeImage(display));
+            } catch (JSONException exception) {
+
+            }
                 },
                 volleyError -> {
                     Toast.makeText(this, "Please register again " + mobileNumber, Toast.LENGTH_LONG).show();
