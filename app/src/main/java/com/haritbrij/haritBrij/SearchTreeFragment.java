@@ -132,6 +132,7 @@ public class SearchTreeFragment extends Fragment {
                         break;
                     }
                 }
+                mTreeListAdapter.filterList(mData);
             }
         });
     }

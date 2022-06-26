@@ -131,7 +131,7 @@ public class TreeRegisterFragment extends Fragment  implements AdapterView.OnIte
                     getLocation();
                 }
 
-                if(addTreeImageView != null && selectedDistrict != null && selectedBlock != null && selectedVillage != null && selectedSpecies != null) {
+                if(addTreeImageView != null && selectedDistrict != null && selectedBlock != null && selectedVillage != null && selectedSpecies != null && latitude != null && longitude != null) {
                     //Construct the Json object
                     JSONObject object = new JSONObject();
                     try {

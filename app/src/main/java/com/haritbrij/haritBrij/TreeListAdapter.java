@@ -89,4 +89,9 @@ public class TreeListAdapter extends RecyclerView.Adapter<TreeListAdapter.ViewHo
     public interface ItemClickListener {
         void onItemClick(int position);
     }
+
+    public void filterList(ArrayList<Tree> filteredList) {
+        treesList = filteredList;
+        notifyDataSetChanged();
+    }
 }

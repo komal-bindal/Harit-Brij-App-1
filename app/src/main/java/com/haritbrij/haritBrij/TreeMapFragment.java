@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,6 +30,9 @@ public class TreeMapFragment extends Fragment {
     MapView mapView;
     UserMainViewModel viewModel;
     GoogleMap mGoogleMap;
+    EditText searchTreeByUtid;
+    ImageView mapSearchTreeImageView;
+
     public TreeMapFragment() {
         // Required empty public constructor
     }
@@ -42,6 +47,9 @@ public class TreeMapFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(UserMainViewModel.class);
+
+        searchTreeByUtid = view.findViewById(R.id.searchTreeByUtid);
+        mapSearchTreeImageView = view.findViewById(R.id.mapSearchTreeIcon);
 
         // Gets the MapView from the XML layout and creates it
         mapView = (MapView) view.findViewById(R.id.user_map_view);
@@ -69,6 +77,23 @@ public class TreeMapFragment extends Fragment {
                 }
             }
         });
+
+        mapSearchTreeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String enteredUtid = searchTreeByUtid.getText().toString();
+                ArrayList<Tree> treeList = viewModel.getTreeList();
+                for(Tree tree: treeList) {
+                    if(enteredUtid.equals(tree.id)) {
+                        mGoogleMap.clear();
+                        double latitude = tree.latitude;
+                        double longitude = tree.longitude;
+                        LatLng treeMarker = new LatLng(latitude, longitude);
+                        mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+                    }
+                }
+            }
+        });
     }
 
     private void setTreeMarker() {
@@ -80,6 +105,8 @@ public class TreeMapFragment extends Fragment {
             mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
         }
     }
+
+
 
     @Override
     public void onResume() {
