@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +55,7 @@ public class AdminSearchTreeFragment extends Fragment {
 
         RecyclerView searchRecyclerView = view.findViewById(R.id.search_tree_recycler_view);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        mTreeListAdapter = new TreeListAdapter(mData);
 
         String baseUrl = VolleySingleton.getBaseUrl();
 
@@ -66,6 +68,7 @@ public class AdminSearchTreeFragment extends Fragment {
                         //Create a JSON object containing information from the API.
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
+                        mData.clear();
 
                         //save the from response in new tree object
                         for(int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
@@ -96,6 +99,15 @@ public class AdminSearchTreeFragment extends Fragment {
         );
 
         VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+
+        mTreeListAdapter.setOnItemClickListener(new TreeListAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                TreeProfileFragment treeProfileFragment = new TreeProfileFragment();
+                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_admin_fragment_container_view, treeProfileFragment).addToBackStack(null).commit();
+            }
+        });
 
         searchTreeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
