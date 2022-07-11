@@ -72,9 +72,9 @@ public class OnboardingViewModel extends AndroidViewModel {
 
         private int generateRandomNumber() {
                 Random rnd = new Random();
-                int randomOtp = rnd.nextInt(10000);
-                @SuppressLint("DefaultLocale") String otpString = String.format("%04d", randomOtp);
-                return Integer.parseInt(otpString);
+                int randomOtp = rnd.nextInt(10000)+1000;
+                @SuppressLint("DefaultLocale") String otpString = String.format("%04d%n", randomOtp);
+                return randomOtp;
         }
 
         public void sendOtp() {

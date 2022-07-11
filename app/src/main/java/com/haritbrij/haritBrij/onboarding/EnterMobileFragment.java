@@ -14,8 +14,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.haritbrij.haritBrij.R;
 import com.haritbrij.haritBrij.UserMainActivity;
+import com.haritbrij.haritBrij.utils.SharedPrefConstants;
+import com.haritbrij.haritBrij.utils.VolleySingleton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -48,14 +55,31 @@ public class EnterMobileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String enteredMobileNumber = mobileNumberEditText.getText().toString();
-                Toast.makeText(getContext(), "OTP Sent", Toast.LENGTH_LONG).show();
 
-                viewModel.addMobileNumber(Long.parseLong(enteredMobileNumber));
-                viewModel.sendOtp();
+                String baseUrl = VolleySingleton.getBaseUrl();
+                String myUrl = baseUrl + "login.php/" + "?mobile=" + enteredMobileNumber;
+                StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+                        response -> {
+                            Toast.makeText(getContext(), "OTP Sent", Toast.LENGTH_LONG).show();
+                            viewModel.addMobileNumber(Long.parseLong(enteredMobileNumber));
+                            viewModel.sendOtp();
 
-                //navigate to enterotpfragment
-                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container_view, new EnterOtpFragment()).addToBackStack(null).commit();
+                            //navigate to enterotpfragment
+                            FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.fragment_container_view, new EnterOtpFragment()).addToBackStack(null).commit();
+
+                        },
+                        volleyError -> {
+                            //The api return 404 error. This means the user does not exist.
+                            Toast.makeText(getActivity(), "Sign in failed", Toast.LENGTH_SHORT).show();
+//                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                                fragmentTransaction.replace(R.id.fragment_container_view, new UserRegistrationDetailsFragment()).addToBackStack(null).commit();
+                        }
+                );
+
+                VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+
+
             }
         });
     }
