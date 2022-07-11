@@ -2,6 +2,7 @@ package com.haritbrij.haritBrij.onboarding;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,9 @@ import com.haritbrij.haritBrij.utils.VolleySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.Console;
+import java.util.Arrays;
 
 public class AdminLoginFragment extends Fragment {
     public AdminLoginFragment() {
@@ -46,8 +50,9 @@ public class AdminLoginFragment extends Fragment {
                     object.put("user", userName);
                     object.put("pass", password);
                 } catch (JSONException exception) {
-
+                    exception.printStackTrace();
                 }
+                System.out.println(object.getClass());
 
                 String baseUrl = VolleySingleton.getBaseUrl();
                 String myUrl = baseUrl + "adminlogin.php/";
@@ -60,7 +65,8 @@ public class AdminLoginFragment extends Fragment {
                             startActivity(intent);
                         },
                         error -> {
-                            Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_SHORT).show();
+                            error.printStackTrace();
+                            Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
                         }
                 );
 

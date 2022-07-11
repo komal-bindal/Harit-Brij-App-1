@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.haritbrij.haritBrij.models.Organisation;
+import com.haritbrij.haritBrij.models.Tree;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
 import org.json.JSONArray;
@@ -28,6 +31,8 @@ import java.util.ArrayList;
 
 public class OrganisationListFragment extends Fragment {
     AdminViewModel viewModel;
+    ArrayList<Organisation> orgList = new ArrayList<>();
+    OrgListAdapter orgListAdapter;
 
     public OrganisationListFragment() {
 
@@ -50,6 +55,7 @@ public class OrganisationListFragment extends Fragment {
 
         RecyclerView searchOrganisationRecyclerView = view.findViewById(R.id.searchOrganisationRecyclerView);
         searchOrganisationRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        orgListAdapter = new OrgListAdapter(orgList);
 
         String baseUrl = VolleySingleton.getBaseUrl();
 
@@ -60,8 +66,9 @@ public class OrganisationListFragment extends Fragment {
                         //Create a JSON object containing information from the API.
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
+                        orgList.clear();
 
-                        ArrayList<Organisation> orgList = new ArrayList<>();
+
 
                         for(int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
                             JSONObject indexedOrg = jsonArray.getJSONObject(jsonArrayIndex);
@@ -77,7 +84,8 @@ public class OrganisationListFragment extends Fragment {
                         Log.d(getClass().getSimpleName(), orgList.toString());
 
                         viewModel.setOrgList(orgList);
-                        searchOrganisationRecyclerView.setAdapter(new OrgListAdapter(orgList));
+                        orgListAdapter=new OrgListAdapter(orgList);
+                        searchOrganisationRecyclerView.setAdapter(orgListAdapter);
                     } catch (JSONException exception) {
                         exception.printStackTrace();
                     }
@@ -86,5 +94,18 @@ public class OrganisationListFragment extends Fragment {
                      Log.e(getClass().getSimpleName(), error.toString());
                 });
         VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+
+
+        orgListAdapter.setOnItemClickListener(new OrgListAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                viewModel.setPosition(position);
+                AdminTreeListFragment adminTreeListFragment = new AdminTreeListFragment();
+                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_admin_fragment_container_view, adminTreeListFragment).addToBackStack(null).commit();
+
+                Toast.makeText(getActivity(), "Clickable", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

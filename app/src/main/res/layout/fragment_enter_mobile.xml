@@ -69,6 +69,7 @@
             android:hint="@string/mobile"
             android:inputType="phone"
             android:text=""
+            android:maxLength="10"
             app:layout_constraintStart_toStartOf="@+id/textView88"
             app:layout_constraintTop_toBottomOf="@+id/textView88" />
 
@@ -82,6 +83,29 @@
             app:layout_constraintEnd_toEndOf="@+id/mobile_num_edit_text"
             app:layout_constraintStart_toStartOf="@+id/mobile_num_edit_text"
             app:layout_constraintTop_toBottomOf="@+id/mobile_num_edit_text" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="87dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/DontHaveAnAccount"
+            android:textColor="#040404"
+            android:textSize="17dp"
+            app:layout_constraintStart_toStartOf="@+id/send_otp_button"
+            app:layout_constraintTop_toBottomOf="@+id/send_otp_button" />
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="@string/Register"
+            android:textColor="#08205E"
+            app:layout_constraintBottom_toBottomOf="@+id/textView16"
+            app:layout_constraintStart_toEndOf="@+id/textView16"
+            app:layout_constraintTop_toTopOf="@+id/textView16" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

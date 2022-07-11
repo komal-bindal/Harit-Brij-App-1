@@ -2,14 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="350dp"
     android:background="@drawable/orglistitem_01"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/orgListItemLayout"
+    android:layout_marginLeft="20dp"
+    android:layout_marginBottom="20dp">
 
     <TextView
         android:id="@+id/organisationNameTextView"
         android:layout_width="316dp"
         android:layout_height="66dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:paddingLeft="40pt"
         android:paddingTop="5pt"
         android:text="Text"
@@ -17,6 +22,7 @@
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,7 +43,7 @@
         android:id="@+id/organisationId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
         android:text="1"
         android:textColor="@color/white"

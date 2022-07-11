@@ -27,18 +27,18 @@ public class AdminMainActivity extends AppCompatActivity {
         final FragmentManager fragmentManager = getSupportFragmentManager();
         final OrganisationListFragment organisationListFragment = new OrganisationListFragment();
         final AdminSearchTreeFragment adminSearchTreeFragment = new AdminSearchTreeFragment();
-        final AdminTreeMapFragment adminTreeMapFragment = new AdminTreeMapFragment();
+        final AdminFilterTreesFragment adminFilterTreesFragment = new AdminFilterTreesFragment();
         bottomNavigationView = findViewById(R.id.main_admin_bottom_navigation_view);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment;
             switch (item.getItemId()) {
-                case R.id.action_admin_tree_data:
+                case R.id.admin_search_utid:
                     selectedFragment = adminSearchTreeFragment;
                     Log.d(TAG, "adminTreeData");
                     break;
-                case R.id.action_admin_tree_map:
-                    selectedFragment = adminTreeMapFragment;
+                case R.id.admin_search:
+                    selectedFragment = adminFilterTreesFragment;
                     Log.d(TAG, "admintreemap");
                     break;
                 default:
@@ -50,6 +50,6 @@ public class AdminMainActivity extends AppCompatActivity {
             return true;
         });
 
-        bottomNavigationView.setSelectedItemId(R.id.action_admin_org);
+        bottomNavigationView.setSelectedItemId(R.id.admin_org_list);
     }
 }

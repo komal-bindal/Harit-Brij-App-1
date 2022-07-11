@@ -10,11 +10,13 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.haritbrij.haritBrij.R;
@@ -47,10 +49,10 @@ public class UserRegistrationDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getDataAndCallApi();
+//                Toast.makeText(getActivity(), "Registration successful. Kindly Signin", Toast.LENGTH_SHORT).show();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container_view, new EnterMobileFragment()).addToBackStack(null).commit();
 
-
-                Intent intent = new Intent(getActivity(), UserMainActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -75,6 +77,7 @@ public class UserRegistrationDetailsFragment extends Fragment {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+//            upperUserView.setImageBitmap(imageBitmap);
             viewModel.setUserImage(imageBitmap);
         }
     }

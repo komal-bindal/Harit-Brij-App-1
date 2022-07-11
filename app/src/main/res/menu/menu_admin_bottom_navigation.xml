@@ -2,21 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_admin_org"
+        android:id="@+id/admin_org_list"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_how_to_reg_24"
-        android:title="@string/RegisterTree"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="@string/DataView"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/admin_search_utid"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_youtube_searched_for_24"
+        android:title="@string/SearchByUTID"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_admin_tree_data"
+        android:id="@+id/admin_search"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_article_24"
-        android:title="@string/TreeProfile"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_admin_tree_map"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_map_24"
-        android:title="@string/Map"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/Search"
         app:showAsAction="ifRoom" />
 </menu>

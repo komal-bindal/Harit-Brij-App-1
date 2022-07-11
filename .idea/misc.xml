@@ -3,6 +3,39 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/drawable/simple_spinner_item_1.xml" value="0.148" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/drawable/stroke.xml" value="0.148" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/drawable/stroke1.xml" value="0.148" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/drawable/stroke2.xml" value="0.148" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/activity_admin_filter_trees_fragment.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/activity_admin_tree_profile_fragment.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/activity_main.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/activity_main_admin.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/activity_main_user.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/activity_maps.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/activity_onboarding.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/adminupperpart.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/bottomnavigationadmin.xml" value="0.24947916666666667" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/bottomnavigationuser.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_admin_login.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_admin_search_tree.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_admin_tree_map.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_choose_language.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_enter_mobile.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_enter_otp.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_organisation_list.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_search_tree.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_tree_map.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_tree_register.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/fragment_user_registration_details.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/orglist2.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/orglistitem.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/simple_spinner_item_1.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/tree_profile_fragment.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/treelistitem.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/layout/upperlayoutuser.xml" value="0.1" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/menu/menu_admin_bottom_navigation.xml" value="0.25052083333333336" />
+        <entry key="..\:/FlutterAndroidProjects/Harit-Brij/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable-v24/gradient_drawable_2.xml" value="0.2595" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable-v24/hover.xml" value="0.2595" />
         <entry key="..\:/Users/Ayaan TRN0041/AndroidStudioProjects/Harit-Brij/app/src/main/res/drawable-v24/ic_baseline_article_24.xml" value="0.2595" />

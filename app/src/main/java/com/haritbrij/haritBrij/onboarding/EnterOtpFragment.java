@@ -77,9 +77,10 @@ public class EnterOtpFragment extends Fragment {
                             },
                             volleyError -> {
                         //The api return 404 error. This means the user does not exist.
-                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.fragment_container_view, new UserRegistrationDetailsFragment()).addToBackStack(null).commit();
-                            }
+                                Toast.makeText(getActivity(), "Sign in failed", Toast.LENGTH_SHORT).show();
+//                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                                fragmentTransaction.replace(R.id.fragment_container_view, new UserRegistrationDetailsFragment()).addToBackStack(null).commit();
+                       }
                     );
 
                     VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);

@@ -57,6 +57,7 @@ public class AdminSearchTreeFragment extends Fragment {
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mTreeListAdapter = new TreeListAdapter(mData);
 
+
         String baseUrl = VolleySingleton.getBaseUrl();
 
         //TODO: Commenting the below line for now. The api is not returning the correct trees according to the user id.
@@ -103,9 +104,10 @@ public class AdminSearchTreeFragment extends Fragment {
         mTreeListAdapter.setOnItemClickListener(new TreeListAdapter.ItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                TreeProfileFragment treeProfileFragment = new TreeProfileFragment();
+                viewModel.setPosition(position);
+                AdminTreeProfileFragment admintreeProfileFragment = new AdminTreeProfileFragment();
                 FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_admin_fragment_container_view, treeProfileFragment).addToBackStack(null).commit();
+                fragmentTransaction.replace(R.id.main_admin_fragment_container_view, admintreeProfileFragment).addToBackStack(null).commit();
             }
         });
 

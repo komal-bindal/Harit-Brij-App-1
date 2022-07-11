@@ -61,6 +61,7 @@
             android:hint="@string/EnterMobileNumber"
             android:inputType="phone"
             android:text=""
+            android:maxLength="10"
             android:textColorHint="#838080"
             app:layout_constraintEnd_toEndOf="@+id/user_name_edit_text"
             app:layout_constraintHorizontal_bias="0.0"
@@ -104,6 +105,30 @@
             app:layout_constraintEnd_toEndOf="@+id/user_tree_target_edit_text"
             app:layout_constraintStart_toStartOf="@+id/user_tree_target_edit_text"
             app:layout_constraintTop_toBottomOf="@+id/user_tree_target_edit_text" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/HaveAccount"
+            android:textColor="#050505"
+            android:textSize="17dp"
+            app:layout_constraintStart_toStartOf="@+id/submit_registration_details_button"
+            app:layout_constraintTop_toBottomOf="@+id/submit_registration_details_button" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:text="@string/SignInrhere"
+            android:textColor="#08205E"
+            app:layout_constraintBottom_toBottomOf="@+id/textView18"
+            app:layout_constraintStart_toEndOf="@+id/textView18"
+            app:layout_constraintTop_toTopOf="@+id/textView18"
+            app:layout_constraintVertical_bias="0.48" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

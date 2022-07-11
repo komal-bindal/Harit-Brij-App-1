@@ -177,9 +177,9 @@ public class TreeRegisterFragment extends Fragment  implements AdapterView.OnIte
             assert data != null;
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            treeRegisterBitmap = imageBitmap;
-
-            addTreeImageView.setImageBitmap(imageBitmap);
+            Bitmap resizedImage = Bitmap.createScaledBitmap(imageBitmap, 500, 500, true);
+            treeRegisterBitmap = resizedImage;
+            addTreeImageView.setImageBitmap(resizedImage);
         }
     }
 

@@ -34,7 +34,7 @@
     <string name="AdminProfile">व्यवस्थापक का नाम</string>
     <string name="DataView">आँकड़ों का खाका</string>
     <string name="SearchByUTID">यूटीआईडी द्वारा खोजें</string>
-    <string name="Search">खोज</string>
+    <string name="Search">खोजें</string>
     <string name="District">जिला</string>
     <string name="Block">खंड</string>
     <string name="Village">गांव</string>

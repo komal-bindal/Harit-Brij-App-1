@@ -1,9 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminFilterTreesFragment">
+    android:fillViewport="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".AdminFilterTreesFragment">
+
+        <Spinner
+            android:id="@+id/adminDistrictSpinner"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/stroke2"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/adminBlockSpinner"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/stroke2"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="@+id/adminDistrictSpinner"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/adminDistrictSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/adminDistrictSpinner" />
+
+
+        <Spinner
+            android:id="@+id/adminVillageSpinner"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/stroke2"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="@+id/adminBlockSpinner"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/adminBlockSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/adminBlockSpinner" />
+
+        <Spinner
+            android:id="@+id/adminSpeciesSpinner"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/stroke2"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="@+id/adminVillageSpinner"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/adminVillageSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/adminVillageSpinner" />
+
+        <TextView
+            android:id="@+id/adminDistrictTextView"
+            android:layout_width="180dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/stroke1"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/adminDistrictSpinner"
+            app:layout_constraintStart_toEndOf="@+id/adminDistrictSpinner"
+            app:layout_constraintTop_toTopOf="@+id/adminDistrictSpinner"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/adminBlockTextView"
+            android:layout_width="180dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/stroke1"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/adminBlockSpinner"
+            app:layout_constraintStart_toEndOf="@+id/adminBlockSpinner"
+            app:layout_constraintTop_toTopOf="@+id/adminBlockSpinner"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/adminVillageTextView"
+            android:layout_width="180dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/stroke1"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/adminVillageSpinner"
+            app:layout_constraintStart_toEndOf="@+id/adminVillageSpinner"
+            app:layout_constraintTop_toTopOf="@+id/adminVillageSpinner"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/adminSpeciesTextView"
+            android:layout_width="180dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/stroke1"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/adminSpeciesSpinner"
+            app:layout_constraintStart_toEndOf="@+id/adminSpeciesSpinner"
+            app:layout_constraintTop_toTopOf="@+id/adminSpeciesSpinner"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/adminSearchButton"
+            android:layout_width="165dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/gradientbhagwa"
+            android:text="@string/Search"
+            android:textColor="#FDFCFC"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/adminEndDateTextView"
+            app:layout_constraintStart_toStartOf="@+id/adminStartDateTextView"
+            app:layout_constraintTop_toBottomOf="@+id/adminStartDateTextView" />
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/adminTreeMapView"
+            android:layout_width="373dp"
+            android:layout_height="188dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="@+id/adminSearchButton"
+            app:layout_constraintHorizontal_bias="0.524"
+            app:layout_constraintStart_toStartOf="@+id/adminSearchButton"
+            app:layout_constraintTop_toBottomOf="@+id/adminSearchButton" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/adminTreeListRecyclerView"
+            android:layout_width="409dp"
+            android:layout_height="204dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="@+id/adminTreeMapView"
+            app:layout_constraintStart_toStartOf="@+id/adminTreeMapView"
+            app:layout_constraintTop_toBottomOf="@+id/adminTreeMapView" />
+
+        <TextView
+            android:id="@+id/adminStartDateTextView"
+            android:layout_width="180dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/stroke1"
+            android:hint="Start Date"
+            android:paddingLeft="20dp"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/adminSpeciesSpinner"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/adminSpeciesSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/adminSpeciesSpinner" />
+
+        <ImageButton
+            android:id="@+id/adminFromDateImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="@+id/adminStartDateTextView"
+            app:layout_constraintTop_toTopOf="@+id/adminStartDateTextView"
+            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+        <TextView
+            android:id="@+id/adminEndDateTextView"
+            android:layout_width="180dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/stroke1"
+            android:hint="End Date"
+            android:paddingLeft="20dp"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/adminStartDateTextView"
+            app:layout_constraintStart_toEndOf="@+id/adminStartDateTextView"
+            app:layout_constraintTop_toTopOf="@+id/adminStartDateTextView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/adminToDateImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="@+id/adminEndDateTextView"
+            app:layout_constraintTop_toTopOf="@+id/adminEndDateTextView"
+            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="to"
+            android:textColor="#0E0E0E"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toStartOf="@+id/adminEndDateTextView"
+            app:layout_constraintStart_toEndOf="@+id/adminStartDateTextView"
+            app:layout_constraintTop_toTopOf="@+id/adminStartDateTextView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
+

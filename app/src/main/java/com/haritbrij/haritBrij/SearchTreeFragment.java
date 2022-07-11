@@ -113,6 +113,7 @@ public class SearchTreeFragment extends Fragment {
         mTreeListAdapter.setOnItemClickListener(new TreeListAdapter.ItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                viewModel.setPosition(position);
                 TreeProfileFragment treeProfileFragment = new TreeProfileFragment();
                 FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_user_fragment_container_view, treeProfileFragment).addToBackStack(null).commit();

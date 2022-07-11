@@ -1,5 +1,6 @@
 package com.haritbrij.haritBrij.onboarding;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -72,7 +73,7 @@ public class OnboardingViewModel extends AndroidViewModel {
         private int generateRandomNumber() {
                 Random rnd = new Random();
                 int randomOtp = rnd.nextInt(10000);
-                String otpString = String.format("%04d", randomOtp);
+                @SuppressLint("DefaultLocale") String otpString = String.format("%04d", randomOtp);
                 return Integer.parseInt(otpString);
         }
 
@@ -106,9 +107,11 @@ public class OnboardingViewModel extends AndroidViewModel {
                 JSONObject object = new JSONObject();
                 try {
                         object.put("name", userName);
-                        object.put("mobile", String.valueOf(userMobileNumber));
-                        object.put("target", String.valueOf(userTreeTarget));
-                        object.put("display", ImageHelper.encodeImage(userImage));
+                        object.put("mobile", userMobileNumber);
+                        object.put("target", userTreeTarget);
+                        if(userImage!=null) {
+                                object.put("display", ImageHelper.encodeImage(userImage));
+                        }
                 } catch (JSONException e) {
                         e.printStackTrace();
                 }
@@ -119,7 +122,7 @@ public class OnboardingViewModel extends AndroidViewModel {
                                 Log.d(getClass().getSimpleName(), response.toString());
                         },
                         error -> {
-                                Toast.makeText(getApplication(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplication(), "Registration Not Successful", Toast.LENGTH_SHORT).show();
                                 Log.d(getClass().getSimpleName(), error.toString());
                         }
                 );
@@ -135,10 +138,14 @@ public class OnboardingViewModel extends AndroidViewModel {
 
                 editor.putString(SharedPrefConstants.target, userTreeTarget).commit();
                 editor.putString(SharedPrefConstants.name, userName).commit();
+
         }
 
         public void setUserImage(Bitmap userImage) {
                 this.userImage = userImage;
+        }
+        public Bitmap getUserImage(){
+                return userImage;
         }
 
         public long getMobileNumber() {
