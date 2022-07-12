@@ -125,6 +125,7 @@ public class TreeRegisterFragment extends Fragment  implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
                 locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+
                 if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     OnGPS();
                 } else {
