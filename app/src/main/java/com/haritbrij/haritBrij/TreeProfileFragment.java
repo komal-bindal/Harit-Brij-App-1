@@ -5,9 +5,11 @@ import static android.app.Activity.RESULT_OK;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -71,8 +73,12 @@ public class TreeProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(UserMainViewModel.class);
 
+
         int position = viewModel.getPosition();
         tree = viewModel.getTreeList().get(position);
+
+
+
 
         utIdTextView = view.findViewById(R.id.utidTextView);
         districtTextView = view.findViewById(R.id.districtTextView);
@@ -91,6 +97,49 @@ public class TreeProfileFragment extends Fragment {
         villageTextView.setText(tree.village);
         UploadImageView2.setImageAlpha(50);
         UploadImageView3.setImageAlpha(50);
+
+
+//            String baseUrl = VolleySingleton.getBaseUrl();
+//            String myUrl = baseUrl + "getalltree.php";
+//
+//
+//            StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+//                    response -> {
+//                        try{
+//                            //Create a JSON object containing information from the API.
+//                            JSONObject myJsonObject = new JSONObject(response);
+//                            JSONArray jsonArray = myJsonObject.getJSONArray("body");
+//
+//                            //save the from response in new tree object
+//                            for(int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+//
+//                                JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
+//                                if(indexedTree.get("strutid").equals(tree.id)){
+//                                    System.out.println(tree.id);
+//                                    if(indexedTree.getString("img2") != null) {
+//                                    String display = indexedTree.getString("img2");
+//                                    Toast.makeText(getActivity(), display, Toast.LENGTH_SHORT).show();
+//                                        Bitmap image = ImageHelper.decodeImage(display);
+//                                        UploadImageView1.setImageBitmap(image);
+//                                        UploadImageView2.setImageAlpha(255);
+//                                    }
+//                                    else{
+//                                        UploadImageView1.setImageAlpha(255);
+//                                        UploadImageView2.setImageAlpha(50);
+//                                    }
+//                                }
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    },
+//                    volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
+//            );
+//
+//            VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+//
+
+
 
 
         byte[] decodedString = Base64.decode(tree.image1, Base64.DEFAULT);
@@ -119,6 +168,8 @@ public class TreeProfileFragment extends Fragment {
                 }
             }
         });
+
+
 
 
 
@@ -203,6 +254,10 @@ public class TreeProfileFragment extends Fragment {
             );
 
             VolleySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("Clicked",true);    //name is the key so may use a username or whatever you want
+            editor.commit();
         }
         if (requestCode == 3 && resultCode == RESULT_OK) {
             assert data != null;

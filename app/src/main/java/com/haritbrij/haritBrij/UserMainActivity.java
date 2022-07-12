@@ -47,7 +47,7 @@ import org.json.JSONObject;
 public class UserMainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     UserMainViewModel viewModel;
-    OnboardingViewModel onboardViewModel;
+//    OnboardingViewModel onboardViewModel;
     TextView treeTargetTextView;
     TextView userNameTextView;
     TextView treesPlantedTextView;
@@ -64,7 +64,7 @@ public class UserMainActivity extends AppCompatActivity {
         userImageView = findViewById(R.id.userImageView);
 
         viewModel = new ViewModelProvider(this).get(UserMainViewModel.class);
-        onboardViewModel = new ViewModelProvider(this).get(OnboardingViewModel.class);
+//        onboardViewModel = new ViewModelProvider(this).get(OnboardingViewModel.class);
 
         treeTargetTextView.setText(viewModel.sharedPreferences.getString(SharedPrefConstants.target, ""));
         userNameTextView.setText(viewModel.sharedPreferences.getString(SharedPrefConstants.name, ""));
@@ -110,6 +110,7 @@ public class UserMainActivity extends AppCompatActivity {
                     userImageView.setImageBitmap(getCroppedBitmap(image));
                     flag = 1;
                 }
+//                treesPlantedTextView.setText(String.valueOf(myJsonObject.getString("completed")));
 //                Matrix matrix = new Matrix();
 //                matrix.postScale(0.5f, 0.5f);
 //                Bitmap croppedBitmap = Bitmap.createBitmap(image, 100, 100,100, 100, matrix, true);
@@ -127,7 +128,7 @@ public class UserMainActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(myRequest);
 
         //set the number of registered trees.
-        String url = baseUrl + "getalltree.php";
+        String url = baseUrl + "readusertree.php/?uid=" + String.valueOf(viewModel.sharedPreferences.getString("uid", "0"));
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
                     try{

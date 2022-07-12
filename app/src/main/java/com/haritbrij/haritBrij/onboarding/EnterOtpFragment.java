@@ -50,8 +50,8 @@ public class EnterOtpFragment extends Fragment {
         submitOtpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int submittedOtp = Integer.parseInt(otpTextView.getOTP());
-                if(submittedOtp == viewModel.getOtp()) {
+                String submittedOtp = otpTextView.getOTP();
+                if(submittedOtp.equals(viewModel.getOtp().trim())) {
                     Toast.makeText(getActivity(), "Otp Matched", Toast.LENGTH_LONG).show();
 
                     viewModel.getSharedPreferenceEditor().putLong("mobileNumber", viewModel.getMobileNumber()).commit();

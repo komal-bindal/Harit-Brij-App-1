@@ -69,7 +69,7 @@
             android:hint="@string/mobile"
             android:inputType="phone"
             android:text=""
-            android:maxLength="9"
+            android:maxLength="10"
             app:layout_constraintStart_toStartOf="@+id/textView88"
             app:layout_constraintTop_toBottomOf="@+id/textView88" />
 

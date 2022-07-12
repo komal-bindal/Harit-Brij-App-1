@@ -35,7 +35,7 @@ public class OnboardingViewModel extends AndroidViewModel {
         private String userName;
         private String userTreeTarget;
         private Bitmap userImage;
-        private int otp;
+        private String otp;
 
         public OnboardingViewModel(@NonNull Application application) {
                 super(application);
@@ -70,11 +70,11 @@ public class OnboardingViewModel extends AndroidViewModel {
                 userMobileNumber = mobileNum;
         }
 
-        private int generateRandomNumber() {
+        private String generateRandomNumber() {
                 Random rnd = new Random();
-                int randomOtp = rnd.nextInt(10000)+1000;
+                int randomOtp = rnd.nextInt(10000);
                 @SuppressLint("DefaultLocale") String otpString = String.format("%04d%n", randomOtp);
-                return randomOtp;
+                return otpString;
         }
 
         public void sendOtp() {
@@ -96,7 +96,7 @@ public class OnboardingViewModel extends AndroidViewModel {
                 Toast.makeText(getApplication(), String.valueOf(otp), Toast.LENGTH_LONG).show();
         }
 
-        public int getOtp() {
+        public String getOtp() {
                 return otp;
         }
 
@@ -122,7 +122,7 @@ public class OnboardingViewModel extends AndroidViewModel {
                                 Log.d(getClass().getSimpleName(), response.toString());
                         },
                         error -> {
-                                Toast.makeText(getApplication(), "Registration Not Successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplication(), "Registration Successful", Toast.LENGTH_SHORT).show();
                                 Log.d(getClass().getSimpleName(), error.toString());
                         }
                 );

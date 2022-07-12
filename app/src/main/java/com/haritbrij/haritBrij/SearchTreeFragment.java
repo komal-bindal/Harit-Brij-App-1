@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,6 +42,7 @@ public class SearchTreeFragment extends Fragment {
     UserMainViewModel viewModel;
     ArrayList<Tree> mData = new ArrayList<>();
     TreeListAdapter mTreeListAdapter;
+    TextView treesPlantedTextView;
 
     public SearchTreeFragment() {
         // Required empty public constructor
@@ -61,10 +63,12 @@ public class SearchTreeFragment extends Fragment {
 
         EditText searchTreeEditText = view.findViewById(R.id.searchTreeByUtid);
         ImageView searchTreeImageView = view.findViewById(R.id.searchTreeIcon);
+        treesPlantedTextView = ((UserMainActivity)getContext()).findViewById(R.id.registeredTreesTextView);
 
         RecyclerView searchRecyclerView = view.findViewById(R.id.search_tree_recycler_view);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mTreeListAdapter = new TreeListAdapter(mData);
+
 
         String baseUrl = VolleySingleton.getBaseUrl();
 
@@ -99,6 +103,7 @@ public class SearchTreeFragment extends Fragment {
 
                         mTreeListAdapter = new TreeListAdapter(mData);
                         searchRecyclerView.setAdapter(mTreeListAdapter);
+                        treesPlantedTextView.setText(myJsonObject.getString("itemCount"));
 
                         Toast.makeText(getContext(), "Number of Trees - " + myJsonObject.getString("itemCount"), Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {

@@ -45,6 +45,7 @@
     <string name="user_language" translatable="false">user_language</string>
     <string name="password">पासवर्ड दर्ज करें</string>
     <string name="upload">अपलोड</string>
+    <string name="plantedTrees" translatable="false">रोपित वृक्ष संख्या</string>
     <string-array name="District">
         <item>Mathura</item>
     </string-array>
