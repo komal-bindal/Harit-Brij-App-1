@@ -10,13 +10,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.util.Base64;
+import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,15 +31,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.haritbrij.haritBrij.onboarding.UserRegistrationDetailsFragment;
 import com.haritbrij.haritBrij.utils.ImageHelper;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
@@ -47,20 +42,15 @@ import com.haritbrij.haritBrij.utils.VolleySingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
-import java.util.Arrays;
 
-
-public class TreeRegisterFragment extends Fragment  implements AdapterView.OnItemSelectedListener {
+public class TreeRegisterFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+    private final String TAG = "TreeRegisterFragment";
     UserMainViewModel viewModel;
     LocationManager locationManager;
     String latitude, longitude;
-
     Bitmap treeRegisterBitmap;
     ImageView addTreeImageView;
     Button registerTreeButton;
-
     String selectedDistrict;
     String selectedBlock;
     String selectedVillage;
@@ -132,14 +122,14 @@ public class TreeRegisterFragment extends Fragment  implements AdapterView.OnIte
                     getLocation();
                 }
 
-                if(addTreeImageView != null && selectedDistrict != null && selectedBlock != null && selectedVillage != null && selectedSpecies != null && latitude != null && longitude != null) {
+                if (addTreeImageView != null && selectedDistrict != null && selectedBlock != null && selectedVillage != null && selectedSpecies != null && latitude != null && longitude != null) {
                     //Construct the Json object
                     JSONObject object = new JSONObject();
                     try {
                         String encodedImage = ImageHelper.encodeImage(treeRegisterBitmap);
 
                         object.put("name", viewModel.sharedPreferences.getString(SharedPrefConstants.name, ""));
-                        object.put("mobile",String.valueOf(viewModel.sharedPreferences.getLong(SharedPrefConstants.mobileNumber, 0)));
+                        object.put("mobile", String.valueOf(viewModel.sharedPreferences.getLong(SharedPrefConstants.mobileNumber, 0)));
                         object.put("uid", viewModel.sharedPreferences.getString(SharedPrefConstants.uid, ""));
                         object.put("district", selectedDistrict);
                         object.put("block", selectedBlock);
@@ -211,7 +201,7 @@ public class TreeRegisterFragment extends Fragment  implements AdapterView.OnIte
 
     private void OnGPS() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Enable GPS").setCancelable(false).setPositiveButton("Yes", new  DialogInterface.OnClickListener() {
+        builder.setMessage("Enable GPS").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
@@ -225,22 +215,55 @@ public class TreeRegisterFragment extends Fragment  implements AdapterView.OnIte
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
     private void getLocation() {
+        boolean isGPSEnabled = locationManager
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean isNetworkEnabled = locationManager
+                .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        Toast.makeText(getActivity(), isGPSEnabled + " " + isNetworkEnabled, Toast.LENGTH_SHORT).show();
         if (ActivityCompat.checkSelfPermission(
                 getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        } else {
+        } else if (isGPSEnabled || isNetworkEnabled) {
             @SuppressLint("MissingPermission") Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (locationGPS != null) {
                 double lat = locationGPS.getLatitude();
                 double longi = locationGPS.getLongitude();
                 latitude = String.valueOf(lat);
                 longitude = String.valueOf(longi);
+                Log.d(TAG, "gps location.");
+                Log.d(TAG, longitude + " ------- " + latitude);
             } else {
-                Toast.makeText(getActivity(), "Unable to find location.", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Unable to find gps location.");
+                if (isNetworkEnabled) {
+                    @SuppressLint("MissingPermission") Location locationNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (locationNetwork != null) {
+                        double lat = locationNetwork.getLatitude();
+                        double longi = locationNetwork.getLongitude();
+                        latitude = String.valueOf(lat);
+                        longitude = String.valueOf(longi);
+                        Log.d(TAG, "network location.");
+                        Log.d(TAG, longitude + " ------- " + latitude);
+                    } else {
+                        Log.d(TAG, "Unable to find network location.");
+                        TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
+                        @SuppressLint("MissingPermission") GsmCellLocation cellLocation = (GsmCellLocation) telephonyManager.getCellLocation();
+
+                        int cellid = cellLocation.getCid();
+                        int celllac = cellLocation.getLac();
+
+                        Log.d(TAG + " CellLocation", cellLocation.toString());
+                        Log.d(TAG + " Cellid", String.valueOf(cellid));
+                        Log.d(TAG + " cellcode", String.valueOf(celllac));
+                    }
+                } else {
+                    Toast.makeText(getActivity(), "Unable to find  location.", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
-
 }
+
+
