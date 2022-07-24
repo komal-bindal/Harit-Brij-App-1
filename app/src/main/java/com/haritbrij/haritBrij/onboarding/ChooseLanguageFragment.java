@@ -1,6 +1,10 @@
 package com.haritbrij.haritBrij.onboarding;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,6 +16,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.haritbrij.haritBrij.R;
+
+import java.util.Locale;
 
 public class ChooseLanguageFragment extends Fragment {
     OnboardingViewModel viewModel;
@@ -35,6 +41,7 @@ public class ChooseLanguageFragment extends Fragment {
             public void onClick(View view) {
                 viewModel.setEnglishLanguage();
                 navigateToChooseUser();
+                setAppLocale("en");
             }
         });
 
@@ -42,6 +49,7 @@ public class ChooseLanguageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 viewModel.setHindiLanguage();
+                setAppLocale("hi");
                 navigateToChooseUser();
             }
         });
@@ -54,5 +62,17 @@ public class ChooseLanguageFragment extends Fragment {
         fragmentTransaction.replace(R.id.fragment_container_view, fragment);
         fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out);
         fragmentTransaction.commit();
+    }
+
+    private void setAppLocale(String localeCode) {
+        Resources res = getResources();
+        DisplayMetrics de = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            conf.setLocale(new Locale(localeCode.toLowerCase()));
+        } else {
+            conf.locale = new Locale(localeCode.toLowerCase());
+        }
+        res.updateConfiguration(conf, de);
     }
 }

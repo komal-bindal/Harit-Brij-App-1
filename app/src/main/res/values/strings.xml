@@ -4,48 +4,50 @@
     <string name="title_activity_maps">MapsActivity</string>
 
 
-    <string name="selectLangHeading">भाषा का चयन करें</string>
-    <string name="Hindi">हिन्दी</string>
-    <string name="Admin">व्यवस्थापक</string>
-    <string name="User">उपयोगकर्ता</string>
-    <string name="SelectProfile">कृपया प्रोफ़ाइल का चयन करें</string>
-    <string name="Signin">साइन इन करें</string>
-    <string name="mobile">पंजीकृत मोबाइल नंबर दर्ज करें</string>
-    <string name="DontHaveAnAccount">खाता नहीं है?</string>
-    <string name="Register">यहां पंजीकरण करें</string>
-    <string name="OTP">ओटीपी सत्यापन</string>
-    <string name="Submit">ओटीपी भेजें</string>
-    <string name="SendOTP">अपने रिजस्टडर् मोबाइल नंबर पर भेजे गए ओटीपी को दजर् करें</string>
-    <string name="SubmitOTP">प्रस्तुत करे</string>
-    <string name="Registeration">पंजीकरण</string>
-    <string name="EnterUsername">उपयोगकतार् का नाम दजर् करें</string>
-    <string name="EnterMobileNumber">मोबाइल नंबर दजर् करें</string>
-    <string name="NumberOfTrees">पेड़ों की संख्या</string>
-    <string name="RegisterMobileNumber">मोबाइल नंबर सत्यापीत करें</string>
-    <string name="HaveAccount">खाता है?</string>
-    <string name="SignInrhere">साइन इन करें</string>
-    <string name="NameOfOrg">संगठन का नाम</string>
-    <string name="MobileNumber">मोबाइल नंबर :</string>
-    <string name="RegisteredTrees">पंजीकृत वृक्ष संख्या:</string>
-    <string name="RegNumber">पंजीकरण संख्या:</string>
-    <string name="RegisterTree">वृक्ष पंजीकरण</string>
-    <string name="TreeProfile">वृक्ष के आंकड़े</string>
-    <string name="Map">नक्शा</string>
-    <string name="AdminProfile">व्यवस्थापक का नाम</string>
-    <string name="DataView">आँकड़ों का खाका</string>
-    <string name="SearchByUTID">यूटीआईडी द्वारा खोजें</string>
-    <string name="Search">खोजें</string>
-    <string name="District">जिला</string>
-    <string name="Block">खंड</string>
-    <string name="Village">गांव</string>
-    <string name="Species">प्रजातियाँ</string>
-    <string name="UTID">यूटीआईडी</string>
-    <string name="download">डाउनलोड</string>
+
+
+    <string name="selectLangHeading">Select the language</string>
+    <string name="Hindi">Hindi</string>
+    <string name="Admin">Admin</string>
+    <string name="User">User</string>
+    <string name="SelectProfile">Select the Profile</string>
+    <string name="Signin">Sign in</string>
+    <string name="mobile">Enter the registered mobile number</string>
+    <string name="DontHaveAnAccount">Dont have an account?</string>
+    <string name="Register">Register here</string>
+    <string name="OTP">OTP Verification</string>
+    <string name="Submit">Send OTP</string>
+    <string name="SendOTP">Enter the OTP send on your registered mobile number</string>
+    <string name="SubmitOTP">Submit</string>
+    <string name="Registeration">Register</string>
+    <string name="EnterUsername">Enter Username</string>
+    <string name="EnterMobileNumber">Enter mobile number</string>
+    <string name="NumberOfTrees">Number of trees</string>
+    <string name="RegisterMobileNumber">Submit mobile number</string>
+    <string name="HaveAccount">Already have an account?</string>
+    <string name="SignInrhere">Sign in</string>
+    <string name="NameOfOrg">Name of Organization</string>
+    <string name="MobileNumber">Mobile Number :</string>
+    <string name="RegisteredTrees">Registered number of trees :</string>
+    <string name="RegNumber">Registration number :</string>
+    <string name="RegisterTree">Tree Register</string>
+    <string name="TreeProfile">Tree Profile</string>
+    <string name="Map">Map</string>
+    <string name="AdminProfile">Name of Admin</string>
+    <string name="DataView">Data View</string>
+    <string name="SearchByUTID">Search by UTID</string>
+    <string name="Search">Search</string>
+    <string name="District">District</string>
+    <string name="Block">Block</string>
+    <string name="Village">Village</string>
+    <string name="Species">Species</string>
+    <string name="UTID">UTID</string>
+    <string name="download">Download</string>
+    <string name="password">Password</string>
+    <string name="upload">Upload</string>
     <string name="preference_file_key" translatable="false">com.haritbrij.haritbrij.PREFERENCE_FILE_KEY</string>
     <string name="user_language" translatable="false">user_language</string>
-    <string name="password">पासवर्ड दर्ज करें</string>
-    <string name="upload">अपलोड</string>
-    <string name="plantedTrees" translatable="false">रोपित वृक्ष संख्या</string>
+    <string name="plantedTrees" translatable="false">Planted trees</string>
     <string-array name="District">
         <item>Mathura</item>
     </string-array>
@@ -69,5 +71,14 @@
         <item>RSS</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_choose_language">ChooseLanguageActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
