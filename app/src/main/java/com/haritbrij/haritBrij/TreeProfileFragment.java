@@ -44,6 +44,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 
 public class TreeProfileFragment extends Fragment {
     UserMainViewModel viewModel;
@@ -158,11 +160,13 @@ public class TreeProfileFragment extends Fragment {
                 // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
                 try {
                     MapsInitializer.initialize(requireActivity());
-                    LatLng sydney = new LatLng(27.60522281732449, 77.59289534421812);
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(sydney));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f));
+                    double latitude = tree.latitude;
+                    double longitude = tree.longitude;
+                    LatLng treeMarker = new LatLng(latitude, longitude);
+                    Log.e("TreeMapFragment", latitude+" "+longitude);
+                    mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
+                    mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -222,6 +226,16 @@ public class TreeProfileFragment extends Fragment {
 
 
     }
+//    private void setTreeMarker() {
+//
+//            double latitude = tree.latitude;
+//            double longitude = tree.longitude;
+//            LatLng treeMarker = new LatLng(latitude, longitude);
+//            Log.e("TreeMapFragment", latitude+" "+longitude);
+//            mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+//            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
+//            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
+//    }
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

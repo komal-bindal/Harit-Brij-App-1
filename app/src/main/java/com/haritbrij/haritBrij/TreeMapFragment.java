@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,13 +66,14 @@ public class TreeMapFragment extends Fragment {
                 // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
                 try {
                     MapsInitializer.initialize(requireActivity());
-                    LatLng sydney = new LatLng(27.60522281732449, 77.59289534421812);
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(sydney));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f));
-
                     setTreeMarker();
+//                    LatLng sydney = new LatLng(-33.88, 151.21);
+//                    googleMap.addMarker(new MarkerOptions()
+//                            .position(sydney));
+//                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//                    googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -102,7 +104,10 @@ public class TreeMapFragment extends Fragment {
             double latitude = tree.latitude;
             double longitude = tree.longitude;
             LatLng treeMarker = new LatLng(latitude, longitude);
+            Log.e("TreeMapFragment", latitude+" "+longitude);
             mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
+            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(8.0f));
         }
     }
 
