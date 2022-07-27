@@ -14,7 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -23,6 +26,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haritbrij.haritBrij.models.Tree;
+import com.haritbrij.haritBrij.utils.VolleySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -99,16 +107,36 @@ public class TreeMapFragment extends Fragment {
     }
 
     private void setTreeMarker() {
-        ArrayList<Tree> treeList = viewModel.getTreeList();
-        for(Tree tree: treeList) {
-            double latitude = tree.latitude;
-            double longitude = tree.longitude;
-            LatLng treeMarker = new LatLng(latitude, longitude);
-            Log.e("TreeMapFragment", latitude+" "+longitude);
-            mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
-            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
-            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(8.0f));
-        }
+        String baseUrl = VolleySingleton.getBaseUrl();
+        String myUrl = baseUrl + "readusertree.php/?uid=" + String.valueOf(viewModel.sharedPreferences.getString("uid", "0"));
+        StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+                response -> {
+                    try {
+                        //Create a JSON object containing information from the API.
+                        JSONObject myJsonObject = new JSONObject(response);
+                        JSONArray jsonArray = myJsonObject.getJSONArray("body");
+                        //save the from response in new tree object
+                        for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+
+                            JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
+                            double latitude = indexedTree.getDouble("lat");
+                            double longitude = indexedTree.getDouble("long");
+                            LatLng treeMarker = new LatLng(latitude, longitude);
+                            Log.e("TreeMapFragment", latitude + " " + longitude);
+                            mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+                            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
+                            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
+        );
+
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+
     }
 
 
