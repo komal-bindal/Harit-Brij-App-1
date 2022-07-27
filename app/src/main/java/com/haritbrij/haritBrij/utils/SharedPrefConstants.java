@@ -7,4 +7,5 @@ public class SharedPrefConstants {
     public static String name = "name";
     public static String target = "target";
     public static String mobileNumber = "mobileNumber";
+    public static String isSignedIn = "isSignedIn";
 }

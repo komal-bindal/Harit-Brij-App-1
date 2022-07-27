@@ -49,7 +49,7 @@ public class UserMainViewModel extends AndroidViewModel {
         return (ArrayList<Tree>) treeList.getValue();
     }
 
-    public SharedPreferences.Editor getEditor() {
+    public SharedPreferences.Editor getSharedPreferenceEditor() {
         return editor;
     }
 }

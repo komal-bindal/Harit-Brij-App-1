@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,7 @@ public class UserMainActivity extends AppCompatActivity {
     TextView userNameTextView;
     TextView treesPlantedTextView;
     ImageView userImageView;
+    ImageView logoutButtonView;
     int flag=0;
 
     @Override
@@ -62,6 +64,7 @@ public class UserMainActivity extends AppCompatActivity {
         userNameTextView = findViewById(R.id.userNameTextView);
         treesPlantedTextView = findViewById(R.id.registeredTreesTextView);
         userImageView = findViewById(R.id.userImageView);
+        logoutButtonView = findViewById(R.id.logoutButton);
 
         viewModel = new ViewModelProvider(this).get(UserMainViewModel.class);
 //        onboardViewModel = new ViewModelProvider(this).get(OnboardingViewModel.class);
@@ -145,6 +148,13 @@ public class UserMainActivity extends AppCompatActivity {
         );
         VolleySingleton.getInstance(this).addToRequestQueue(request);
 
+        logoutButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.getSharedPreferenceEditor().putBoolean(SharedPrefConstants.isSignedIn, false).apply();
+                finish();
+            }
+        });
         if(flag==0){
             userImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -161,6 +171,7 @@ public class UserMainActivity extends AppCompatActivity {
             });
         }
     }
+
 
     public Bitmap getCroppedBitmap(Bitmap bitmap) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
