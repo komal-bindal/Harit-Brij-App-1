@@ -44,27 +44,24 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AdminFilterTreesFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+    static int flag = 0;
+    static StringBuilder startSelectedDate, endSelectedDate;
+    static TextView adminStartDateTextView;
+    static TextView adminEndDateTextView;
     AdminViewModel viewModel;
     ArrayList<Tree> mData = new ArrayList<>();
     TreeListAdapter mTreeListAdapter;
-    static int flag=0;
-
     String selectedDistrict;
     String selectedBlock;
     String selectedVillage;
     String selectedSpecies;
-    static StringBuilder startSelectedDate,endSelectedDate;
-
     Button search;
     TextView adminDistrictTextView;
     TextView adminBlockTextView;
     TextView adminVillageTextView;
     TextView adminSpeciesTextView;
-    static TextView adminStartDateTextView;
-    static TextView adminEndDateTextView;
-
-    ImageButton adminstartDateSeletor,adminendDateSelector;
-    int district=0,block=0,village=0,species=0;
+    ImageButton adminstartDateSeletor, adminendDateSelector;
+    int district = 0, block = 0, village = 0, species = 0;
 
     MapView mapView;
     GoogleMap mGoogleMap;
@@ -83,23 +80,22 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         Spinner villageSpinner = view.findViewById(R.id.adminVillageSpinner);
         Spinner speciesSpinner = view.findViewById(R.id.adminSpeciesSpinner);
 
-        search=view.findViewById(R.id.adminSearchButton);
-        adminDistrictTextView=view.findViewById(R.id.adminDistrictTextView);
-        adminBlockTextView=view.findViewById(R.id.adminBlockTextView);
-        adminVillageTextView=view.findViewById(R.id.adminVillageTextView);
-        adminSpeciesTextView=view.findViewById(R.id.adminSpeciesTextView);
+        search = view.findViewById(R.id.adminSearchButton);
+        adminDistrictTextView = view.findViewById(R.id.adminDistrictTextView);
+        adminBlockTextView = view.findViewById(R.id.adminBlockTextView);
+        adminVillageTextView = view.findViewById(R.id.adminVillageTextView);
+        adminSpeciesTextView = view.findViewById(R.id.adminSpeciesTextView);
         mapView = view.findViewById(R.id.adminTreeMapView);
-        adminstartDateSeletor=view.findViewById(R.id.adminFromDateImageButton);
-        adminendDateSelector=view.findViewById(R.id.adminToDateImageButton);
-        adminStartDateTextView=view.findViewById(R.id.adminStartDateTextView);
-        adminEndDateTextView=view.findViewById(R.id.adminEndDateTextView);
+        adminstartDateSeletor = view.findViewById(R.id.adminFromDateImageButton);
+        adminendDateSelector = view.findViewById(R.id.adminToDateImageButton);
+        adminStartDateTextView = view.findViewById(R.id.adminStartDateTextView);
+        adminEndDateTextView = view.findViewById(R.id.adminEndDateTextView);
         mapView.onCreate(savedInstanceState);
         mapView.setVisibility(View.INVISIBLE);
 
         RecyclerView searchRecyclerView = view.findViewById(R.id.adminTreeListRecyclerView);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mTreeListAdapter = new TreeListAdapter(mData);
-
 
 
         ArrayAdapter<CharSequence> districtAdapter = ArrayAdapter.createFromResource(getActivity(),
@@ -127,35 +123,34 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         speciesSpinner.setOnItemSelectedListener(this);
 
 
-
         String baseUrl = VolleySingleton.getBaseUrl();
         String myUrl = baseUrl + "getalltree.php";
 
 
         StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                 response -> {
-                    try{
+                    try {
                         //Create a JSON object containing information from the API.
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
 
                         //save the from response in new tree object
-                        for(int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+                        for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
 
                             JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
-                            if(!indexedTree.getString("district").equals(selectedDistrict)){
+                            if (!indexedTree.getString("district").equals(selectedDistrict)) {
                                 district++;
                             }
-                            if(!indexedTree.getString("block").equals(selectedBlock)){
+                            if (!indexedTree.getString("block").equals(selectedBlock)) {
                                 block++;
                             }
-                            if(!indexedTree.getString("village").equals(selectedVillage)){
+                            if (!indexedTree.getString("village").equals(selectedVillage)) {
                                 village++;
                             }
-                            if(!indexedTree.getString("species").equals(selectedSpecies)){
+                            if (!indexedTree.getString("species").equals(selectedSpecies)) {
                                 species++;
                             }
-                            if(district!=0 || block!=0 || village!=0 || species!=0 || (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate))>0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate))<0)){
+                            if (district != 0 || block != 0 || village != 0 || species != 0 || (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0)) {
                                 Tree tree = new Tree();
                                 tree.id = indexedTree.getString("strutid");
                                 tree.district = indexedTree.getString("district");
@@ -183,7 +178,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                flag=0;
+                flag = 0;
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getFragmentManager(), "datePicker");
             }
@@ -192,14 +187,12 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
             @Override
             public void onClick(View v) {
-                flag=1;
+                flag = 1;
                 // TODO Auto-generated method stub
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getFragmentManager(), "datePicker");
             }
         });
-
-
 
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -236,7 +229,6 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                 mapView.setVisibility(View.VISIBLE);
 
 
-
                 mTreeListAdapter = new TreeListAdapter(mData);
                 searchRecyclerView.setAdapter(mTreeListAdapter);
 
@@ -249,10 +241,6 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                         fragmentTransaction.replace(R.id.main_admin_fragment_container_view, admintreeProfileFragment).addToBackStack(null).commit();
                     }
                 });
-
-
-
-
 
 
             }
@@ -283,9 +271,9 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
     private void setTreeMarker() {
         ArrayList<Tree> treeList = viewModel.getTreeList();
-        for(Tree tree: treeList) {
-            if(tree.district.equals(selectedDistrict) || tree.block.equals(selectedBlock) || tree.village.equals(selectedVillage)
-            || tree.species.equals(selectedSpecies)){
+        for (Tree tree : treeList) {
+            if (tree.district.equals(selectedDistrict) || tree.block.equals(selectedBlock) || tree.village.equals(selectedVillage)
+                    || tree.species.equals(selectedSpecies)) {
                 double latitude = tree.latitude;
                 double longitude = tree.longitude;
                 LatLng treeMarker = new LatLng(latitude, longitude);
@@ -340,12 +328,12 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen
-            if(flag==0) {
+            if (flag == 0) {
                 startSelectedDate = new StringBuilder().append(day).append("/")
                         .append(month).append("/").append(year);
                 adminStartDateTextView.setText(String.valueOf(startSelectedDate));
             }
-            if(flag==1){
+            if (flag == 1) {
                 endSelectedDate = new StringBuilder().append(day).append("/")
                         .append(month).append("/").append(year);
                 adminEndDateTextView.setText(String.valueOf(endSelectedDate));

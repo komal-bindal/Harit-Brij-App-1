@@ -1,29 +1,21 @@
 package com.haritbrij.haritBrij;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.android.volley.Request;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -32,17 +24,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haritbrij.haritBrij.models.Tree;
-import com.haritbrij.haritBrij.utils.ImageHelper;
-import com.haritbrij.haritBrij.utils.SharedPrefConstants;
-import com.haritbrij.haritBrij.utils.VolleySingleton;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 public class AdminTreeProfileFragment extends Fragment {
     AdminViewModel viewModel;
-    ImageView treeProfileImageView,uploadImageView1,uploadImageView2,uploadImageView3;
+    ImageView treeProfileImageView, uploadImageView1, uploadImageView2, uploadImageView3;
     TextView utIdTextView;
     TextView districtTextView;
     TextView blockTextView;
@@ -72,11 +58,11 @@ public class AdminTreeProfileFragment extends Fragment {
         utIdTextView = view.findViewById(R.id.utidTextView);
         districtTextView = view.findViewById(R.id.districtTextView);
         blockTextView = view.findViewById(R.id.blockTextView);
-        villageTextView  = view.findViewById(R.id.villageTextView);
+        villageTextView = view.findViewById(R.id.villageTextView);
         treeProfileImageView = view.findViewById(R.id.treeProfileImageView);
-        uploadImageView1=view.findViewById(R.id.UploadImageView1);
-        uploadImageView2=view.findViewById(R.id.UploadImageView2);
-        uploadImageView3=view.findViewById(R.id.UploadImageView3);
+        uploadImageView1 = view.findViewById(R.id.UploadImageView1);
+        uploadImageView2 = view.findViewById(R.id.UploadImageView2);
+        uploadImageView3 = view.findViewById(R.id.UploadImageView3);
         uploadImageView2.setVisibility(View.INVISIBLE);
         uploadImageView3.setVisibility(View.INVISIBLE);
         uploadImageView1.setVisibility(View.INVISIBLE);
@@ -120,14 +106,7 @@ public class AdminTreeProfileFragment extends Fragment {
         });
 
 
-
-
-
-
-
-
     }
-
 
 
     @Override

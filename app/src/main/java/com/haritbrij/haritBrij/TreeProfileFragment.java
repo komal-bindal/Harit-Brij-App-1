@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -37,24 +35,22 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haritbrij.haritBrij.models.Tree;
 import com.haritbrij.haritBrij.utils.ImageHelper;
-import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 public class TreeProfileFragment extends Fragment {
     UserMainViewModel viewModel;
-    ImageView treeProfileImageView,UploadImageView1,UploadImageView2,UploadImageView3;
+    ImageView treeProfileImageView, UploadImageView1, UploadImageView2, UploadImageView3;
     TextView utIdTextView;
     TextView districtTextView;
     TextView blockTextView;
     TextView villageTextView;
     MapView mapView;
     GoogleMap mGoogleMap;
-    Bitmap img1,img2,img3;
+    Bitmap img1, img2, img3;
 
 
     Tree tree;
@@ -78,16 +74,14 @@ public class TreeProfileFragment extends Fragment {
         tree = viewModel.getTreeList().get(position);
 
 
-
-
         utIdTextView = view.findViewById(R.id.utidTextView);
         districtTextView = view.findViewById(R.id.districtTextView);
         blockTextView = view.findViewById(R.id.blockTextView);
-        villageTextView  = view.findViewById(R.id.villageTextView);
+        villageTextView = view.findViewById(R.id.villageTextView);
         treeProfileImageView = view.findViewById(R.id.treeProfileImageView);
-        UploadImageView1=view.findViewById(R.id.UploadImageView1);
-        UploadImageView2=view.findViewById(R.id.UploadImageView2);
-        UploadImageView3=view.findViewById(R.id.UploadImageView3);
+        UploadImageView1 = view.findViewById(R.id.UploadImageView1);
+        UploadImageView2 = view.findViewById(R.id.UploadImageView2);
+        UploadImageView3 = view.findViewById(R.id.UploadImageView3);
         mapView = view.findViewById(R.id.treeProfileMapView);
         mapView.onCreate(savedInstanceState);
 
@@ -140,8 +134,6 @@ public class TreeProfileFragment extends Fragment {
 //
 
 
-
-
         byte[] decodedString = Base64.decode(tree.image1, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
@@ -170,17 +162,13 @@ public class TreeProfileFragment extends Fragment {
         });
 
 
-
-
-
-
         UploadImageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 try {
                     startActivityForResult(takePictureIntent, 2);
-          } catch (ActivityNotFoundException e) {
+                } catch (ActivityNotFoundException e) {
                     // display error state to the user
                     Toast.makeText(getActivity(), "Sorry Camera not found", Toast.LENGTH_LONG).show();
                 }
@@ -192,7 +180,7 @@ public class TreeProfileFragment extends Fragment {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 try {
                     startActivityForResult(takePictureIntent, 3);
-             } catch (ActivityNotFoundException e) {
+                } catch (ActivityNotFoundException e) {
                     // display error state to the user
                     Toast.makeText(getActivity(), "Sorry Camera not found", Toast.LENGTH_LONG).show();
                 }
@@ -205,20 +193,12 @@ public class TreeProfileFragment extends Fragment {
                 try {
                     startActivityForResult(takePictureIntent, 4);
 
-               } catch (ActivityNotFoundException e) {
+                } catch (ActivityNotFoundException e) {
                     // display error state to the user
                     Toast.makeText(getActivity(), "Sorry Camera not found", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
-
-
-
-
-
-
-
 
 
     }
@@ -234,11 +214,11 @@ public class TreeProfileFragment extends Fragment {
             img1 = resizedImage;
             UploadImageView1.setImageBitmap(resizedImage);
             UploadImageView2.setImageAlpha(255);
-            JSONObject object=new JSONObject();
+            JSONObject object = new JSONObject();
             try {
-                object.put("strutid",tree.id);
-                object.put("status",1);
-                object.put("img",ImageHelper.encodeImage(img1));
+                object.put("strutid", tree.id);
+                object.put("status", 1);
+                object.put("img", ImageHelper.encodeImage(img1));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -256,7 +236,7 @@ public class TreeProfileFragment extends Fragment {
             VolleySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("Clicked",true);    //name is the key so may use a username or whatever you want
+            editor.putBoolean("Clicked", true);    //name is the key so may use a username or whatever you want
             editor.commit();
         }
         if (requestCode == 3 && resultCode == RESULT_OK) {
@@ -265,14 +245,14 @@ public class TreeProfileFragment extends Fragment {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
 //            treeRegisterBitmap = imageBitmap;
             Bitmap resizedImage = Bitmap.createScaledBitmap(imageBitmap, 500, 500, true);
-            img2=resizedImage;
+            img2 = resizedImage;
             UploadImageView2.setImageBitmap(resizedImage);
             UploadImageView3.setImageAlpha(255);
-            JSONObject object=new JSONObject();
+            JSONObject object = new JSONObject();
             try {
-                object.put("strutid",tree.id);
-                object.put("status",1);
-                object.put("img",ImageHelper.encodeImage(img2));
+                object.put("strutid", tree.id);
+                object.put("status", 1);
+                object.put("img", ImageHelper.encodeImage(img2));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -295,13 +275,13 @@ public class TreeProfileFragment extends Fragment {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
 //            treeRegisterBitmap = imageBitmap;
             Bitmap resizedImage = Bitmap.createScaledBitmap(imageBitmap, 500, 500, true);
-            img3=resizedImage;
+            img3 = resizedImage;
             UploadImageView3.setImageBitmap(resizedImage);
-            JSONObject object=new JSONObject();
+            JSONObject object = new JSONObject();
             try {
-                object.put("strutid",tree.id);
-                object.put("status",1);
-                object.put("img",ImageHelper.encodeImage(img3));
+                object.put("strutid", tree.id);
+                object.put("status", 1);
+                object.put("img", ImageHelper.encodeImage(img3));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

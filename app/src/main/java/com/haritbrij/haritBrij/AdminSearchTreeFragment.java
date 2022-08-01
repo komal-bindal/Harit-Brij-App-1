@@ -65,14 +65,14 @@ public class AdminSearchTreeFragment extends Fragment {
         String myUrl = baseUrl + "getalltree.php";
         StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                 response -> {
-                    try{
+                    try {
                         //Create a JSON object containing information from the API.
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
                         mData.clear();
 
                         //save the from response in new tree object
-                        for(int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+                        for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
                             JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
                             Tree tree = new Tree();
                             tree.id = indexedTree.getString("strutid");
@@ -117,8 +117,8 @@ public class AdminSearchTreeFragment extends Fragment {
                 Log.d(getClass().getSimpleName(), "onClick: ");
                 String enteredUtid = searchTreeEditText.getText().toString();
                 mData = viewModel.getTreeList();
-                for(Tree tree: mData) {
-                    if(enteredUtid.equals(tree.id)) {
+                for (Tree tree : mData) {
+                    if (enteredUtid.equals(tree.id)) {
                         mData.clear();
                         mData.add(tree);
                         mTreeListAdapter.notifyDataSetChanged();

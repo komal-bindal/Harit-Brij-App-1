@@ -2,17 +2,16 @@ package com.haritbrij.haritBrij;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,7 +23,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.haritbrij.haritBrij.models.Tree;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class TreeMapFragment extends Fragment {
     MapView mapView;
@@ -36,6 +34,7 @@ public class TreeMapFragment extends Fragment {
     public TreeMapFragment() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,7 +51,7 @@ public class TreeMapFragment extends Fragment {
         mapSearchTreeImageView = view.findViewById(R.id.mapSearchTreeIcon);
 
         // Gets the MapView from the XML layout and creates it
-        mapView = (MapView) view.findViewById(R.id.user_map_view);
+        mapView = view.findViewById(R.id.user_map_view);
         mapView.onCreate(savedInstanceState);
 
         mapView.getMapAsync(new OnMapReadyCallback() {
@@ -83,8 +82,8 @@ public class TreeMapFragment extends Fragment {
             public void onClick(View view) {
                 String enteredUtid = searchTreeByUtid.getText().toString();
                 ArrayList<Tree> treeList = viewModel.getTreeList();
-                for(Tree tree: treeList) {
-                    if(enteredUtid.equals(tree.id)) {
+                for (Tree tree : treeList) {
+                    if (enteredUtid.equals(tree.id)) {
                         mGoogleMap.clear();
                         double latitude = tree.latitude;
                         double longitude = tree.longitude;
@@ -98,14 +97,13 @@ public class TreeMapFragment extends Fragment {
 
     private void setTreeMarker() {
         ArrayList<Tree> treeList = viewModel.getTreeList();
-        for(Tree tree: treeList) {
+        for (Tree tree : treeList) {
             double latitude = tree.latitude;
             double longitude = tree.longitude;
             LatLng treeMarker = new LatLng(latitude, longitude);
             mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
         }
     }
-
 
 
     @Override

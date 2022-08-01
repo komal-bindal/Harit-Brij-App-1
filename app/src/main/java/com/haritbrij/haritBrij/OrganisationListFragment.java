@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.haritbrij.haritBrij.models.Organisation;
-import com.haritbrij.haritBrij.models.Tree;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
 import org.json.JSONArray;
@@ -62,15 +61,14 @@ public class OrganisationListFragment extends Fragment {
         String myUrl = baseUrl + "getalluser.php";
         StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                 response -> {
-                    try{
+                    try {
                         //Create a JSON object containing information from the API.
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
                         orgList.clear();
 
 
-
-                        for(int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+                        for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
                             JSONObject indexedOrg = jsonArray.getJSONObject(jsonArrayIndex);
                             Organisation org = new Organisation();
                             org.id = indexedOrg.getString("uid");
@@ -84,14 +82,14 @@ public class OrganisationListFragment extends Fragment {
                         Log.d(getClass().getSimpleName(), orgList.toString());
 
                         viewModel.setOrgList(orgList);
-                        orgListAdapter=new OrgListAdapter(orgList);
+                        orgListAdapter = new OrgListAdapter(orgList);
                         searchOrganisationRecyclerView.setAdapter(orgListAdapter);
                     } catch (JSONException exception) {
                         exception.printStackTrace();
                     }
                 },
                 error -> {
-                     Log.e(getClass().getSimpleName(), error.toString());
+                    Log.e(getClass().getSimpleName(), error.toString());
                 });
         VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
 

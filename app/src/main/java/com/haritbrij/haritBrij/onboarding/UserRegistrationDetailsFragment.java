@@ -10,7 +10,6 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.haritbrij.haritBrij.R;
-import com.haritbrij.haritBrij.UserMainActivity;
 
 public class UserRegistrationDetailsFragment extends Fragment {
     final int REQUEST_IMAGE_CAPTURE = 1;
@@ -66,7 +64,7 @@ public class UserRegistrationDetailsFragment extends Fragment {
                     // display error state to the user
                     Toast.makeText(getActivity(), "Sorry Camera not found", Toast.LENGTH_LONG).show();
                 }
-                }
+            }
         });
 
     }
@@ -83,12 +81,12 @@ public class UserRegistrationDetailsFragment extends Fragment {
     }
 
     private void getDataAndCallApi() {
-                //get all the data from the edit texts
-                String userName = userNameEditText.getText().toString();
-                long userMobileNumber = Long.parseLong(userMobileNumberEditText.getText().toString());
-                String userTreeTarget = userTreeTargetEditText.getText().toString();
+        //get all the data from the edit texts
+        String userName = userNameEditText.getText().toString();
+        long userMobileNumber = Long.parseLong(userMobileNumberEditText.getText().toString());
+        String userTreeTarget = userTreeTargetEditText.getText().toString();
 
-                viewModel.setUserDetails(userName, userMobileNumber, userTreeTarget);
-                viewModel.sendUserDetails();
+        viewModel.setUserDetails(userName, userMobileNumber, userTreeTarget);
+        viewModel.sendUserDetails();
     }
 }

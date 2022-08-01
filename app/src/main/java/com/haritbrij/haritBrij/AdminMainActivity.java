@@ -1,7 +1,6 @@
 package com.haritbrij.haritBrij;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 
 import androidx.annotation.Nullable;

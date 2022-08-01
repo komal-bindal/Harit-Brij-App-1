@@ -1,11 +1,9 @@
 package com.haritbrij.haritBrij.onboarding;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,17 +21,11 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.haritbrij.haritBrij.R;
-import com.haritbrij.haritBrij.UserMainActivity;
-import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Objects;
 
 public class EnterMobileFragment extends Fragment {
     OnboardingViewModel viewModel;
+
     public EnterMobileFragment() {
         super(R.layout.fragment_enter_mobile);
     }
@@ -46,7 +38,7 @@ public class EnterMobileFragment extends Fragment {
 
         EditText mobileNumberEditText = view.findViewById(R.id.mobile_num_edit_text);
         Button sendOtpButton = view.findViewById(R.id.send_otp_button);
-        Button registerButton=view.findViewById(R.id.register_button);
+        Button registerButton = view.findViewById(R.id.register_button);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override

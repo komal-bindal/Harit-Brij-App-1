@@ -15,17 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminViewModel extends AndroidViewModel {
-    SharedPreferences sharedPreferences = getApplication().getSharedPreferences(getApplication().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-    private SharedPreferences.Editor editor;
-    int mPosition;
     private final MutableLiveData<List<Tree>> treeList = new MutableLiveData<List<Tree>>();
+    private final MutableLiveData<List<Organisation>> orgList = new MutableLiveData<List<Organisation>>();
+    SharedPreferences sharedPreferences = getApplication().getSharedPreferences(getApplication().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+    int mPosition;
+    private final SharedPreferences.Editor editor;
 
     public AdminViewModel(@NonNull Application application) {
         super(application);
         editor = sharedPreferences.edit();
     }
-
-    private final MutableLiveData<List<Organisation>> orgList = new MutableLiveData<List<Organisation>>();
 
     public void addOrg(Organisation org) {
         List<Organisation> tempTreeList = orgList.getValue();
@@ -51,20 +50,20 @@ public class AdminViewModel extends AndroidViewModel {
         treeList.setValue(tempTreeList);
     }
 
-    public void setPosition(int position) {
-        mPosition = position;
-    }
-
     public int getPosition() {
         return mPosition;
     }
 
-    public void setTreeList(List<Tree> treeList) {
-        this.treeList.setValue(treeList);
+    public void setPosition(int position) {
+        mPosition = position;
     }
 
     public ArrayList<Tree> getTreeList() {
         return (ArrayList<Tree>) treeList.getValue();
+    }
+
+    public void setTreeList(List<Tree> treeList) {
+        this.treeList.setValue(treeList);
     }
 
     public SharedPreferences.Editor getEditor() {

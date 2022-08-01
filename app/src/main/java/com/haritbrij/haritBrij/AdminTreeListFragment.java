@@ -1,16 +1,6 @@
 package com.haritbrij.haritBrij;
 
 import android.os.Bundle;
-
-import androidx.annotation.LongDef;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,24 +9,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.haritbrij.haritBrij.R;
 import com.haritbrij.haritBrij.models.Organisation;
 import com.haritbrij.haritBrij.models.Tree;
-import com.haritbrij.haritBrij.onboarding.EnterOtpFragment;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class AdminTreeListFragment extends Fragment {
     AdminViewModel viewModel;
@@ -73,18 +64,18 @@ public class AdminTreeListFragment extends Fragment {
         org = viewModel.getOrgListj().get(position);
 
         //TODO: Commenting the below line for now. The api is not returning the correct trees according to the user id.
-        String myUrl = baseUrl + "readusertree.php/?uid=" + String.valueOf(org.id);
+        String myUrl = baseUrl + "readusertree.php/?uid=" + org.id;
 //        String myUrl = baseUrl + "getalltree.php";
         StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                 response -> {
-                    try{
+                    try {
                         //Create a JSON object containing information from the API.
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
 
                         mData.clear();
                         //save the from response in new tree object
-                        for(int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+                        for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
 
                             JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
                             Tree tree = new Tree();
@@ -130,8 +121,8 @@ public class AdminTreeListFragment extends Fragment {
                 Log.d(getClass().getSimpleName(), "onClick: ");
                 String enteredUtid = searchTreeEditText.getText().toString();
                 mData = viewModel.getTreeList();
-                for(Tree tree: mData) {
-                    if(enteredUtid.equals(tree.id)) {
+                for (Tree tree : mData) {
+                    if (enteredUtid.equals(tree.id)) {
                         mData.clear();
                         mData.add(tree);
                         break;

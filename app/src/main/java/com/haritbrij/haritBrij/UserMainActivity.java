@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -12,19 +11,15 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
@@ -33,10 +28,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.haritbrij.haritBrij.models.Tree;
-import com.haritbrij.haritBrij.onboarding.OnboardingViewModel;
-import com.haritbrij.haritBrij.onboarding.UserRegistrationDetailsFragment;
 import com.haritbrij.haritBrij.utils.ImageHelper;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
@@ -48,13 +39,13 @@ import org.json.JSONObject;
 public class UserMainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     UserMainViewModel viewModel;
-//    OnboardingViewModel onboardViewModel;
+    //    OnboardingViewModel onboardViewModel;
     TextView treeTargetTextView;
     TextView userNameTextView;
     TextView treesPlantedTextView;
     ImageView userImageView;
     ImageView logoutButtonView;
-    int flag=0;
+    int flag = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,23 +96,23 @@ public class UserMainActivity extends AppCompatActivity {
         String myUrl = baseUrl + "login.php/" + "?mobile=" + mobileNumber;
         StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                 response -> {
-            try{
-                JSONObject myJsonObject = new JSONObject(response);
-                String display = myJsonObject.getString("display");
-                Bitmap image=ImageHelper.decodeImage(display);
-                if(image!=null) {
-                    userImageView.setImageBitmap(getCroppedBitmap(image));
-                    flag = 1;
-                }
+                    try {
+                        JSONObject myJsonObject = new JSONObject(response);
+                        String display = myJsonObject.getString("display");
+                        Bitmap image = ImageHelper.decodeImage(display);
+                        if (image != null) {
+                            userImageView.setImageBitmap(getCroppedBitmap(image));
+                            flag = 1;
+                        }
 //                treesPlantedTextView.setText(String.valueOf(myJsonObject.getString("completed")));
 //                Matrix matrix = new Matrix();
 //                matrix.postScale(0.5f, 0.5f);
 //                Bitmap croppedBitmap = Bitmap.createBitmap(image, 100, 100,100, 100, matrix, true);
 //                userImageView.setImageBitmap(croppedBitmap);
-            } catch (JSONException exception) {
-                Toast.makeText(this, "Please register again " + mobileNumber, Toast.LENGTH_LONG).show();
+                    } catch (JSONException exception) {
+                        Toast.makeText(this, "Please register again " + mobileNumber, Toast.LENGTH_LONG).show();
 
-            }
+                    }
                 },
                 volleyError -> {
 //                    Toast.makeText(this, "Please register again " + mobileNumber, Toast.LENGTH_LONG).show();
@@ -131,15 +122,15 @@ public class UserMainActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(myRequest);
 
         //set the number of registered trees.
-        String url = baseUrl + "readusertree.php/?uid=" + String.valueOf(viewModel.sharedPreferences.getString("uid", "0"));
+        String url = baseUrl + "readusertree.php/?uid=" + viewModel.sharedPreferences.getString("uid", "0");
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 response -> {
-                    try{
+                    try {
                         //Create a JSON object containing information from the API.
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
 
-                        treesPlantedTextView.setText(String.valueOf(myJsonObject.getString("itemCount")));
+                        treesPlantedTextView.setText(myJsonObject.getString("itemCount"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -155,17 +146,17 @@ public class UserMainActivity extends AppCompatActivity {
                 finish();
             }
         });
-        if(flag==0){
+        if (flag == 0) {
             userImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        try {
-                            startActivityForResult(takePictureIntent, 2);
-                        } catch (ActivityNotFoundException e) {
-                            // display error state to the user
-                            Toast.makeText(UserMainActivity.this, "Sorry Camera not found", Toast.LENGTH_LONG).show();
-                        }
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    try {
+                        startActivityForResult(takePictureIntent, 2);
+                    } catch (ActivityNotFoundException e) {
+                        // display error state to the user
+                        Toast.makeText(UserMainActivity.this, "Sorry Camera not found", Toast.LENGTH_LONG).show();
+                    }
 
                 }
             });
@@ -204,15 +195,14 @@ public class UserMainActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             Bitmap resizedImage = Bitmap.createScaledBitmap(imageBitmap, 500, 500, true);
             userImageView.setImageBitmap(getCroppedBitmap(resizedImage));
-            JSONObject jsonObject=new JSONObject();
+            JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("uid", viewModel.sharedPreferences.getString(SharedPrefConstants.uid, ""));
                 jsonObject.put("name", viewModel.sharedPreferences.getString(SharedPrefConstants.name, ""));
                 jsonObject.put("mobile", viewModel.sharedPreferences.getLong(SharedPrefConstants.mobileNumber, 0));
                 jsonObject.put("target", viewModel.sharedPreferences.getString(SharedPrefConstants.target, ""));
                 jsonObject.put("display", ImageHelper.encodeImage(resizedImage));
-            }
-            catch (JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
             String baseUrl = VolleySingleton.getBaseUrl();
@@ -230,7 +220,6 @@ public class UserMainActivity extends AppCompatActivity {
 
             RequestQueue requestQueue = Volley.newRequestQueue(getApplication());
             requestQueue.add(jsonObjectRequest);
-
 
 
         }

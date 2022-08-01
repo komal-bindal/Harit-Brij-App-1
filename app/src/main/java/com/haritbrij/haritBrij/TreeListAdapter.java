@@ -1,13 +1,11 @@
 package com.haritbrij.haritBrij;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,33 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeListAdapter extends RecyclerView.Adapter<TreeListAdapter.ViewHolder> {
-    private ArrayList<Tree> treesList;
     private static ItemClickListener clickListener;
+    private ArrayList<Tree> treesList;
 
-    public TreeListAdapter(List<Tree>treeList) {
+    public TreeListAdapter(List<Tree> treeList) {
         treesList = (ArrayList<Tree>) treeList;
         Log.d(getClass().getSimpleName(), String.valueOf(treeList.size()));
-        this.clickListener = clickListener;
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        public TextView treeIdTextView;
-        public ImageView treeImageView;
-        public ConstraintLayout treeItemLayout;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            treeIdTextView = itemView.findViewById(R.id.tree_id_item);
-            treeImageView = itemView.findViewById(R.id.tree_image_item);
-            treeItemLayout = itemView.findViewById(R.id.treeListItemLayout);
-            treeItemLayout.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            clickListener.onItemClick(getAdapterPosition());
-        }
+        clickListener = clickListener;
     }
 
     @NonNull
@@ -91,10 +68,6 @@ public class TreeListAdapter extends RecyclerView.Adapter<TreeListAdapter.ViewHo
         TreeListAdapter.clickListener = itemClickListener;
     }
 
-    public interface ItemClickListener {
-        void onItemClick(int position);
-    }
-
     public void filterList(ArrayList<Tree> filteredList) {
         treesList = filteredList;
         notifyDataSetChanged();
@@ -120,5 +93,29 @@ public class TreeListAdapter extends RecyclerView.Adapter<TreeListAdapter.ViewHo
         //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
         //return _bmp;
         return output;
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public TextView treeIdTextView;
+        public ImageView treeImageView;
+        public ConstraintLayout treeItemLayout;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            treeIdTextView = itemView.findViewById(R.id.tree_id_item);
+            treeImageView = itemView.findViewById(R.id.tree_image_item);
+            treeItemLayout = itemView.findViewById(R.id.treeListItemLayout);
+            treeItemLayout.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            clickListener.onItemClick(getAdapterPosition());
+        }
     }
 }
