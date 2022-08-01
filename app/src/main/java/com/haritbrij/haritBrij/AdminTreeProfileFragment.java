@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haritbrij.haritBrij.models.Tree;
+
+import java.util.ArrayList;
 
 
 public class AdminTreeProfileFragment extends Fragment {
@@ -94,11 +97,7 @@ public class AdminTreeProfileFragment extends Fragment {
                 // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
                 try {
                     MapsInitializer.initialize(requireActivity());
-                    LatLng sydney = new LatLng(27.60522281732449, 77.59289534421812);
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(sydney));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f));
+                    setTreeMarker();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -106,6 +105,15 @@ public class AdminTreeProfileFragment extends Fragment {
         });
 
 
+    }
+    private void setTreeMarker() {
+            double latitude = tree.latitude;
+            double longitude = tree.longitude;
+            LatLng treeMarker = new LatLng(latitude, longitude);
+            Log.e("TreeMapFragment", latitude+" "+longitude);
+            mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
+            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
     }
 
 

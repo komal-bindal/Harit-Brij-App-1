@@ -25,7 +25,7 @@
         <TextView
             android:id="@+id/textView86"
             android:layout_width="377dp"
-            android:layout_height="319dp"
+            android:layout_height="326dp"
             android:layout_marginTop="104dp"
             android:background="@drawable/stroke1"
             android:text=""
@@ -48,7 +48,7 @@
 
         <TextView
             android:id="@+id/textView88"
-            android:layout_width="wrap_content"
+            android:layout_width="352dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
@@ -86,26 +86,30 @@
 
         <TextView
             android:id="@+id/textView16"
-            android:layout_width="87dp"
-            android:layout_height="23dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
             android:layout_marginTop="8dp"
             android:text="@string/DontHaveAnAccount"
             android:textColor="#040404"
             android:textSize="17dp"
-            app:layout_constraintStart_toStartOf="@+id/send_otp_button"
+            app:layout_constraintEnd_toEndOf="@+id/send_otp_button"
+            app:layout_constraintHorizontal_bias="0.383"
+            app:layout_constraintStart_toStartOf="@+id/mobile_num_edit_text"
             app:layout_constraintTop_toBottomOf="@+id/send_otp_button" />
 
         <Button
             android:id="@+id/register_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
             android:background="@color/transparent"
             android:text="@string/Register"
             android:textColor="#08205E"
-            app:layout_constraintBottom_toBottomOf="@+id/textView16"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="@+id/mobile_num_edit_text"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView16"
-            app:layout_constraintTop_toTopOf="@+id/textView16" />
+            app:layout_constraintTop_toBottomOf="@+id/send_otp_button" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
