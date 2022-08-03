@@ -72,7 +72,7 @@ public class EnterMobileFragment extends Fragment {
                             if (volleyError instanceof NetworkError) {
                                 message = "Network Error!! Cannot connect to Internet...Please check your connection!";
                             } else if (volleyError instanceof ServerError) {
-                                message = "The server could not be found. Please try again after some time!!";
+                                message = "User not found. Please register!";
                             } else if (volleyError instanceof AuthFailureError) {
                                 message = "AuthFailure Error!! Cannot connect to Internet...Please check your connection!";
                             } else if (volleyError instanceof ParseError) {

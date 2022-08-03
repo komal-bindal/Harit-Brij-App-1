@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +44,28 @@ public class UserRegistrationDetailsFragment extends Fragment {
         userNameEditText = view.findViewById(R.id.user_name_edit_text);
         userMobileNumberEditText = view.findViewById(R.id.user_mobile_edit_text);
         userTreeTargetEditText = view.findViewById(R.id.user_tree_target_edit_text);
+
+        userNameEditText.addTextChangedListener(
+                new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        if (charSequence.toString().length() == 20) {
+                            Toast.makeText(getContext(), "Maximum limit is 20", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+
+                    }
+                }
+        );
+
 
         submitRegistrationDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override

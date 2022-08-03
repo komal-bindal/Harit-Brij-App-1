@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,7 +60,7 @@ public class ChooseLanguageFragment extends Fragment {
         Fragment fragment = new UserTypeFragment();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container_view, fragment);
+        fragmentTransaction.replace(R.id.fragment_container_view, fragment).addToBackStack(null);
         fragmentTransaction.setCustomAnimations(R.anim.slide_in, R.anim.fade_out);
         fragmentTransaction.commit();
     }

@@ -28,6 +28,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.haritbrij.haritBrij.onboarding.OnboardingActivity;
 import com.haritbrij.haritBrij.utils.ImageHelper;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
@@ -143,6 +144,8 @@ public class UserMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 viewModel.getSharedPreferenceEditor().putBoolean(SharedPrefConstants.isSignedIn, false).apply();
+                Intent intent = new Intent(UserMainActivity.this, OnboardingActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -167,6 +170,8 @@ public class UserMainActivity extends AppCompatActivity {
     public Bitmap getCroppedBitmap(Bitmap bitmap) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
                 bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+//        output.setHeight(217);
+//        output.setWidth(200);
         Canvas canvas = new Canvas(output);
 
         final int color = 0xff424242;
