@@ -14,7 +14,7 @@ public class VolleySingleton {
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
     private static Context ctx;
-    private static String baseUrl = "http://192.168.1.8/api/";
+    private static String baseUrl = "http://192.168.1.15/api/";
 
     private VolleySingleton(Context context) {
         ctx = context;

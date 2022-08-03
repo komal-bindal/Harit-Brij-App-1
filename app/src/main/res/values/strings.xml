@@ -59,6 +59,7 @@
     <string-array name="Villages">
         <item>Jait</item>
         <item>Chaumuhan</item>
+        <item>Agra</item>
     </string-array>
 
     <string-array name="Species">
