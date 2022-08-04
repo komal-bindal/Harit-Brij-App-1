@@ -73,6 +73,11 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
 
         addTreeImageView = view.findViewById(R.id.registerTreeImageView);
         registerTreeButton = view.findViewById(R.id.treeRegisterSubmitButton);
+        if(Integer.parseInt(viewModel.sharedPreferences.getString(SharedPrefConstants.target, ""))>=viewModel.getPlantedTrees()){
+            Toast.makeText(getContext(), "Target already achieved", Toast.LENGTH_SHORT).show();
+            addTreeImageView.setEnabled(false);
+            registerTreeButton.setEnabled(false);
+        }
 
         ArrayAdapter<CharSequence> districtAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.District, android.R.layout.simple_spinner_item);
@@ -221,7 +226,7 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                 .isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean isNetworkEnabled = locationManager
                 .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        Toast.makeText(getActivity(), isGPSEnabled + " " + isNetworkEnabled, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), isGPSEnabled + " " + isNetworkEnabled, Toast.LENGTH_SHORT).show();
         if (ActivityCompat.checkSelfPermission(
                 getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

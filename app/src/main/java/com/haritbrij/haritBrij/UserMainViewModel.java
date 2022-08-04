@@ -18,6 +18,15 @@ public class UserMainViewModel extends AndroidViewModel {
     SharedPreferences sharedPreferences = getApplication().getSharedPreferences(getApplication().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
     int mPosition;
     private final SharedPreferences.Editor editor;
+    int plantedTrees;
+
+    public int getPlantedTrees() {
+        return plantedTrees;
+    }
+
+    public void setPlantedTrees(int plantedTrees) {
+        this.plantedTrees = plantedTrees;
+    }
 
     public UserMainViewModel(@NonNull Application application) {
         super(application);

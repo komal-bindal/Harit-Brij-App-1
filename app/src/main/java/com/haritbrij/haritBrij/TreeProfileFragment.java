@@ -3,7 +3,9 @@ package com.haritbrij.haritBrij;
 import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -41,8 +43,6 @@ import com.haritbrij.haritBrij.utils.VolleySingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 
 public class TreeProfileFragment extends Fragment {
     UserMainViewModel viewModel;
@@ -54,9 +54,8 @@ public class TreeProfileFragment extends Fragment {
     MapView mapView;
     GoogleMap mGoogleMap;
     Bitmap img1, img2, img3;
-
-
     Tree tree;
+    private int status = 1;
 
     public TreeProfileFragment() {
     }
@@ -140,9 +139,10 @@ public class TreeProfileFragment extends Fragment {
         byte[] decodedString = Base64.decode(tree.image1, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-        treeProfileImageView.setImageBitmap(decodedByte);
+        treeProfileImageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 123,110, false));
 
         //setting up the mapView
+
         mapView.getMapAsync(new OnMapReadyCallback() {
             @SuppressLint("MissingPermission")
             @Override
@@ -156,7 +156,7 @@ public class TreeProfileFragment extends Fragment {
                     double latitude = tree.latitude;
                     double longitude = tree.longitude;
                     LatLng treeMarker = new LatLng(latitude, longitude);
-                    Log.e("TreeMapFragment", latitude+" "+longitude);
+                    Log.e("TreeMapFragment", latitude + " " + longitude);
                     mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
                     mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
@@ -172,7 +172,7 @@ public class TreeProfileFragment extends Fragment {
             public void onClick(View view) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 try {
-                    startActivityForResult(takePictureIntent, 2);
+                    showMessageAndUpload(takePictureIntent, 2);
                 } catch (ActivityNotFoundException e) {
                     // display error state to the user
                     Toast.makeText(getActivity(), "Sorry Camera not found", Toast.LENGTH_LONG).show();
@@ -184,7 +184,7 @@ public class TreeProfileFragment extends Fragment {
             public void onClick(View view) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 try {
-                    startActivityForResult(takePictureIntent, 3);
+                    showMessageAndUpload(takePictureIntent, 3);
                 } catch (ActivityNotFoundException e) {
                     // display error state to the user
                     Toast.makeText(getActivity(), "Sorry Camera not found", Toast.LENGTH_LONG).show();
@@ -196,7 +196,7 @@ public class TreeProfileFragment extends Fragment {
             public void onClick(View view) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 try {
-                    startActivityForResult(takePictureIntent, 4);
+                    showMessageAndUpload(takePictureIntent, 4);
 
                 } catch (ActivityNotFoundException e) {
                     // display error state to the user
@@ -232,7 +232,7 @@ public class TreeProfileFragment extends Fragment {
             JSONObject object = new JSONObject();
             try {
                 object.put("strutid", tree.id);
-                object.put("status", 1);
+                object.put("status", status);
                 object.put("img", ImageHelper.encodeImage(img1));
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -266,7 +266,7 @@ public class TreeProfileFragment extends Fragment {
             JSONObject object = new JSONObject();
             try {
                 object.put("strutid", tree.id);
-                object.put("status", 1);
+                object.put("status", status);
                 object.put("img", ImageHelper.encodeImage(img2));
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -295,7 +295,7 @@ public class TreeProfileFragment extends Fragment {
             JSONObject object = new JSONObject();
             try {
                 object.put("strutid", tree.id);
-                object.put("status", 1);
+                object.put("status", status);
                 object.put("img", ImageHelper.encodeImage(img3));
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -313,6 +313,30 @@ public class TreeProfileFragment extends Fragment {
 
             VolleySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
         }
+    }
+
+    private void showMessageAndUpload(Intent takePictureIntent, int reqCode) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext())
+                .setTitle("Status")
+                .setMessage("Is Plant Alive")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        status = 1;
+                        startActivityForResult(takePictureIntent, reqCode);
+
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        status = 0;
+                        startActivityForResult(takePictureIntent, 2);
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_info);
+        alert.show();
     }
 
     @Override

@@ -132,6 +132,7 @@ public class UserMainActivity extends AppCompatActivity {
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
 
                         treesPlantedTextView.setText(myJsonObject.getString("itemCount"));
+                        viewModel.setPlantedTrees(Integer.parseInt(treesPlantedTextView.getText().toString()));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
