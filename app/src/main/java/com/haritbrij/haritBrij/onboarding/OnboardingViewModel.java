@@ -34,6 +34,16 @@ public class OnboardingViewModel extends AndroidViewModel {
     private Bitmap userImage;
     private String otp;
 
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
+
+    private boolean isLogin = false;
+
     public OnboardingViewModel(@NonNull Application application) {
         super(application);
         editor = sharedPreferences.edit();

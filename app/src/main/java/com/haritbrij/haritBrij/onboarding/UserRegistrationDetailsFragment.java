@@ -20,9 +20,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.haritbrij.haritBrij.R;
+import com.haritbrij.haritBrij.utils.VolleySingleton;
 
 public class UserRegistrationDetailsFragment extends Fragment {
+
     final int REQUEST_IMAGE_CAPTURE = 1;
     OnboardingViewModel viewModel;
     EditText userNameEditText;
@@ -38,7 +42,7 @@ public class UserRegistrationDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(requireActivity()).get(OnboardingViewModel.class);
-
+        viewModel.setLogin(false);
         Button submitRegistrationDetailsButton = view.findViewById(R.id.submit_registration_details_button);
         Button uploadUserImageButton = view.findViewById(R.id.upload_user_image_button);
         userNameEditText = view.findViewById(R.id.user_name_edit_text);
@@ -70,10 +74,25 @@ public class UserRegistrationDetailsFragment extends Fragment {
         submitRegistrationDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDataAndCallApi();
+                String baseUrl = VolleySingleton.getBaseUrl();
+                String myUrl = baseUrl + "login.php/" + "?mobile=" + userMobileNumberEditText.getText().toString();
+                final boolean[] doesExist = {false};
+                StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+                        response -> {
+                            Toast.makeText(getContext(), "Mobile number already exist", Toast.LENGTH_SHORT).show();
+                        },
+                        volleyError -> {
+                            getData();
+                            Toast.makeText(getContext(), "OTP Sent", Toast.LENGTH_LONG).show();
+                            viewModel.addMobileNumber(Long.parseLong(userMobileNumberEditText.getText().toString()));
+                            viewModel.sendOtp();
 //                Toast.makeText(getActivity(), "Registration successful. Kindly Signin", Toast.LENGTH_SHORT).show();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container_view, new EnterMobileFragment()).addToBackStack(null).commit();
+                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.fragment_container_view, new EnterOtpFragment()).addToBackStack(null).commit();
+                        }
+                );
+                VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+
 
             }
         });
@@ -104,13 +123,29 @@ public class UserRegistrationDetailsFragment extends Fragment {
         }
     }
 
-    private void getDataAndCallApi() {
+
+    private boolean isUserExist(String enteredMobileNumber) {
+        String baseUrl = VolleySingleton.getBaseUrl();
+        String myUrl = baseUrl + "login.php/" + "?mobile=" + enteredMobileNumber;
+        final boolean[] doesExist = {false};
+        StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+                response -> {
+                    doesExist[0] = true;
+                },
+                volleyError -> {
+                    doesExist[0] = false;
+                }
+        );
+
+        return doesExist[0];
+    }
+
+
+    private void getData() {
         //get all the data from the edit texts
         String userName = userNameEditText.getText().toString();
         long userMobileNumber = Long.parseLong(userMobileNumberEditText.getText().toString());
         String userTreeTarget = userTreeTargetEditText.getText().toString();
-
         viewModel.setUserDetails(userName, userMobileNumber, userTreeTarget);
-        viewModel.sendUserDetails();
     }
 }

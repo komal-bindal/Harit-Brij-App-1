@@ -44,43 +44,50 @@ public class EnterOtpFragment extends Fragment {
                 String submittedOtp = otpTextView.getOTP();
                 if (submittedOtp.equals(viewModel.getOtp().trim())) {
                     Toast.makeText(getActivity(), "Otp Matched", Toast.LENGTH_LONG).show();
+                    if (!viewModel.isLogin()) {
+                        viewModel.sendUserDetails();
+                        Intent intent = new Intent(getActivity(), UserMainActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    } else {
+                        viewModel.getSharedPreferenceEditor().putLong("mobileNumber", viewModel.getMobileNumber()).commit();
 
-                    viewModel.getSharedPreferenceEditor().putLong("mobileNumber", viewModel.getMobileNumber()).commit();
-
-                    //check if the user already exists
-                    String baseUrl = VolleySingleton.getBaseUrl();
-                    String myUrl = baseUrl + "login.php/" + "?mobile=" + viewModel.getMobileNumber();
-                    StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
-                            response -> {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(response);
-                                    String uid = jsonObject.getString("uid");
-                                    viewModel.getSharedPreferenceEditor().putString(SharedPrefConstants.uid, uid).apply();
-                                    String name = jsonObject.getString("name");
-                                    viewModel.getSharedPreferenceEditor().putString(SharedPrefConstants.name, name).apply();
-                                    String target = jsonObject.getString("target");
-                                    viewModel.getSharedPreferenceEditor().putString(SharedPrefConstants.target, target).apply();
-                                    viewModel.getSharedPreferenceEditor().putBoolean(SharedPrefConstants.isSignedIn, true).apply();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                Intent intent = new Intent(getActivity(), UserMainActivity.class);
-                                startActivity(intent);
-                                getActivity().finish();
-                            },
-                            volleyError -> {
-                                //The api return 404 error. This means the user does not exist.
+                        //check if the user already exists
+                        String baseUrl = VolleySingleton.getBaseUrl();
+                        String myUrl = baseUrl + "login.php/" + "?mobile=" + viewModel.getMobileNumber();
+                        StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+                                response -> {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(response);
+                                        String uid = jsonObject.getString("uid");
+                                        viewModel.getSharedPreferenceEditor().putString(SharedPrefConstants.uid, uid).apply();
+                                        String name = jsonObject.getString("name");
+                                        viewModel.getSharedPreferenceEditor().putString(SharedPrefConstants.name, name).apply();
+                                        String target = jsonObject.getString("target");
+                                        viewModel.getSharedPreferenceEditor().putString(SharedPrefConstants.target, target).apply();
+                                        viewModel.getSharedPreferenceEditor().putBoolean(SharedPrefConstants.isSignedIn, true).apply();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    Intent intent = new Intent(getActivity(), UserMainActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                },
+                                volleyError -> {
+                                    //The api return 404 error. This means the user does not exist.
 //                                Toast.makeText(getActivity(), "Sign in failed", Toast.LENGTH_SHORT).show();
 //                                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                                fragmentTransaction.replace(R.id.fragment_container_view, new UserRegistrationDetailsFragment()).addToBackStack(null).commit();
-                            }
-                    );
+                                }
+                        );
 
-                    VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+                        VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
 
+                    }
                 } else {
                     Toast.makeText(getActivity(), "Not Matched. Try Again", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
     }

@@ -8,22 +8,35 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haritbrij.haritBrij.models.Tree;
+import com.haritbrij.haritBrij.utils.VolleySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class TreeMapFragment extends Fragment {
@@ -32,6 +45,9 @@ public class TreeMapFragment extends Fragment {
     GoogleMap mGoogleMap;
     EditText searchTreeByUtid;
     ImageView mapSearchTreeImageView;
+    private LatLngBounds bounds;
+    private LatLngBounds.Builder builder;
+    List<MarkerOptions> markerList;
 
     public TreeMapFragment() {
         // Required empty public constructor
@@ -51,6 +67,17 @@ public class TreeMapFragment extends Fragment {
         searchTreeByUtid = view.findViewById(R.id.searchTreeByUtid);
         mapSearchTreeImageView = view.findViewById(R.id.mapSearchTreeIcon);
 
+
+
+        ArrayList<Tree> mData = new ArrayList<>();
+
+        String baseUrl = VolleySingleton.getBaseUrl();
+
+        String myUrl = baseUrl + "readusertree.php/?uid=" + viewModel.sharedPreferences.getString("uid", "0");
+
+
+
+
         // Gets the MapView from the XML layout and creates it
         mapView = (MapView) view.findViewById(R.id.user_map_view);
         mapView.onCreate(savedInstanceState);
@@ -65,13 +92,58 @@ public class TreeMapFragment extends Fragment {
                 // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
                 try {
                     MapsInitializer.initialize(requireActivity());
-                    LatLng sydney = new LatLng(27.60522281732449, 77.59289534421812);
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(sydney));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f));
+//                    LatLng sydney = new LatLng(27.60522281732449, 77.59289534421812);
+//                    googleMap.addMarker(new MarkerOptions()
+//                            .position(sydney));
+//                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f));
+                    builder = new LatLngBounds.Builder();
+                    StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+                            response -> {
+                                try {
+                                    JSONObject myJsonObject = new JSONObject(response);
+                                    JSONArray jsonArray = myJsonObject.getJSONArray("body");
+                                    mData.clear();
+                                    for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+                                        JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
+                                        Tree tree = new Tree();
+                                        tree.id = indexedTree.getString("strutid");
+                                        tree.district = indexedTree.getString("district");
+                                        tree.block = indexedTree.getString("block");
+                                        tree.village = indexedTree.getString("village");
+                                        tree.species = indexedTree.getString("species");
+                                        tree.image1 = indexedTree.getString("img1");
+                                        tree.latitude = indexedTree.getDouble("lat");
+                                        tree.longitude = indexedTree.getDouble("long");
+                                        mData.add(tree);
+//                                        Log.d("TreeMap", tree.latitude + "------"+tree.longitude);
+                                    }
+                                    viewModel.setTreeList(mData);
+//                        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+                                    setTreeMarker();
+                                    bounds = builder.build();
+//                                    Log.d("TreeMap", mData.toString());
+                                    int width = getResources().getDisplayMetrics().widthPixels;
+                                    int height = getResources().getDisplayMetrics().heightPixels;
+                                    int padding = (int) (width * 0.30);
 
-                    setTreeMarker();
+                                    // Zoom and animate the google map to show all markers
+
+                                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                                    googleMap.animateCamera(cu);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            },
+                            volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
+                    );
+
+                    VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+
+
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -98,11 +170,17 @@ public class TreeMapFragment extends Fragment {
 
     private void setTreeMarker() {
         ArrayList<Tree> treeList = viewModel.getTreeList();
+        markerList=new ArrayList<>();
         for(Tree tree: treeList) {
             double latitude = tree.latitude;
             double longitude = tree.longitude;
             LatLng treeMarker = new LatLng(latitude, longitude);
-            mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+//            mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(treeMarker);
+            mGoogleMap.addMarker(markerOptions);
+            builder.include(markerOptions.getPosition());
+            Log.d("Tree", treeList.toString());
         }
     }
 

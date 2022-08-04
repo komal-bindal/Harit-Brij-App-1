@@ -246,18 +246,19 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                         longitude = String.valueOf(longi);
                         Log.d(TAG, "network location.");
                         Log.d(TAG, longitude + " ------- " + latitude);
-                    } else {
-                        Log.d(TAG, "Unable to find network location.");
-                        TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
-                        @SuppressLint("MissingPermission") GsmCellLocation cellLocation = (GsmCellLocation) telephonyManager.getCellLocation();
-
-                        int cellid = cellLocation.getCid();
-                        int celllac = cellLocation.getLac();
-
-                        Log.d(TAG + " CellLocation", cellLocation.toString());
-                        Log.d(TAG + " Cellid", String.valueOf(cellid));
-                        Log.d(TAG + " cellcode", String.valueOf(celllac));
                     }
+//                    else {
+//                        Log.d(TAG, "Unable to find network location.");
+//                        TelephonyManager telephonyManager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
+//                        @SuppressLint("MissingPermission") GsmCellLocation cellLocation = (GsmCellLocation) telephonyManager.getCellLocation();
+//
+//                        int cellid = cellLocation.getCid();
+//                        int celllac = cellLocation.getLac();
+//
+//                        Log.d(TAG + " CellLocation", cellLocation.toString());
+//                        Log.d(TAG + " Cellid", String.valueOf(cellid));
+//                        Log.d(TAG + " cellcode", String.valueOf(celllac));
+//                    }
                 } else {
                     Toast.makeText(getActivity(), "Unable to find  location.", Toast.LENGTH_SHORT).show();
                 }
