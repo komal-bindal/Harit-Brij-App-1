@@ -56,7 +56,7 @@ public class UserMainActivity extends AppCompatActivity {
         userNameTextView = findViewById(R.id.userNameTextView);
         treesPlantedTextView = findViewById(R.id.registeredTreesTextView);
         userImageView = findViewById(R.id.userImageView);
-        logoutButtonView = findViewById(R.id.logoutButton);
+        logoutButtonView = findViewById(R.id.logoutButtonUser);
 
         viewModel = new ViewModelProvider(this).get(UserMainViewModel.class);
 //        onboardViewModel = new ViewModelProvider(this).get(OnboardingViewModel.class);
@@ -99,13 +99,14 @@ public class UserMainActivity extends AppCompatActivity {
                 response -> {
                     try {
                         JSONObject myJsonObject = new JSONObject(response);
+                        viewModel.getSharedPreferenceEditor().putString(SharedPrefConstants.uid, myJsonObject.getString("uid")).apply();
                         String display = myJsonObject.getString("display");
                         Bitmap image = ImageHelper.decodeImage(display);
                         if (image != null) {
                             userImageView.setImageBitmap(getCroppedBitmap(image));
                             flag = 1;
                         }
-//                treesPlantedTextView.setText(String.valueOf(myJsonObject.getString("completed")));
+                treesPlantedTextView.setText(String.valueOf(myJsonObject.getString("completed")));
 //                Matrix matrix = new Matrix();
 //                matrix.postScale(0.5f, 0.5f);
 //                Bitmap croppedBitmap = Bitmap.createBitmap(image, 100, 100,100, 100, matrix, true);
@@ -131,8 +132,7 @@ public class UserMainActivity extends AppCompatActivity {
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
 
-                        treesPlantedTextView.setText(myJsonObject.getString("itemCount"));
-                        viewModel.setPlantedTrees(Integer.parseInt(treesPlantedTextView.getText().toString()));
+                        viewModel.setPlantedTrees(Integer.parseInt(myJsonObject.getString("itemCount")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -144,7 +144,7 @@ public class UserMainActivity extends AppCompatActivity {
         logoutButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.getSharedPreferenceEditor().putBoolean(SharedPrefConstants.isSignedIn, false).apply();
+                viewModel.getSharedPreferenceEditor().putBoolean(SharedPrefConstants.isUserSignedIn, false).apply();
                 Intent intent = new Intent(UserMainActivity.this, OnboardingActivity.class);
                 startActivity(intent);
                 finish();

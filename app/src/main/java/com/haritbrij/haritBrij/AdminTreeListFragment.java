@@ -61,7 +61,7 @@ public class AdminTreeListFragment extends Fragment {
 
         String baseUrl = VolleySingleton.getBaseUrl();
         int position = viewModel.getPosition();
-        org = viewModel.getOrgListj().get(position);
+        org = viewModel.getOrgList().get(position);
 
         //TODO: Commenting the below line for now. The api is not returning the correct trees according to the user id.
         String myUrl = baseUrl + "readusertree.php/?uid=" + org.id;

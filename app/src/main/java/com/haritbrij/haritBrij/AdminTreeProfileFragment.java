@@ -83,8 +83,8 @@ public class AdminTreeProfileFragment extends Fragment {
 
         byte[] decodedString = Base64.decode(tree.image1, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        treeProfileImageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 123,110, false));
 
-        treeProfileImageView.setImageBitmap(decodedByte);
 
         //setting up the mapView
         mapView.getMapAsync(new OnMapReadyCallback() {
@@ -113,7 +113,7 @@ public class AdminTreeProfileFragment extends Fragment {
             Log.e("TreeMapFragment", latitude+" "+longitude);
             mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
-            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
+            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
     }
 
 

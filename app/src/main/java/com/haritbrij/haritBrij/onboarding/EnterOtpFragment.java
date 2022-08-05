@@ -65,7 +65,7 @@ public class EnterOtpFragment extends Fragment {
                                         viewModel.getSharedPreferenceEditor().putString(SharedPrefConstants.name, name).apply();
                                         String target = jsonObject.getString("target");
                                         viewModel.getSharedPreferenceEditor().putString(SharedPrefConstants.target, target).apply();
-                                        viewModel.getSharedPreferenceEditor().putBoolean(SharedPrefConstants.isSignedIn, true).apply();
+                                        viewModel.getSharedPreferenceEditor().putBoolean(SharedPrefConstants.isUserSignedIn, true).apply();
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }

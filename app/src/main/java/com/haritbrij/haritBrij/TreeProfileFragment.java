@@ -29,6 +29,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -71,9 +72,13 @@ public class TreeProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(UserMainViewModel.class);
 
+//        String utid = viewModel.getUtid();
 
-        int position = viewModel.getPosition();
-        tree = viewModel.getTreeList().get(position);
+//
+
+
+//        int position = viewModel.getPosition();
+        tree = viewModel.getTree();
 
 
         utIdTextView = view.findViewById(R.id.utidTextView);
@@ -139,7 +144,27 @@ public class TreeProfileFragment extends Fragment {
         byte[] decodedString = Base64.decode(tree.image1, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-        treeProfileImageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 123,110, false));
+        treeProfileImageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 123, 110, false));
+
+        if(!tree.image2.equals("null")){
+            byte[] decodedStr = Base64.decode(tree.image2, Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
+            UploadImageView1.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 113, 83, false));
+            UploadImageView1.setEnabled(false);
+        }
+
+        if(!tree.image3.equals("null")){
+            byte[] decodedStr = Base64.decode(tree.image3, Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
+            UploadImageView2.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 119, 80, false));
+            UploadImageView2.setEnabled(false);
+        }
+        if(!tree.image4.equals("null")){
+            byte[] decodedStr = Base64.decode(tree.image4, Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
+            UploadImageView3.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 110, 60, false));
+            UploadImageView3.setEnabled(false);
+        }
 
         //setting up the mapView
 

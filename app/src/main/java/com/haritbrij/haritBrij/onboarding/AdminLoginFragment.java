@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -29,10 +30,11 @@ public class AdminLoginFragment extends Fragment {
     public AdminLoginFragment() {
         super(R.layout.fragment_admin_login);
     }
-
+OnboardingViewModel viewModel;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(OnboardingViewModel.class);
 
         EditText adminUsernameEditText = view.findViewById(R.id.admin_username_edit_text);
         EditText adminPasswordEditText = view.findViewById(R.id.admin_password_edit_text);
@@ -60,9 +62,10 @@ public class AdminLoginFragment extends Fragment {
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                         response -> {
                             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
-
+                            viewModel.getSharedPreferenceEditor().putBoolean(SharedPrefConstants.isAdminSignedIn, true).apply();
                             Intent intent = new Intent(getActivity(), AdminMainActivity.class);
                             startActivity(intent);
+//                            getActivity().finish();
                         },
                         error -> {
                             error.printStackTrace();

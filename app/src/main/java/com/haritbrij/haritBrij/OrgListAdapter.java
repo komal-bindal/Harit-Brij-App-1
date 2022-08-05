@@ -1,6 +1,7 @@
 package com.haritbrij.haritBrij;
 
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +34,12 @@ public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.ViewHold
         return new OrgListAdapter.ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull OrgListAdapter.ViewHolder holder, int position) {
         holder.organisationId.setText(orgList.get(position).id);
         holder.orgNameTextView.setText(orgList.get(position).name);
-        holder.treesPlantedTextView.setText(orgList.get(position).target);
+        holder.treesPlantedTextView.setText(orgList.get(position).completed+ "/"+orgList.get(position).target);
     }
 
     @Override

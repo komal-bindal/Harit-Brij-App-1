@@ -122,6 +122,9 @@ public class OnboardingViewModel extends AndroidViewModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        getSharedPreferenceEditor().putString(SharedPrefConstants.name, userName).apply();
+        getSharedPreferenceEditor().putLong(SharedPrefConstants.mobileNumber, userMobileNumber).apply();
+        getSharedPreferenceEditor().putString(SharedPrefConstants.target, userTreeTarget).apply();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                 response -> {

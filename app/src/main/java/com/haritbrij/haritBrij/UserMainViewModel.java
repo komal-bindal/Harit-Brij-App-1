@@ -15,10 +15,33 @@ import java.util.List;
 
 public class UserMainViewModel extends AndroidViewModel {
     private final MutableLiveData<List<Tree>> treeList = new MutableLiveData<List<Tree>>();
+    private final SharedPreferences.Editor editor;
     SharedPreferences sharedPreferences = getApplication().getSharedPreferences(getApplication().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
     int mPosition;
-    private final SharedPreferences.Editor editor;
+    String utid;
     int plantedTrees;
+    private Tree tree;
+
+    public UserMainViewModel(@NonNull Application application) {
+        super(application);
+        editor = sharedPreferences.edit();
+    }
+
+    public Tree getTree() {
+        return tree;
+    }
+
+    public void setTree(Tree tree) {
+        this.tree = tree;
+    }
+
+    public String getUtid() {
+        return utid;
+    }
+
+    public void setUtid(String utid) {
+        this.utid = utid;
+    }
 
     public int getPlantedTrees() {
         return plantedTrees;
@@ -26,11 +49,6 @@ public class UserMainViewModel extends AndroidViewModel {
 
     public void setPlantedTrees(int plantedTrees) {
         this.plantedTrees = plantedTrees;
-    }
-
-    public UserMainViewModel(@NonNull Application application) {
-        super(application);
-        editor = sharedPreferences.edit();
     }
 
     public void addTree(Tree tree) {

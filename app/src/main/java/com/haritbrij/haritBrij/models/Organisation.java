@@ -5,4 +5,5 @@ public class Organisation {
     public String name;
     public String target;
     public String image;
+    public String completed;
 }

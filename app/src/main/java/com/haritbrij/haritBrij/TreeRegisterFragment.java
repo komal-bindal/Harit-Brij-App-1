@@ -15,8 +15,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
-import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,10 +29,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.haritbrij.haritBrij.models.Tree;
 import com.haritbrij.haritBrij.utils.ImageHelper;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
@@ -73,10 +74,13 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
 
         addTreeImageView = view.findViewById(R.id.registerTreeImageView);
         registerTreeButton = view.findViewById(R.id.treeRegisterSubmitButton);
-        if(Integer.parseInt(viewModel.sharedPreferences.getString(SharedPrefConstants.target, ""))>=viewModel.getPlantedTrees()){
+        if (Integer.parseInt(viewModel.sharedPreferences.getString(SharedPrefConstants.target, "")) <= viewModel.getPlantedTrees()) {
             Toast.makeText(getContext(), "Target already achieved", Toast.LENGTH_SHORT).show();
             addTreeImageView.setEnabled(false);
             registerTreeButton.setEnabled(false);
+        } else {
+            addTreeImageView.setEnabled(true);
+            registerTreeButton.setEnabled(true);
         }
 
         ArrayAdapter<CharSequence> districtAdapter = ArrayAdapter.createFromResource(getActivity(),
@@ -143,9 +147,9 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                         object.put("lat", String.valueOf(latitude));
                         object.put("long", String.valueOf(longitude));
                         object.put("img1", encodedImage);
-
+                        Log.d("Data", object.toString());
                     } catch (JSONException exception) {
-
+                        Log.d("error", exception.getMessage());
                     }
 
                     String baseUrl = VolleySingleton.getBaseUrl();
@@ -153,9 +157,47 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                             response -> {
+                                try {
+                                    String utid = response.getString("strutid");
+                                    Log.d("ResponseRegister", utid);
+                                    viewModel.setUtid(utid);
+                                    String myUrl1 = baseUrl + "searchbyutid.php/?strutid=" + utid;
+                                    StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl1,
+                                            res -> {
+                                                try {
+                                                    JSONObject myJsonObject = new JSONObject(res);
+                                                    Log.d("UTID", utid);
+                                                    Log.d("UTID", myJsonObject.getString("strutid"));
+                                                    Tree tree = new Tree();
+                                                    tree.id = utid;
+                                                    tree.longitude = Double.parseDouble(myJsonObject.getString("long"));
+                                                    tree.block = myJsonObject.getString("block");
+                                                    tree.village = myJsonObject.getString("village");
+                                                    tree.district = myJsonObject.getString("district");
+                                                    tree.species = myJsonObject.getString("species");
+                                                    tree.latitude = Double.parseDouble(myJsonObject.getString("lat"));
+                                                    tree.image1 = myJsonObject.getString("img1");
+                                                    tree.image2 = myJsonObject.getString("img2");
+                                                    tree.image3 = myJsonObject.getString("img3");
+                                                    tree.image4 = myJsonObject.getString("img4");
+                                                    viewModel.setTree(tree);
+                                                    TreeProfileFragment treeProfileFragment = new TreeProfileFragment();
+                                                    FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                                                    fragmentTransaction.replace(R.id.main_user_fragment_container_view, treeProfileFragment).addToBackStack(null).commit();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            },
+                                            volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
+                                    );
+                                    VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 Toast.makeText(getActivity(), "Registration Successful", Toast.LENGTH_SHORT).show();
                             },
                             error -> {
+                                Log.d("errorRegister", error.toString());
                                 Toast.makeText(getActivity(), "Registration Successful", Toast.LENGTH_SHORT).show();
                             }
                     );
@@ -164,6 +206,10 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                 }
             }
         });
+    }
+
+    private void getTreeData(String utid) {
+
     }
 
     @Override

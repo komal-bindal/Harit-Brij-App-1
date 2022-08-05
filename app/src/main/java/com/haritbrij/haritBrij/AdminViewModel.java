@@ -38,7 +38,7 @@ public class AdminViewModel extends AndroidViewModel {
         this.orgList.setValue(orgList);
     }
 
-    public ArrayList<Organisation> getOrgListj() {
+    public ArrayList<Organisation> getOrgList() {
         return (ArrayList<Organisation>) orgList.getValue();
     }
 
