@@ -75,6 +75,7 @@ public class OrganisationListFragment extends Fragment {
                             org.name = indexedOrg.getString("name");
                             org.target = indexedOrg.getString("target");
                             org.image = indexedOrg.getString("display");
+                            org.completed = indexedOrg.getString("completed");
 
                             orgList.add(org);
                         }
@@ -102,7 +103,59 @@ public class OrganisationListFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_admin_fragment_container_view, adminTreeListFragment).addToBackStack(null).commit();
 
-                Toast.makeText(getActivity(), "Clickable", Toast.LENGTH_SHORT).show();
+            }
+        });
+        searchOrganisationImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String enteredOrg = searchOrganisationEditText.getText().toString();
+
+                StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+                        response -> {
+                            try {
+                                //Create a JSON object containing information from the API.
+                                JSONObject myJsonObject = new JSONObject(response);
+                                JSONArray jsonArray = myJsonObject.getJSONArray("body");
+                                orgList.clear();
+
+
+                                for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+                                    JSONObject indexedOrg = jsonArray.getJSONObject(jsonArrayIndex);
+                                    Organisation org = new Organisation();
+                                    org.id = indexedOrg.getString("uid");
+                                    org.name = indexedOrg.getString("name");
+                                    org.target = indexedOrg.getString("target");
+                                    org.image = indexedOrg.getString("display");
+                                    org.completed = indexedOrg.getString("completed");
+                                    orgList.add(org);
+                                }
+
+
+                                viewModel.setOrgList(orgList);
+                                if (enteredOrg == "" || enteredOrg.isEmpty()) {
+                                    orgListAdapter.notifyDataSetChanged();
+                                } else {
+                                    ArrayList<Organisation> arr = new ArrayList<>();
+                                    for (Organisation org : orgList) {
+                                        if (org.name.contains(enteredOrg)) {
+//                                            orgList.clear();
+                                            arr.add(org);
+//                                            break;
+                                        }
+                                    }
+                                    orgList.clear();
+                                    orgList.addAll(arr);
+                                            orgListAdapter.notifyDataSetChanged();
+                                }
+                            } catch (JSONException exception) {
+                                exception.printStackTrace();
+                            }
+                        },
+                        error -> {
+                        });
+                VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+
+
             }
         });
     }

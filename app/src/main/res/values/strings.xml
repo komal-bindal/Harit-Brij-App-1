@@ -8,6 +8,7 @@
 
     <string name="selectLangHeading">Select the language</string>
     <string name="Hindi">Hindi</string>
+    <string name="SearchByName">Search By Name</string>
     <string name="Admin">Admin</string>
     <string name="User">User</string>
     <string name="SelectProfile">Select the Profile</string>

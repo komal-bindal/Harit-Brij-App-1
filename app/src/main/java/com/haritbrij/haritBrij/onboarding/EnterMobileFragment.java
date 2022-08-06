@@ -35,7 +35,7 @@ public class EnterMobileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(requireActivity()).get(OnboardingViewModel.class);
-
+        viewModel.setLogin(true);
         EditText mobileNumberEditText = view.findViewById(R.id.mobile_num_edit_text);
         Button sendOtpButton = view.findViewById(R.id.send_otp_button);
         Button registerButton = view.findViewById(R.id.register_button);
@@ -53,7 +53,6 @@ public class EnterMobileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String enteredMobileNumber = mobileNumberEditText.getText().toString();
-
                 String baseUrl = VolleySingleton.getBaseUrl();
                 String myUrl = baseUrl + "login.php/" + "?mobile=" + enteredMobileNumber;
                 StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
@@ -72,7 +71,7 @@ public class EnterMobileFragment extends Fragment {
                             if (volleyError instanceof NetworkError) {
                                 message = "Network Error!! Cannot connect to Internet...Please check your connection!";
                             } else if (volleyError instanceof ServerError) {
-                                message = "The server could not be found. Please try again after some time!!";
+                                message = "User not found. Please register!";
                             } else if (volleyError instanceof AuthFailureError) {
                                 message = "AuthFailure Error!! Cannot connect to Internet...Please check your connection!";
                             } else if (volleyError instanceof ParseError) {

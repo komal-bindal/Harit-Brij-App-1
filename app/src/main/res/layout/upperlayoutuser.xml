@@ -32,9 +32,10 @@
 
     <ImageView
         android:id="@+id/userImageView"
-        android:layout_width="141dp"
-        android:layout_height="148dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView41"
         app:srcCompat="@drawable/maleavatar_removebg_preview" />
@@ -52,6 +53,7 @@
         android:textSize="20dp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView41" />
 
@@ -59,7 +61,8 @@
         android:id="@+id/textView78"
         android:layout_width="161dp"
         android:layout_height="52dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
         android:text="@string/RegisteredTrees"
         android:textColor="@color/white"
         android:textSize="20dp"

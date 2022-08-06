@@ -68,7 +68,7 @@
             android:background="@drawable/stroke1"
             android:ems="10"
             android:hint="@string/password"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:text=""
             android:textColorHint="#8E8B8B"
             app:layout_constraintEnd_toEndOf="@+id/admin_username_edit_text"

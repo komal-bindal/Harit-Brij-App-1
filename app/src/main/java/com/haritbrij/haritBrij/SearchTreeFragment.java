@@ -85,8 +85,12 @@ public class SearchTreeFragment extends Fragment {
                             tree.village = indexedTree.getString("village");
                             tree.species = indexedTree.getString("species");
                             tree.image1 = indexedTree.getString("img1");
+                            tree.image2 = indexedTree.getString("img2");
+                            tree.image3 = indexedTree.getString("img3");
+                            tree.image4 = indexedTree.getString("img4");
                             tree.latitude = indexedTree.getDouble("lat");
                             tree.longitude = indexedTree.getDouble("long");
+                            Log.d("TreeDetails", tree.latitude + " "+ tree.longitude);
                             mData.add(tree);
                         }
 
@@ -110,6 +114,8 @@ public class SearchTreeFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 viewModel.setPosition(position);
+                viewModel.setUtid(mData.get(position).id);
+                viewModel.setTree(mData.get(position));
                 TreeProfileFragment treeProfileFragment = new TreeProfileFragment();
                 FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_user_fragment_container_view, treeProfileFragment).addToBackStack(null).commit();

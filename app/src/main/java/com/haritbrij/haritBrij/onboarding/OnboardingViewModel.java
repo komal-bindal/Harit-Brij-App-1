@@ -34,6 +34,16 @@ public class OnboardingViewModel extends AndroidViewModel {
     private Bitmap userImage;
     private String otp;
 
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+    }
+
+    private boolean isLogin = false;
+
     public OnboardingViewModel(@NonNull Application application) {
         super(application);
         editor = sharedPreferences.edit();
@@ -112,6 +122,9 @@ public class OnboardingViewModel extends AndroidViewModel {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        getSharedPreferenceEditor().putString(SharedPrefConstants.name, userName).apply();
+        getSharedPreferenceEditor().putLong(SharedPrefConstants.mobileNumber, userMobileNumber).apply();
+        getSharedPreferenceEditor().putString(SharedPrefConstants.target, userTreeTarget).apply();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
                 response -> {
