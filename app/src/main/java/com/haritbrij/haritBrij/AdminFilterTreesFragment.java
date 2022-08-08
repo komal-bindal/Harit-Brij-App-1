@@ -55,6 +55,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
     String selectedBlock;
     String selectedVillage;
     String selectedSpecies;
+
     Button search;
     TextView adminDistrictTextView;
     TextView adminBlockTextView;
@@ -138,6 +139,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                         for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
 
                             JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
+                            Log.d("Filter", indexedTree.toString());
                             if (!indexedTree.getString("district").equals(selectedDistrict)) {
                                 district++;
                             }

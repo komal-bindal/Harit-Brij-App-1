@@ -8,5 +8,6 @@ public class SharedPrefConstants {
     public static String mobileNumber = "mobileNumber";
     public static String isUserSignedIn = "isUserSignedIn";
     public static String isAdminSignedIn = "isAdminSignedIn";
+    public static String adminName = "adminName";
 
 }

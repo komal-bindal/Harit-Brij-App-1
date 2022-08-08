@@ -33,7 +33,6 @@ import com.haritbrij.haritBrij.utils.ImageHelper;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -106,7 +105,9 @@ public class UserMainActivity extends AppCompatActivity {
                             userImageView.setImageBitmap(getCroppedBitmap(image));
                             flag = 1;
                         }
-                treesPlantedTextView.setText(String.valueOf(myJsonObject.getString("completed")));
+                        treesPlantedTextView.setText(myJsonObject.getString("completed"));
+                        viewModel.setPlantedTrees(Integer.parseInt(myJsonObject.getString("completed")));
+
 //                Matrix matrix = new Matrix();
 //                matrix.postScale(0.5f, 0.5f);
 //                Bitmap croppedBitmap = Bitmap.createBitmap(image, 100, 100,100, 100, matrix, true);
@@ -123,23 +124,23 @@ public class UserMainActivity extends AppCompatActivity {
 
         VolleySingleton.getInstance(this).addToRequestQueue(myRequest);
 
-        //set the number of registered trees.
-        String url = baseUrl + "readusertree.php/?uid=" + viewModel.sharedPreferences.getString("uid", "0");
-        StringRequest request = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    try {
-                        //Create a JSON object containing information from the API.
-                        JSONObject myJsonObject = new JSONObject(response);
-                        JSONArray jsonArray = myJsonObject.getJSONArray("body");
-
-                        viewModel.setPlantedTrees(Integer.parseInt(myJsonObject.getString("itemCount")));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
-        );
-        VolleySingleton.getInstance(this).addToRequestQueue(request);
+//        //set the number of registered trees.
+//        String url = baseUrl + "readusertree.php/?uid=" + viewModel.sharedPreferences.getString("uid", "0");
+//        StringRequest request = new StringRequest(Request.Method.GET, url,
+//                response -> {
+//                    try {
+//                        //Create a JSON object containing information from the API.
+//                        JSONObject myJsonObject = new JSONObject(response);
+//                        JSONArray jsonArray = myJsonObject.getJSONArray("body");
+//
+//                        viewModel.setPlantedTrees(Integer.parseInt(myJsonObject.getString("itemCount")));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                },
+//                volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
+//        );
+//        VolleySingleton.getInstance(this).addToRequestQueue(request);
 
         logoutButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
