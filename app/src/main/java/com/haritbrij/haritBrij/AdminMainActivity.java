@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,8 @@ public class AdminMainActivity extends AppCompatActivity {
         final AdminFilterTreesFragment adminFilterTreesFragment = new AdminFilterTreesFragment();
         bottomNavigationView = findViewById(R.id.main_admin_bottom_navigation_view);
         logoutButtonView = findViewById(R.id.logoutButtonAdmin);
+        TextView adminName = findViewById(R.id.textView84);
+        adminName.setText(viewModel.sharedPreferences.getString(SharedPrefConstants.adminName, null));
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment;

@@ -63,9 +63,10 @@ OnboardingViewModel viewModel;
                         response -> {
                             Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
                             viewModel.getSharedPreferenceEditor().putBoolean(SharedPrefConstants.isAdminSignedIn, true).apply();
+                            viewModel.getSharedPreferenceEditor().putString(SharedPrefConstants.adminName, userName).apply();
                             Intent intent = new Intent(getActivity(), AdminMainActivity.class);
                             startActivity(intent);
-//                            getActivity().finish();
+                            getActivity().finish();
                         },
                         error -> {
                             error.printStackTrace();
