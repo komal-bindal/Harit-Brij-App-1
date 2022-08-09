@@ -196,13 +196,13 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                         tree.longitude = indexedTree.getDouble("long");
                                         Log.d("TreeDetails", tree.latitude + " "+ tree.longitude);
                                         mData.add(tree);
-                                        Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
-                                        Log.e("District", String.valueOf(district));
-                                        adminDistrictTextView.setText(String.valueOf(district));
-                                        adminBlockTextView.setText(String.valueOf(block));
-                                        adminVillageTextView.setText(String.valueOf(village));
-                                        adminSpeciesTextView.setText(String.valueOf(species));
                                     }
+                                    Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+                                    Log.e("District", String.valueOf(district));
+                                    adminDistrictTextView.setText(String.valueOf(district));
+                                    adminBlockTextView.setText(String.valueOf(block));
+                                    adminVillageTextView.setText(String.valueOf(village));
+                                    adminSpeciesTextView.setText(String.valueOf(species));
                                 }
                                 viewModel.setTreeList(mData);
                             } catch (JSONException e) {
