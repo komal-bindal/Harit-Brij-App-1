@@ -62,7 +62,8 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
     TextView adminVillageTextView;
     TextView adminSpeciesTextView;
     ImageButton adminstartDateSeletor, adminendDateSelector;
-    int district = 0, block = 0, village = 0, species = 0;
+    int district1 = 0, block1 = 0, village1 = 0, species1 = 0;
+
 
     MapView mapView;
     GoogleMap mGoogleMap;
@@ -124,59 +125,6 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         speciesSpinner.setOnItemSelectedListener(this);
 
 
-        String baseUrl = VolleySingleton.getBaseUrl();
-        String myUrl = baseUrl + "getalltree.php";
-
-
-        StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
-                response -> {
-                    try {
-                        //Create a JSON object containing information from the API.
-                        JSONObject myJsonObject = new JSONObject(response);
-                        JSONArray jsonArray = myJsonObject.getJSONArray("body");
-
-                        //save the from response in new tree object
-                        for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
-
-                            JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
-                            Log.d("Filter", indexedTree.getString("district")+" "+selectedDistrict);
-                            if (indexedTree.getString("district").equals(selectedDistrict)) {
-                                district++;
-                            }
-                            if (indexedTree.getString("block").equals(selectedBlock)) {
-                                block++;
-                            }
-                            if (indexedTree.getString("village").equals(selectedVillage)) {
-                                village++;
-                            }
-                            if (indexedTree.getString("species").equals(selectedSpecies)) {
-                                species++;
-                            }
-                            if (district != 0 || block != 0 || village != 0 || species != 0 || (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0)) {
-                                Tree tree = new Tree();
-                                tree.id = indexedTree.getString("strutid");
-                                tree.district = indexedTree.getString("district");
-                                tree.block = indexedTree.getString("block");
-                                tree.village = indexedTree.getString("village");
-                                tree.species = indexedTree.getString("species");
-                                tree.image1 = indexedTree.getString("img1");
-                                tree.image2=indexedTree.getString("img2");
-                                tree.image3=indexedTree.getString("img3");
-                                tree.image4=indexedTree.getString("img4");
-                                tree.latitude = indexedTree.getDouble("lat");
-                                tree.longitude = indexedTree.getDouble("long");
-                                mData.add(tree);
-                            }
-                        }
-                        viewModel.setTreeList(mData);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
-        );
-
-        VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
 
         adminstartDateSeletor.setOnClickListener(new View.OnClickListener() {
 
@@ -203,12 +151,69 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
-                Log.e("District", String.valueOf(district));
-                adminDistrictTextView.setText(String.valueOf(district));
-                adminBlockTextView.setText(String.valueOf(block));
-                adminVillageTextView.setText(String.valueOf(village));
-                adminSpeciesTextView.setText(String.valueOf(species));
+
+                String baseUrl = VolleySingleton.getBaseUrl();
+                String myUrl = baseUrl + "getalltree.php";
+
+
+                StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+                        response -> {
+                            try {
+                                //Create a JSON object containing information from the API.
+                                JSONObject myJsonObject = new JSONObject(response);
+                                JSONArray jsonArray = myJsonObject.getJSONArray("body");
+                                int district = 0, block = 0, village = 0, species = 0;
+
+                                //save the from response in new tree object
+                                for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+
+                                    JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
+                                    Log.d("Filter", indexedTree.getString("district")+" "+selectedDistrict);
+                                    if (indexedTree.getString("district").equals(selectedDistrict)) {
+                                        district++;
+                                    }
+                                    if (indexedTree.getString("block").equals(selectedBlock)) {
+                                        block++;
+                                    }
+                                    if (indexedTree.getString("village").equals(selectedVillage)) {
+                                        village++;
+                                    }
+                                    if (indexedTree.getString("species").equals(selectedSpecies)) {
+                                        species++;
+                                    }
+                                    if (district != 0 || block != 0 || village != 0 || species != 0 || (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0)) {
+                                        Tree tree = new Tree();
+                                        tree.id = indexedTree.getString("strutid");
+                                        tree.district = indexedTree.getString("district");
+                                        tree.block = indexedTree.getString("block");
+                                        tree.village = indexedTree.getString("village");
+                                        tree.species = indexedTree.getString("species");
+                                        tree.image1 = indexedTree.getString("img1");
+                                        tree.image2 = indexedTree.getString("img2");
+                                        tree.image3 = indexedTree.getString("img3");
+                                        tree.image4 = indexedTree.getString("img4");
+                                        tree.latitude = indexedTree.getDouble("lat");
+                                        tree.longitude = indexedTree.getDouble("long");
+                                        Log.d("TreeDetails", tree.latitude + " "+ tree.longitude);
+                                        mData.add(tree);
+                                        Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+                                        Log.e("District", String.valueOf(district));
+                                        adminDistrictTextView.setText(String.valueOf(district));
+                                        adminBlockTextView.setText(String.valueOf(block));
+                                        adminVillageTextView.setText(String.valueOf(village));
+                                        adminSpeciesTextView.setText(String.valueOf(species));
+                                    }
+                                }
+                                viewModel.setTreeList(mData);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        },
+                        volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
+                );
+
+                VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+
                 mapView.getMapAsync(new OnMapReadyCallback() {
                     @SuppressLint("MissingPermission")
                     @Override
