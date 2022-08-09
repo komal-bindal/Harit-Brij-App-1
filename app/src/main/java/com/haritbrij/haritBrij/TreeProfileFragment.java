@@ -183,8 +183,9 @@ public class TreeProfileFragment extends Fragment {
                     LatLng treeMarker = new LatLng(latitude, longitude);
                     Log.e("TreeMapFragment", latitude + " " + longitude);
                     mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
-                    mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
+
+                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(treeMarker, 13.0f));
+//                    mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
