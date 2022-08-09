@@ -53,13 +53,13 @@
         android:textSize="20dp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.725"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView41" />
 
     <TextView
         android:id="@+id/textView78"
-        android:layout_width="161dp"
+        android:layout_width="170dp"
         android:layout_height="52dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"

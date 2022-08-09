@@ -38,7 +38,7 @@ public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull OrgListAdapter.ViewHolder holder, int position) {
         holder.organisationId.setText(orgList.get(position).id);
-        holder.orgNameTextView.setText(orgList.get(position).name);
+        holder.orgName.setText(orgList.get(position).name);
         holder.treesPlantedTextView.setText(orgList.get(position).completed+ "/"+orgList.get(position).target);
     }
 
@@ -64,6 +64,7 @@ public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.ViewHold
         public TextView orgNameTextView;
         public TextView treesPlantedTextView;
         public TextView organisationId;
+        public TextView orgName;
         public ConstraintLayout orgItemLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -73,6 +74,7 @@ public class OrgListAdapter extends RecyclerView.Adapter<OrgListAdapter.ViewHold
             treesPlantedTextView = itemView.findViewById(R.id.treesPlantedOrganisation);
             organisationId = itemView.findViewById(R.id.organisationId);
             orgItemLayout = itemView.findViewById(R.id.orgListItemLayout);
+            orgName=itemView.findViewById(R.id.orgName);
             orgItemLayout.setOnClickListener(this);
         }
 

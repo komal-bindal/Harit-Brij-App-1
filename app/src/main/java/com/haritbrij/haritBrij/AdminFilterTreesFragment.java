@@ -139,17 +139,17 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                         for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
 
                             JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
-                            Log.d("Filter", indexedTree.toString());
-                            if (!indexedTree.getString("district").equals(selectedDistrict)) {
+                            Log.d("Filter", indexedTree.getString("district")+" "+selectedDistrict);
+                            if (indexedTree.getString("district").equals(selectedDistrict)) {
                                 district++;
                             }
-                            if (!indexedTree.getString("block").equals(selectedBlock)) {
+                            if (indexedTree.getString("block").equals(selectedBlock)) {
                                 block++;
                             }
-                            if (!indexedTree.getString("village").equals(selectedVillage)) {
+                            if (indexedTree.getString("village").equals(selectedVillage)) {
                                 village++;
                             }
-                            if (!indexedTree.getString("species").equals(selectedSpecies)) {
+                            if (indexedTree.getString("species").equals(selectedSpecies)) {
                                 species++;
                             }
                             if (district != 0 || block != 0 || village != 0 || species != 0 || (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0)) {
@@ -160,6 +160,9 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                 tree.village = indexedTree.getString("village");
                                 tree.species = indexedTree.getString("species");
                                 tree.image1 = indexedTree.getString("img1");
+                                tree.image2=indexedTree.getString("img2");
+                                tree.image3=indexedTree.getString("img3");
+                                tree.image4=indexedTree.getString("img4");
                                 tree.latitude = indexedTree.getDouble("lat");
                                 tree.longitude = indexedTree.getDouble("long");
                                 mData.add(tree);

@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,7 @@ import com.haritbrij.haritBrij.utils.ImageHelper;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,6 +58,7 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
     String selectedBlock;
     String selectedVillage;
     String selectedSpecies;
+    TextView treesPlantedTextView;
 
     public TreeRegisterFragment() {
         super(R.layout.fragment_tree_register);
@@ -66,22 +69,45 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(getActivity()).get(UserMainViewModel.class);
+        String baseUrl = VolleySingleton.getBaseUrl();
 
         Spinner districtSpinner = view.findViewById(R.id.districtSpinner);
         Spinner blockSpinner = view.findViewById(R.id.blockSpinner);
         Spinner villageSpinner = view.findViewById(R.id.villageSpinner);
         Spinner speciesSpinner = view.findViewById(R.id.speciesSpinner);
+        treesPlantedTextView = ((UserMainActivity) getContext()).findViewById(R.id.registeredTreesTextView);
 
         addTreeImageView = view.findViewById(R.id.registerTreeImageView);
         registerTreeButton = view.findViewById(R.id.treeRegisterSubmitButton);
-        if (Integer.parseInt(viewModel.sharedPreferences.getString(SharedPrefConstants.target, "")) <= viewModel.getPlantedTrees()) {
-            Toast.makeText(getContext(), "Target already achieved", Toast.LENGTH_SHORT).show();
-            addTreeImageView.setEnabled(false);
-            registerTreeButton.setEnabled(false);
-        } else {
-            addTreeImageView.setEnabled(true);
-            registerTreeButton.setEnabled(true);
-        }
+        String myUrl = baseUrl + "getalluser.php";
+        StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+                response -> {
+                    try {
+                        //Create a JSON object containing information from the API.
+                        JSONObject myJsonObject = new JSONObject(response);
+                        JSONArray jsonArray = myJsonObject.getJSONArray("body");
+                        for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+                            JSONObject indexedOrg = jsonArray.getJSONObject(jsonArrayIndex);
+                            Log.e("Target", Integer.parseInt(indexedOrg.getString("target"))+" " +Integer.parseInt(indexedOrg.getString("completed")));
+                            if(indexedOrg.getString("uid").equals(viewModel.sharedPreferences.getString("uid", "0"))){
+                                if (Integer.parseInt(indexedOrg.getString("target")) <= Integer.parseInt(indexedOrg.getString("completed"))) {
+
+                                    addTreeImageView.setEnabled(false);
+                                    registerTreeButton.setEnabled(false);
+                                } else {
+                                    addTreeImageView.setEnabled(true);
+                                    registerTreeButton.setEnabled(true);
+                                }
+                            }
+                        }
+                    } catch (JSONException exception) {
+                        exception.printStackTrace();
+                    }
+                },
+                error -> {
+                    Log.e(getClass().getSimpleName(), error.toString());
+                });
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
 
         ArrayAdapter<CharSequence> districtAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.District, android.R.layout.simple_spinner_item);
@@ -125,11 +151,13 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
             public void onClick(View view) {
                 locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
+
                 if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     OnGPS();
                 } else {
                     getLocation();
                 }
+
 
                 if (addTreeImageView != null && selectedDistrict != null && selectedBlock != null && selectedVillage != null && selectedSpecies != null && latitude != null && longitude != null) {
                     //Construct the Json object
@@ -152,7 +180,7 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                         Log.d("error", exception.getMessage());
                     }
 
-                    String baseUrl = VolleySingleton.getBaseUrl();
+
                     String myUrl = baseUrl + "treesignup.php/";
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
@@ -204,6 +232,27 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
 
                     VolleySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
                 }
+                String myUrl = baseUrl + "getalluser.php";
+                StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+                        response -> {
+                            try {
+                                //Create a JSON object containing information from the API.
+                                JSONObject myJsonObject = new JSONObject(response);
+                                JSONArray jsonArray = myJsonObject.getJSONArray("body");
+                                for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+                                    JSONObject indexedOrg = jsonArray.getJSONObject(jsonArrayIndex);
+                                    Log.e("Target", Integer.parseInt(indexedOrg.getString("target")) + " " + Integer.parseInt(indexedOrg.getString("completed")));
+                                    if (indexedOrg.getString("uid").equals(viewModel.sharedPreferences.getString("uid", "0")))
+                                        treesPlantedTextView.setText(String.valueOf(Integer.parseInt(indexedOrg.getString("completed"))+1));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        },
+                        volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
+                );
+
+                VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
             }
         });
     }

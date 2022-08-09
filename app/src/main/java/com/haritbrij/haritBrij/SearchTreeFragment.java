@@ -33,7 +33,7 @@ public class SearchTreeFragment extends Fragment {
     UserMainViewModel viewModel;
     ArrayList<Tree> mData = new ArrayList<>();
     TreeListAdapter mTreeListAdapter;
-    TextView treesPlantedTextView;
+//    TextView treesPlantedTextView;
 
     public SearchTreeFragment() {
         // Required empty public constructor
@@ -54,7 +54,7 @@ public class SearchTreeFragment extends Fragment {
 
         EditText searchTreeEditText = view.findViewById(R.id.searchTreeByUtid);
         ImageView searchTreeImageView = view.findViewById(R.id.searchTreeIcon);
-        treesPlantedTextView = ((UserMainActivity) getContext()).findViewById(R.id.registeredTreesTextView);
+//        treesPlantedTextView = ((UserMainActivity) getContext()).findViewById(R.id.registeredTreesTextView);
 
         RecyclerView searchRecyclerView = view.findViewById(R.id.search_tree_recycler_view);
         searchRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -98,7 +98,7 @@ public class SearchTreeFragment extends Fragment {
 
                         mTreeListAdapter = new TreeListAdapter(mData);
                         searchRecyclerView.setAdapter(mTreeListAdapter);
-                        treesPlantedTextView.setText(myJsonObject.getString("itemCount"));
+//                        treesPlantedTextView.setText(myJsonObject.getString("itemCount"));
 
                         Toast.makeText(getContext(), "Number of Trees - " + myJsonObject.getString("itemCount"), Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {

@@ -17,10 +17,10 @@
         android:layout_marginEnd="10dp"
         android:paddingLeft="40pt"
         android:paddingTop="5pt"
-        android:text="Text"
         android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold"
+        app:autoSizeTextType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +28,8 @@
 
     <TextView
         android:id="@+id/treesPlantedOrganisation"
-        android:layout_width="71dp"
-        android:layout_height="30dp"
+        android:layout_width="100dp"
+        android:layout_height="33dp"
         android:layout_marginStart="232dp"
         android:layout_marginTop="16dp"
         android:text="Targ"
@@ -50,6 +50,21 @@
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/organisationNameTextView"
+        app:layout_constraintTop_toTopOf="@+id/organisationNameTextView" />
+
+    <TextView
+        android:id="@+id/orgName"
+        android:layout_width="140dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Text"
+        android:textColor="#F8F6F6"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/organisationNameTextView"
+        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintStart_toStartOf="@+id/organisationId"
         app:layout_constraintTop_toTopOf="@+id/organisationNameTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
