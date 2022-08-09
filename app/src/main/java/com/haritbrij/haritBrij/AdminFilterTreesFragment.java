@@ -13,7 +13,6 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,7 +82,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         Spinner blockSpinner = view.findViewById(R.id.adminBlockSpinner);
         Spinner villageSpinner = view.findViewById(R.id.adminVillageSpinner);
         Spinner speciesSpinner = view.findViewById(R.id.adminSpeciesSpinner);
-        Spinner statusSpinner=view.findViewById(R.id.adminStatusSpinner);
+        Spinner statusSpinner = view.findViewById(R.id.adminStatusSpinner);
 
         search = view.findViewById(R.id.adminSearchButton);
         adminDistrictTextView = view.findViewById(R.id.adminDistrictTextView);
@@ -95,7 +94,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         adminendDateSelector = view.findViewById(R.id.adminToDateImageButton);
         adminStartDateTextView = view.findViewById(R.id.adminStartDateTextView);
         adminEndDateTextView = view.findViewById(R.id.adminEndDateTextView);
-        adminStatusTextView=view.findViewById(R.id.adminStatusTextView);
+        adminStatusTextView = view.findViewById(R.id.adminStatusTextView);
         mapView.onCreate(savedInstanceState);
         mapView.setVisibility(View.INVISIBLE);
 
@@ -165,10 +164,10 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                 String baseUrl = VolleySingleton.getBaseUrl();
                 String myUrl = baseUrl + "getalltree.php";
                 int[] district = {0};
-                int[] block = { 0 };
-                int[] village = { 0 };
-                int[] species = { 0 };
-                int[] status = { 0 };
+                int[] block = {0};
+                int[] village = {0};
+                int[] species = {0};
+                int[] status = {0};
 
 
                 StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
@@ -183,89 +182,47 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                 for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
 
                                     JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
-                                    Log.d("Filter", indexedTree.getString("district")+" "+selectedDistrict);
+                                    Log.d("Filter", indexedTree.getString("district") + " " + selectedDistrict);
 
 
-                                    if(selectedDistrict.equals("All(District)")){
-                                        district[0] =jsonArray.length();
+                                    if (selectedDistrict.equals("All(District)")) {
+                                        district[0] = jsonArray.length();
+                                    } else if (indexedTree.getString("district").equals(selectedDistrict)) {
+                                        district[0]++;
                                     }
-                                    else{
-                                       if(indexedTree.getString("district").equals(selectedDistrict)){
-                                           district[0]++;
-                                           if(indexedTree.getString("block").equals(selectedBlock)){
-                                               block[0]++;
-                                           }
-                                           if(indexedTree.getString("village").equals(selectedVillage)){
-                                               village[0]++;
-                                           }
-                                           if(indexedTree.getString("species").equals(selectedSpecies)){
-                                               species[0]++;
-                                           }
-                                           if(indexedTree.getString("status2").equals(selectedStatus)){
-                                               status[0]++;
-                                           }
-                                       }
+
+                                    if (selectedBlock.equals("All(Block)")) {
+                                        block[0] = jsonArray.length();
+                                    } else if (indexedTree.getString("block").equals(selectedBlock) && (
+                                            selectedDistrict.equals("All(District)") ||
+                                                    selectedDistrict.equals(indexedTree.getString("district")))) {
+                                        block[0]++;
                                     }
-                                    if(selectedBlock.equals("All(Block)")){
-                                        block[0] =jsonArray.length();
+                                    if (selectedVillage.equals("All(Villages)")) {
+                                        village[0] = jsonArray.length();
+                                    } else if (indexedTree.getString("village").equals(selectedVillage) && (
+                                            selectedDistrict.equals("All(District)") ||
+                                                    selectedDistrict.equals(indexedTree.getString("district")))
+                                            && (selectedBlock.equals("All(Block)") ||
+                                            selectedBlock.equals(indexedTree.getString("block")))) {
+                                        village[0]++;
                                     }
-                                    else{
-                                        if(indexedTree.getString("block").equals(selectedBlock)){
-                                            block[0]++;
-                                            if(indexedTree.getString("district").equals(selectedDistrict)){
-                                                district[0]++;
-                                            }
-                                            if(indexedTree.getString("village").equals(selectedVillage)){
-                                                village[0]++;
-                                            }
-                                            if(indexedTree.getString("species").equals(selectedSpecies)){
-                                                species[0]++;
-                                            }
-                                            if(indexedTree.getString("status2").equals(selectedStatus)){
-                                                status[0]++;
-                                            }
+                                    if (selectedSpecies.equals("All(Species)")) {
+                                        species[0] = jsonArray.length();
+                                    } else if (indexedTree.getString("species").equals(selectedSpecies) && (
+                                            selectedDistrict.equals("All(District)") ||
+                                                    selectedDistrict.equals(indexedTree.getString("district")))
+                                            && (selectedBlock.equals("All(Block)") ||
+                                            selectedBlock.equals(indexedTree.getString("block")))
+                                            && (selectedVillage.equals("All(Village)") ||
+                                            selectedVillage.equals(indexedTree.getString("village")))) {
+                                        species[0]++;
+                                        if (indexedTree.getString("status2").equals(selectedStatus)) {
+                                            status[0]++;
                                         }
+
                                     }
-                                    if(selectedVillage.equals("All(Villages)")){
-                                        village[0] =jsonArray.length();
-                                    }
-                                    else{
-                                        if(indexedTree.getString("village").equals(selectedVillage)){
-                                            village[0]++;
-                                            if(indexedTree.getString("district").equals(selectedDistrict)){
-                                                district[0]++;
-                                            }
-                                            if(indexedTree.getString("block").equals(selectedBlock)){
-                                                block[0]++;
-                                            }
-                                            if(indexedTree.getString("species").equals(selectedSpecies)){
-                                                species[0]++;
-                                            }
-                                            if(indexedTree.getString("status2").equals(selectedStatus)){
-                                                status[0]++;
-                                            }
-                                        }
-                                    }
-                                    if(selectedSpecies.equals("All(Species)")){
-                                        species[0] =jsonArray.length();
-                                    }
-                                    else{
-                                        if(indexedTree.getString("species").equals(selectedSpecies)){
-                                            species[0]++;
-                                            if(indexedTree.getString("district").equals(selectedDistrict)){
-                                                district[0]++;
-                                            }
-                                            if(indexedTree.getString("block").equals(selectedBlock)){
-                                                block[0]++;
-                                            }
-                                            if(indexedTree.getString("village").equals(selectedVillage)){
-                                                village[0]++;
-                                            }
-                                            if(indexedTree.getString("status2").equals(selectedStatus)){
-                                                status[0]++;
-                                            }
-                                        }
-                                    }
+
 
                                     if (district[0] != 0 || block[0] != 0 || village[0] != 0 || species[0] != 0 || (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0)) {
                                         Tree tree = new Tree();
@@ -280,7 +237,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                         tree.image4 = indexedTree.getString("img4");
                                         tree.latitude = indexedTree.getDouble("lat");
                                         tree.longitude = indexedTree.getDouble("long");
-                                        Log.d("TreeDetails", tree.latitude + " "+ tree.longitude);
+                                        Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
                                         mData.add(tree);
                                     }
                                     Log.e("District", String.valueOf(district[0]));
