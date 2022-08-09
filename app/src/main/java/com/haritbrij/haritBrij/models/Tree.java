@@ -16,5 +16,4 @@ public class Tree {
     public String status1;
     public String status2;
     public String status3;
-    public String status4;
 }

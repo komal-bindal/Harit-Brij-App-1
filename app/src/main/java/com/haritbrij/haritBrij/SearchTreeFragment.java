@@ -90,6 +90,11 @@ public class SearchTreeFragment extends Fragment {
                             tree.image4 = indexedTree.getString("img4");
                             tree.latitude = indexedTree.getDouble("lat");
                             tree.longitude = indexedTree.getDouble("long");
+                            tree.status1 = indexedTree.getString("status1");
+                            tree.status2 = indexedTree.getString("status2");
+                            tree.status3 = indexedTree.getString("status3");
+
+
                             Log.d("TreeDetails", tree.latitude + " "+ tree.longitude);
                             mData.add(tree);
                         }

@@ -99,7 +99,7 @@ public class TreeProfileFragment extends Fragment {
         UploadImageView2.setImageAlpha(50);
         UploadImageView3.setImageAlpha(50);
 
-
+//        treeProfileImageView.setEnabled(false);
 //            String baseUrl = VolleySingleton.getBaseUrl();
 //            String myUrl = baseUrl + "getalltree.php";
 //
@@ -165,6 +165,14 @@ public class TreeProfileFragment extends Fragment {
             UploadImageView3.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 110, 60, false));
             UploadImageView3.setEnabled(false);
         }
+        if(tree.status1.equals("0") && !tree.image2.equals("null")){
+            UploadImageView2.setEnabled(false);
+            UploadImageView3.setEnabled(false);
+
+        }
+        if(tree.status2.equals("0") && !tree.image3.equals("null")){
+            UploadImageView3.setEnabled(false);
+        }
 
         //setting up the mapView
 
@@ -183,8 +191,9 @@ public class TreeProfileFragment extends Fragment {
                     LatLng treeMarker = new LatLng(latitude, longitude);
                     Log.e("TreeMapFragment", latitude + " " + longitude);
                     mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
-                    mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
+
+                    mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(treeMarker, 13.0f));
+//                    mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
