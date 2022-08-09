@@ -50,7 +50,7 @@ public class OnboardingViewModel extends AndroidViewModel {
     }
 
     public void setEnglishLanguage() {
-        editor.putString(getApplication().getString(R.string.user_language), "english");
+        editor.putString(getApplication().getString(R.string.user_language), "en");
         editor.apply();
 
         //Set language to hindi
@@ -65,7 +65,7 @@ public class OnboardingViewModel extends AndroidViewModel {
     }
 
     public void setHindiLanguage() {
-        editor.putString(getApplication().getString(R.string.user_language), "hindi");
+        editor.putString(getApplication().getString(R.string.user_language), "hi");
         editor.apply();
     }
 
