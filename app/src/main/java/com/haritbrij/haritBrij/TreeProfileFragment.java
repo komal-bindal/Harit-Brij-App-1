@@ -99,7 +99,7 @@ public class TreeProfileFragment extends Fragment {
         UploadImageView2.setImageAlpha(50);
         UploadImageView3.setImageAlpha(50);
 
-
+//        treeProfileImageView.setEnabled(false);
 //            String baseUrl = VolleySingleton.getBaseUrl();
 //            String myUrl = baseUrl + "getalltree.php";
 //
@@ -163,6 +163,14 @@ public class TreeProfileFragment extends Fragment {
             byte[] decodedStr = Base64.decode(tree.image4, Base64.DEFAULT);
             Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
             UploadImageView3.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 110, 60, false));
+            UploadImageView3.setEnabled(false);
+        }
+        if(tree.status1.equals("0") && !tree.image2.equals("null")){
+            UploadImageView2.setEnabled(false);
+            UploadImageView3.setEnabled(false);
+
+        }
+        if(tree.status2.equals("0") && !tree.image3.equals("null")){
             UploadImageView3.setEnabled(false);
         }
 

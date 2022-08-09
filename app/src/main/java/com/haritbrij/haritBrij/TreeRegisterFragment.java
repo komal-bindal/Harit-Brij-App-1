@@ -208,6 +208,10 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                                                     tree.image2 = myJsonObject.getString("img2");
                                                     tree.image3 = myJsonObject.getString("img3");
                                                     tree.image4 = myJsonObject.getString("img4");
+                                                    tree.status1 = myJsonObject.getString("status1");
+                                                    tree.status2 = myJsonObject.getString("status2");
+                                                    tree.status3 = myJsonObject.getString("status3");
+
                                                     viewModel.setTree(tree);
                                                     TreeProfileFragment treeProfileFragment = new TreeProfileFragment();
                                                     FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
