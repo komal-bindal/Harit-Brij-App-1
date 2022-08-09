@@ -55,12 +55,14 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
     String selectedBlock;
     String selectedVillage;
     String selectedSpecies;
+    String selectedStatus;
 
     Button search;
     TextView adminDistrictTextView;
     TextView adminBlockTextView;
     TextView adminVillageTextView;
     TextView adminSpeciesTextView;
+    TextView adminStatusTextView;
     ImageButton adminstartDateSeletor, adminendDateSelector;
     int district1 = 0, block1 = 0, village1 = 0, species1 = 0;
 
@@ -81,6 +83,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         Spinner blockSpinner = view.findViewById(R.id.adminBlockSpinner);
         Spinner villageSpinner = view.findViewById(R.id.adminVillageSpinner);
         Spinner speciesSpinner = view.findViewById(R.id.adminSpeciesSpinner);
+        Spinner statusSpinner=view.findViewById(R.id.adminStatusSpinner);
 
         search = view.findViewById(R.id.adminSearchButton);
         adminDistrictTextView = view.findViewById(R.id.adminDistrictTextView);
@@ -92,6 +95,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         adminendDateSelector = view.findViewById(R.id.adminToDateImageButton);
         adminStartDateTextView = view.findViewById(R.id.adminStartDateTextView);
         adminEndDateTextView = view.findViewById(R.id.adminEndDateTextView);
+        adminStatusTextView=view.findViewById(R.id.adminStatusTextView);
         mapView.onCreate(savedInstanceState);
         mapView.setVisibility(View.INVISIBLE);
 
@@ -124,6 +128,12 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         speciesSpinner.setAdapter(speciesAdapter);
         speciesSpinner.setOnItemSelectedListener(this);
 
+        ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.Status, R.layout.simple_spinner_item_1);
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statusSpinner.setAdapter(statusAdapter);
+        statusSpinner.setOnItemSelectedListener(this);
+
 
 
         adminstartDateSeletor.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +164,11 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
                 String baseUrl = VolleySingleton.getBaseUrl();
                 String myUrl = baseUrl + "getalltree.php";
+                int[] district = {0};
+                int[] block = { 0 };
+                int[] village = { 0 };
+                int[] species = { 0 };
+                int[] status = { 0 };
 
 
                 StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
@@ -162,26 +177,97 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                 //Create a JSON object containing information from the API.
                                 JSONObject myJsonObject = new JSONObject(response);
                                 JSONArray jsonArray = myJsonObject.getJSONArray("body");
-                                int district = 0, block = 0, village = 0, species = 0;
+
 
                                 //save the from response in new tree object
                                 for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
 
                                     JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
                                     Log.d("Filter", indexedTree.getString("district")+" "+selectedDistrict);
-                                    if (indexedTree.getString("district").equals(selectedDistrict)) {
-                                        district++;
+
+
+                                    if(selectedDistrict.equals("All(District)")){
+                                        district[0] =jsonArray.length();
                                     }
-                                    if (indexedTree.getString("block").equals(selectedBlock)) {
-                                        block++;
+                                    else{
+                                       if(indexedTree.getString("district").equals(selectedDistrict)){
+                                           district[0]++;
+                                           if(indexedTree.getString("block").equals(selectedBlock)){
+                                               block[0]++;
+                                           }
+                                           if(indexedTree.getString("village").equals(selectedVillage)){
+                                               village[0]++;
+                                           }
+                                           if(indexedTree.getString("species").equals(selectedSpecies)){
+                                               species[0]++;
+                                           }
+                                           if(indexedTree.getString("status2").equals(selectedStatus)){
+                                               status[0]++;
+                                           }
+                                       }
                                     }
-                                    if (indexedTree.getString("village").equals(selectedVillage)) {
-                                        village++;
+                                    if(selectedBlock.equals("All(Block)")){
+                                        block[0] =jsonArray.length();
                                     }
-                                    if (indexedTree.getString("species").equals(selectedSpecies)) {
-                                        species++;
+                                    else{
+                                        if(indexedTree.getString("block").equals(selectedBlock)){
+                                            block[0]++;
+                                            if(indexedTree.getString("district").equals(selectedDistrict)){
+                                                district[0]++;
+                                            }
+                                            if(indexedTree.getString("village").equals(selectedVillage)){
+                                                village[0]++;
+                                            }
+                                            if(indexedTree.getString("species").equals(selectedSpecies)){
+                                                species[0]++;
+                                            }
+                                            if(indexedTree.getString("status2").equals(selectedStatus)){
+                                                status[0]++;
+                                            }
+                                        }
                                     }
-                                    if (district != 0 || block != 0 || village != 0 || species != 0 || (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0)) {
+                                    if(selectedVillage.equals("All(Villages)")){
+                                        village[0] =jsonArray.length();
+                                    }
+                                    else{
+                                        if(indexedTree.getString("village").equals(selectedVillage)){
+                                            village[0]++;
+                                            if(indexedTree.getString("district").equals(selectedDistrict)){
+                                                district[0]++;
+                                            }
+                                            if(indexedTree.getString("block").equals(selectedBlock)){
+                                                block[0]++;
+                                            }
+                                            if(indexedTree.getString("species").equals(selectedSpecies)){
+                                                species[0]++;
+                                            }
+                                            if(indexedTree.getString("status2").equals(selectedStatus)){
+                                                status[0]++;
+                                            }
+                                        }
+                                    }
+                                    if(selectedSpecies.equals("All(Species)")){
+                                        species[0] =jsonArray.length();
+                                    }
+                                    else{
+                                        if(indexedTree.getString("species").equals(selectedSpecies)){
+                                            species[0]++;
+                                            if(indexedTree.getString("district").equals(selectedDistrict)){
+                                                district[0]++;
+                                            }
+                                            if(indexedTree.getString("block").equals(selectedBlock)){
+                                                block[0]++;
+                                            }
+                                            if(indexedTree.getString("village").equals(selectedVillage)){
+                                                village[0]++;
+                                            }
+                                            if(indexedTree.getString("status2").equals(selectedStatus)){
+                                                status[0]++;
+                                            }
+                                        }
+                                    }
+
+                                    if (district[0] != 0 || block[0] != 0 || village[0] != 0 || species[0] != 0 || (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0)) {
                                         Tree tree = new Tree();
                                         tree.id = indexedTree.getString("strutid");
                                         tree.district = indexedTree.getString("district");
@@ -197,12 +283,12 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                         Log.d("TreeDetails", tree.latitude + " "+ tree.longitude);
                                         mData.add(tree);
                                     }
-                                    Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
-                                    Log.e("District", String.valueOf(district));
-                                    adminDistrictTextView.setText(String.valueOf(district));
-                                    adminBlockTextView.setText(String.valueOf(block));
-                                    adminVillageTextView.setText(String.valueOf(village));
-                                    adminSpeciesTextView.setText(String.valueOf(species));
+                                    Log.e("District", String.valueOf(district[0]));
+                                    adminDistrictTextView.setText(String.valueOf(district[0]));
+                                    adminBlockTextView.setText(String.valueOf(block[0]));
+                                    adminVillageTextView.setText(String.valueOf(village[0]));
+                                    adminSpeciesTextView.setText(String.valueOf(species[0]));
+                                    adminStatusTextView.setText(String.valueOf(status[0]));
                                 }
                                 viewModel.setTreeList(mData);
                             } catch (JSONException e) {

@@ -50,23 +50,32 @@
     <string name="user_language" translatable="false">user_language</string>
     <string name="plantedTrees" translatable="false">Planted trees</string>
     <string-array name="District">
+        <item>All(District)</item>
         <item>Mathura</item>
     </string-array>
 
     <string-array name="Block">
+        <item>All(Block)</item>
         <item>Vrindavan</item>
     </string-array>
 
     <string-array name="Villages">
+        <item>All(Villages)</item>
         <item>Jait</item>
         <item>Chaumuhan</item>
         <item>Agra</item>
     </string-array>
 
     <string-array name="Species">
+        <item>All(Species)</item>
         <item>Mango</item>
         <item>Papaya</item>
         <item>Guava</item>
+    </string-array>
+    <string-array name="Status">
+        <item>All(Status)</item>
+        <item>Alive</item>
+        <item>Dead</item>
     </string-array>
 
     <string-array name="Organization">
