@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -168,6 +169,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                 int[] village = {0};
                 int[] species = {0};
                 int[] status = {0};
+                mData.clear();
 
 
                 StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
@@ -209,22 +211,6 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                     }
                                     if (selectedSpecies.equals("All(Species)")) {
                                         species[0] = jsonArray.length();
-                                    } else if (indexedTree.getString("species").equals(selectedSpecies) && (
-                                            selectedDistrict.equals("All(District)") ||
-                                                    selectedDistrict.equals(indexedTree.getString("district")))
-                                            && (selectedBlock.equals("All(Block)") ||
-                                            selectedBlock.equals(indexedTree.getString("block")))
-                                            && (selectedVillage.equals("All(Village)") ||
-                                            selectedVillage.equals(indexedTree.getString("village")))) {
-                                        species[0]++;
-                                        if (indexedTree.getString("status2").equals(selectedStatus)) {
-                                            status[0]++;
-                                        }
-
-                                    }
-
-
-                                    if (district[0] != 0 || block[0] != 0 || village[0] != 0 || species[0] != 0 || (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0)) {
                                         Tree tree = new Tree();
                                         tree.id = indexedTree.getString("strutid");
                                         tree.district = indexedTree.getString("district");
@@ -239,14 +225,62 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                         tree.longitude = indexedTree.getDouble("long");
                                         Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
                                         mData.add(tree);
+                                    } else if (indexedTree.getString("species").equals(selectedSpecies) && (
+                                            selectedDistrict.equals("All(District)") ||
+                                                    selectedDistrict.equals(indexedTree.getString("district")))
+                                            && (selectedBlock.equals("All(Block)") ||
+                                            selectedBlock.equals(indexedTree.getString("block")))
+                                            && (selectedVillage.equals("All(Villages)") ||
+                                            selectedVillage.equals(indexedTree.getString("village")))) {
+                                        species[0]++;
+                                        if (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0){
+
+                                            Tree tree = new Tree();
+                                            tree.id = indexedTree.getString("strutid");
+                                            tree.district = indexedTree.getString("district");
+                                            tree.block = indexedTree.getString("block");
+                                            tree.village = indexedTree.getString("village");
+                                            tree.species = indexedTree.getString("species");
+                                            tree.image1 = indexedTree.getString("img1");
+                                            tree.image2 = indexedTree.getString("img2");
+                                            tree.image3 = indexedTree.getString("img3");
+                                            tree.image4 = indexedTree.getString("img4");
+                                            tree.latitude = indexedTree.getDouble("lat");
+                                            tree.longitude = indexedTree.getDouble("long");
+                                            Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
+                                            mData.add(tree);
+                                        }
+                                        if((startSelectedDate==null && endSelectedDate==null)) {
+                                            Tree tree = new Tree();
+                                            tree.id = indexedTree.getString("strutid");
+                                            tree.district = indexedTree.getString("district");
+                                            tree.block = indexedTree.getString("block");
+                                            tree.village = indexedTree.getString("village");
+                                            tree.species = indexedTree.getString("species");
+                                            tree.image1 = indexedTree.getString("img1");
+                                            tree.image2 = indexedTree.getString("img2");
+                                            tree.image3 = indexedTree.getString("img3");
+                                            tree.image4 = indexedTree.getString("img4");
+                                            tree.latitude = indexedTree.getDouble("lat");
+                                            tree.longitude = indexedTree.getDouble("long");
+                                            Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
+                                            mData.add(tree);
+                                        }
+                                        if (indexedTree.getString("status2").equals(selectedStatus)) {
+                                            status[0]++;
+                                        }
+
                                     }
+
                                     Log.e("District", String.valueOf(district[0]));
                                     adminDistrictTextView.setText(String.valueOf(district[0]));
                                     adminBlockTextView.setText(String.valueOf(block[0]));
                                     adminVillageTextView.setText(String.valueOf(village[0]));
                                     adminSpeciesTextView.setText(String.valueOf(species[0]));
                                     adminStatusTextView.setText(String.valueOf(status[0]));
+
                                 }
+                                Toast.makeText(getActivity(), String.valueOf(mData.size()), Toast.LENGTH_SHORT).show();
                                 viewModel.setTreeList(mData);
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -256,7 +290,6 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                 );
 
                 VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
-
                 mapView.getMapAsync(new OnMapReadyCallback() {
                     @SuppressLint("MissingPermission")
                     @Override
@@ -382,14 +415,44 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen
             if (flag == 0) {
-                startSelectedDate = new StringBuilder().append(day).append("/")
-                        .append(month).append("/").append(year);
-                adminStartDateTextView.setText(String.valueOf(startSelectedDate));
+                if(month<10 && day<10){
+                    startSelectedDate = new StringBuilder().append(year).append("-")
+                            .append("0").append(month + 1).append("-").append("0").append(day);
+                }
+                if(day<10 && month>10){
+                    startSelectedDate = new StringBuilder().append(year).append("-")
+                            .append(month + 1).append("-").append("0").append(day);
+                }
+                if(month<10 && day>10){
+                    startSelectedDate = new StringBuilder().append(year).append("-")
+                            .append("0").append(month + 1).append("-").append(day);
+                }
+                if(month>10 && day>10) {
+                    startSelectedDate = new StringBuilder().append(year).append("-")
+                            .append(month + 1).append("-").append(day);
+                }
+                adminStartDateTextView.setText(String.valueOf(new StringBuilder().append(day).append("/")
+                        .append(month).append("/").append(year)));
             }
             if (flag == 1) {
-                endSelectedDate = new StringBuilder().append(day).append("/")
-                        .append(month).append("/").append(year);
-                adminEndDateTextView.setText(String.valueOf(endSelectedDate));
+                if(month<10 && day<10){
+                    endSelectedDate = new StringBuilder().append(year).append("-")
+                            .append("0").append(month + 1).append("-").append("0").append(day);
+                }
+                if(day<10 && month>10){
+                    endSelectedDate = new StringBuilder().append(year).append("-")
+                            .append(month + 1).append("-").append("0").append(day);
+                }
+                if(month<10 && day>10){
+                    endSelectedDate = new StringBuilder().append(year).append("-")
+                            .append("0").append(month + 1).append("-").append(day);
+                }
+                if(month>10 && day>10) {
+                    endSelectedDate = new StringBuilder().append(year).append("-")
+                            .append(month + 1).append("-").append(day);
+                }
+                adminEndDateTextView.setText(String.valueOf(new StringBuilder().append(day).append("/")
+                        .append(month).append("/").append(year)));
             }
 
         }
