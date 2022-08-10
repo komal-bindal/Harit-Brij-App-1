@@ -404,15 +404,12 @@ public class TreeProfileFragment extends Fragment {
                         status = 0;
                         if(reqCode==2){
                             Img1Status.setText("Dead");
-                            tree.status1="Dead";
                         }
                         if(reqCode==3){
                             Img2Status.setText("Dead");
-                            tree.status2="Dead";
                         }
                         if(reqCode==4){
                             Img3Status.setText("Dead");
-                            tree.status3="Dead";
                         }
                         startActivityForResult(takePictureIntent, reqCode);
                     }
