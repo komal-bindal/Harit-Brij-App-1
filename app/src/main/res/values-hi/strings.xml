@@ -49,4 +49,57 @@
     <string name="upload">अपलोड</string>
     <string name="plantedTrees" translatable="false">रोपित वृक्ष संख्या</string>
 
+
+
+    <string-array name="District">
+        <item>सभी (जिला)</item>
+        <item>मथुरा</item>
+    </string-array>
+
+    <string-array name="Block">
+        <item>सभी (ब्लॉक)</item>
+        <item>वृंदावन</item>
+    </string-array>
+
+    <string-array name="Villages">
+        <item>सभी (गांव)</item>
+        <item>जैत</item>
+        <item>चौमुहां</item>
+        <item>आगरा</item>
+    </string-array>
+
+    <string-array name="Species">
+        <item>सभी (प्रजाति)</item>
+        <item>आम</item>
+        <item>पपीता</item>
+        <item>अमरूद</item>
+    </string-array>
+    <string-array name="Status">
+        <item>जीवित</item>
+        <item>मृत</item>
+    </string-array>
+
+    <string-array name="DistrictRegister">
+        <item>मथुरा</item>
+    </string-array>
+
+    <string-array name="BlockRegister">
+        <item>वृंदावन</item>
+    </string-array>
+
+    <string-array name="VillagesRegister">
+        <item>जैत</item>
+        <item>चौमुहां</item>
+        <item>आगरा</item>
+    </string-array>
+    <string-array name="SpeciesRegister">
+        <item>आम</item>
+        <item>पपीता</item>
+        <item>अमरूद</item>
+    </string-array>
+
+    <string-array name="Organization">
+        <item>आरएसएस</item>
+    </string-array>
+
 </resources>

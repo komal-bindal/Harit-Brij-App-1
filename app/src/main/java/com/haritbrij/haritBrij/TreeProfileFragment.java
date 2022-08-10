@@ -301,6 +301,10 @@ public class TreeProfileFragment extends Fragment {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                     response -> {
                         Toast.makeText(getActivity(), "Data uploaded", Toast.LENGTH_SHORT).show();
+                        if (status == 0) {
+                            UploadImageView2.setEnabled(false);
+                            UploadImageView3.setEnabled(false);
+                        }
                     },
                     error -> {
                         Toast.makeText(getActivity(), "Data not uploaded", Toast.LENGTH_SHORT).show();
@@ -335,6 +339,9 @@ public class TreeProfileFragment extends Fragment {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                     response -> {
                         Toast.makeText(getActivity(), "Data uploaded", Toast.LENGTH_SHORT).show();
+                        if (status == 0) {
+                            UploadImageView3.setEnabled(false);
+                        }
                     },
                     error -> {
                         Toast.makeText(getActivity(), "Data not uploaded", Toast.LENGTH_SHORT).show();
