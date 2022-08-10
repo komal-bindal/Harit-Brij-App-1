@@ -26,8 +26,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haritbrij.haritBrij.models.Tree;
 
-import java.util.ArrayList;
-
 
 public class AdminTreeProfileFragment extends Fragment {
     AdminViewModel viewModel;
@@ -82,7 +80,7 @@ public class AdminTreeProfileFragment extends Fragment {
 
         byte[] decodedString = Base64.decode(tree.image1, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        treeProfileImageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 123,110, false));
+        treeProfileImageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 123, 110, false));
 
 
         //setting up the mapView
@@ -105,14 +103,15 @@ public class AdminTreeProfileFragment extends Fragment {
 
 
     }
+
     private void setTreeMarker() {
-            double latitude = tree.latitude;
-            double longitude = tree.longitude;
-            LatLng treeMarker = new LatLng(latitude, longitude);
-            Log.e("TreeMapFragment", latitude+" "+longitude);
-            mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
-            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
-            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
+        double latitude = tree.latitude;
+        double longitude = tree.longitude;
+        LatLng treeMarker = new LatLng(latitude, longitude);
+        Log.e("TreeMapFragment", latitude + " " + longitude);
+        mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(treeMarker, 13.0f));
+
     }
 
 
