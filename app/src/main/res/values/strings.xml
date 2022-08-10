@@ -73,7 +73,6 @@
         <item>Guava</item>
     </string-array>
     <string-array name="Status">
-        <item>All(Status)</item>
         <item>Alive</item>
         <item>Dead</item>
     </string-array>

@@ -169,12 +169,12 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                 int[] village = {0};
                 int[] species = {0};
                 int[] status = {0};
-                mData.clear();
 
 
                 StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                         response -> {
                             try {
+                                mData.clear();
                                 //Create a JSON object containing information from the API.
                                 JSONObject myJsonObject = new JSONObject(response);
                                 JSONArray jsonArray = myJsonObject.getJSONArray("body");
@@ -222,25 +222,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
 
                                     }
-                                        if (selectedStatus.equals("All(Status)")) {
-                                            if (indexedTree.getString("status2").equals("0") || indexedTree.getString("status2").equals("1")) {
-                                                status[0]++;
-                                                Tree tree = new Tree();
-                                                tree.id = indexedTree.getString("strutid");
-                                                tree.district = indexedTree.getString("district");
-                                                tree.block = indexedTree.getString("block");
-                                                tree.village = indexedTree.getString("village");
-                                                tree.species = indexedTree.getString("species");
-                                                tree.image1 = indexedTree.getString("img1");
-                                                tree.image2 = indexedTree.getString("img2");
-                                                tree.image3 = indexedTree.getString("img3");
-                                                tree.image4 = indexedTree.getString("img4");
-                                                tree.latitude = indexedTree.getDouble("lat");
-                                                tree.longitude = indexedTree.getDouble("long");
-                                                Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
-                                                mData.add(tree);
-                                            }
-                                        } else if (selectedStatus.equals("Alive") && indexedTree.getString("status2").equals("1") && (
+                                        if (selectedStatus.equals("Alive") && indexedTree.getString("status2").equals("1") && (
                                                 selectedDistrict.equals("All(District)") ||
                                                         selectedDistrict.equals(indexedTree.getString("district")))
                                                 && (selectedBlock.equals("All(Block)") ||
@@ -337,8 +319,34 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                     adminStatusTextView.setText(String.valueOf(status[0]));
 
                                 }
-                                Toast.makeText(getActivity(), String.valueOf(mData.size()), Toast.LENGTH_SHORT).show();
                                 viewModel.setTreeList(mData);
+                                Toast.makeText(getActivity(), String.valueOf(mData.size()), Toast.LENGTH_SHORT).show();
+                                Log.e("FilterTrees", String.valueOf(mData));
+                                mTreeListAdapter = new TreeListAdapter(mData);
+                                searchRecyclerView.setAdapter(mTreeListAdapter);
+                                Log.e("ItemCount", String.valueOf(mTreeListAdapter.getItemCount()));
+                                mapView.getMapAsync(new OnMapReadyCallback() {
+                                    @SuppressLint("MissingPermission")
+                                    @Override
+                                    public void onMapReady(@NonNull GoogleMap googleMap) {
+                                        mGoogleMap = googleMap;
+                                        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+                                        googleMap.setMyLocationEnabled(true);
+                                        // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
+                                        try {
+                                            MapsInitializer.initialize(requireActivity());
+
+
+                                            setTreeMarker();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                                mapView.setVisibility(View.VISIBLE);
+
+
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -347,33 +355,11 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                 );
 
                 VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
-                mapView.getMapAsync(new OnMapReadyCallback() {
-                    @SuppressLint("MissingPermission")
-                    @Override
-                    public void onMapReady(@NonNull GoogleMap googleMap) {
-                        mGoogleMap = googleMap;
-                        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-                        googleMap.setMyLocationEnabled(true);
-                        // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
-                        try {
-                            MapsInitializer.initialize(requireActivity());
-                            LatLng sydney = new LatLng(27.60522281732449, 77.59289534421812);
-                            googleMap.addMarker(new MarkerOptions()
-                                    .position(sydney));
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                            googleMap.animateCamera(CameraUpdateFactory.zoomTo(13.0f));
-
-                            setTreeMarker();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                mapView.setVisibility(View.VISIBLE);
 
 
-                mTreeListAdapter = new TreeListAdapter(mData);
-                searchRecyclerView.setAdapter(mTreeListAdapter);
+
+
+
 
                 mTreeListAdapter.setOnItemClickListener(new TreeListAdapter.ItemClickListener() {
                     @Override
@@ -384,6 +370,9 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                         fragmentTransaction.replace(R.id.main_admin_fragment_container_view, admintreeProfileFragment).addToBackStack(null).commit();
                     }
                 });
+
+
+
 
 
             }
@@ -417,14 +406,15 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
     private void setTreeMarker() {
         ArrayList<Tree> treeList = viewModel.getTreeList();
+        Log.e("FilteredScreen", String.valueOf(treeList));
         for (Tree tree : treeList) {
-            if (tree.district.equals(selectedDistrict) || tree.block.equals(selectedBlock) || tree.village.equals(selectedVillage)
-                    || tree.species.equals(selectedSpecies)) {
                 double latitude = tree.latitude;
                 double longitude = tree.longitude;
                 LatLng treeMarker = new LatLng(latitude, longitude);
+                Log.e("ScreenFilter", String.valueOf(treeMarker));
                 mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
-            }
+            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
+            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
         }
     }
 
