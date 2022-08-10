@@ -70,7 +70,6 @@ public class AdminTreeProfileFragment extends Fragment {
         uploadImageView3.setVisibility(View.INVISIBLE);
         uploadImageView1.setVisibility(View.INVISIBLE);
 
-
         mapView = view.findViewById(R.id.treeProfileMapView);
         mapView.onCreate(savedInstanceState);
 

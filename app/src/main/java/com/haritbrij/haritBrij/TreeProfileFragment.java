@@ -52,10 +52,10 @@ public class TreeProfileFragment extends Fragment {
     TextView districtTextView;
     TextView blockTextView;
     TextView villageTextView;
-    TextView Img1Status,Img2Status,Img3Status;
     MapView mapView;
     GoogleMap mGoogleMap;
     Bitmap img1, img2, img3;
+    TextView statusOfTree;
     Tree tree;
     private int status = 1;
 
@@ -91,9 +91,8 @@ public class TreeProfileFragment extends Fragment {
         UploadImageView1 = view.findViewById(R.id.UploadImageView1);
         UploadImageView2 = view.findViewById(R.id.UploadImageView2);
         UploadImageView3 = view.findViewById(R.id.UploadImageView3);
-        Img1Status=view.findViewById(R.id.Img1Status);
-        Img2Status=view.findViewById(R.id.Img2Status);
-        Img3Status=view.findViewById(R.id.Img3Status);
+        statusOfTree=view.findViewById(R.id.StatusTextView);
+
         mapView = view.findViewById(R.id.treeProfileMapView);
         mapView.onCreate(savedInstanceState);
 
@@ -156,11 +155,7 @@ public class TreeProfileFragment extends Fragment {
             Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
             UploadImageView1.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
             if(tree.status1.equals("1")){
-                Img1Status.setText("Alive");
                 UploadImageView2.setImageAlpha(255);
-            }
-            else{
-                Img1Status.setText("Dead");
             }
             UploadImageView1.setEnabled(false);
         }
@@ -170,11 +165,7 @@ public class TreeProfileFragment extends Fragment {
             Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
             UploadImageView2.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
             if(tree.status2.equals("1")){
-                Img2Status.setText("Alive");
                 UploadImageView3.setImageAlpha(255);
-            }
-            else{
-                Img2Status.setText("Dead");
             }
             UploadImageView2.setEnabled(false);
         }
@@ -182,12 +173,6 @@ public class TreeProfileFragment extends Fragment {
             byte[] decodedStr = Base64.decode(tree.image4, Base64.DEFAULT);
             Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
             UploadImageView3.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
-            if(tree.status3.equals("1")){
-                Img3Status.setText("Alive");
-            }
-            else{
-                Img3Status.setText("Dead");
-            }
             UploadImageView3.setEnabled(false);
         }
         if(tree.status1.equals("0") && !tree.image2.equals("null")){
@@ -198,6 +183,12 @@ public class TreeProfileFragment extends Fragment {
         if(tree.status2.equals("0") && !tree.image3.equals("null")){
             UploadImageView3.setEnabled(false);
         }
+       if((tree.status1.equals("0") && !tree.image2.equals("null")) || (tree.status2.equals("0") && !tree.image3.equals("null")) || (tree.status3.equals("0") && !tree.image4.equals("null"))){
+           statusOfTree.setText("Dead");
+       }
+       else{
+           statusOfTree.setText("Alive");
+       }
 
         //setting up the mapView
 
@@ -287,7 +278,6 @@ public class TreeProfileFragment extends Fragment {
             Bitmap resizedImage = Bitmap.createScaledBitmap(imageBitmap, 500, 500, true);
             img1 = resizedImage;
             UploadImageView1.setImageBitmap(resizedImage);
-            UploadImageView2.setImageAlpha(255);
             JSONObject object = new JSONObject();
             try {
                 object.put("strutid", tree.id);
@@ -321,7 +311,6 @@ public class TreeProfileFragment extends Fragment {
             Bitmap resizedImage = Bitmap.createScaledBitmap(imageBitmap, 500, 500, true);
             img2 = resizedImage;
             UploadImageView2.setImageBitmap(resizedImage);
-            UploadImageView3.setImageAlpha(255);
             JSONObject object = new JSONObject();
             try {
                 object.put("strutid", tree.id);
@@ -386,14 +375,12 @@ public class TreeProfileFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         status = 1;
                         if(reqCode==2){
-                            Img1Status.setText("Alive");
+                            UploadImageView2.setImageAlpha(255);
                         }
                         if(reqCode==3){
-                            Img2Status.setText("Alive");
+                            UploadImageView3.setImageAlpha(255);
                         }
-                        if(reqCode==4){
-                            Img3Status.setText("Alive");
-                        }
+                        statusOfTree.setText("Alive");
                         startActivityForResult(takePictureIntent, reqCode);
 
                     }
@@ -403,14 +390,13 @@ public class TreeProfileFragment extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         status = 0;
                         if(reqCode==2){
-                            Img1Status.setText("Dead");
+                            UploadImageView2.setImageAlpha(50);
                         }
                         if(reqCode==3){
-                            Img2Status.setText("Dead");
+                            UploadImageView3.setImageAlpha(50);
                         }
-                        if(reqCode==4){
-                            Img3Status.setText("Dead");
-                        }
+                        statusOfTree.setText("Dead");
+
                         startActivityForResult(takePictureIntent, reqCode);
                     }
                 })
