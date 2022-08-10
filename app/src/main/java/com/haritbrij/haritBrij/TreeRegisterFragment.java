@@ -108,27 +108,26 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                     Log.e(getClass().getSimpleName(), error.toString());
                 });
         VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
-
         ArrayAdapter<CharSequence> districtAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.District, android.R.layout.simple_spinner_item);
+                R.array.DistrictRegister, android.R.layout.simple_spinner_item);
         districtAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         districtSpinner.setAdapter(districtAdapter);
         districtSpinner.setOnItemSelectedListener(this);
 
         ArrayAdapter<CharSequence> blockAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.Block, android.R.layout.simple_spinner_item);
+                R.array.BlockRegister, android.R.layout.simple_spinner_item);
         blockAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         blockSpinner.setAdapter(blockAdapter);
         blockSpinner.setOnItemSelectedListener(this);
 
         ArrayAdapter<CharSequence> villageAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.Villages, android.R.layout.simple_spinner_item);
+                R.array.VillagesRegister, android.R.layout.simple_spinner_item);
         villageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         villageSpinner.setAdapter(villageAdapter);
         villageSpinner.setOnItemSelectedListener(this);
 
         ArrayAdapter<CharSequence> speciesAdapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.Species, android.R.layout.simple_spinner_item);
+                R.array.SpeciesRegister, android.R.layout.simple_spinner_item);
         speciesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         speciesSpinner.setAdapter(speciesAdapter);
         speciesSpinner.setOnItemSelectedListener(this);

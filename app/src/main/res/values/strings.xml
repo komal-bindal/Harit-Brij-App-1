@@ -77,6 +77,25 @@
         <item>Dead</item>
     </string-array>
 
+    <string-array name="DistrictRegister">
+        <item>Mathura</item>
+    </string-array>
+
+    <string-array name="BlockRegister">
+        <item>Vrindavan</item>
+    </string-array>
+
+    <string-array name="VillagesRegister">
+        <item>Jait</item>
+        <item>Chaumuhan</item>
+        <item>Agra</item>
+    </string-array>
+    <string-array name="SpeciesRegister">
+        <item>Mango</item>
+        <item>Papaya</item>
+        <item>Guava</item>
+    </string-array>
+
     <string-array name="Organization">
         <item>RSS</item>
     </string-array>

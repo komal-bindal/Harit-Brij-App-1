@@ -52,6 +52,7 @@ public class TreeProfileFragment extends Fragment {
     TextView districtTextView;
     TextView blockTextView;
     TextView villageTextView;
+    TextView Img1Status,Img2Status,Img3Status;
     MapView mapView;
     GoogleMap mGoogleMap;
     Bitmap img1, img2, img3;
@@ -67,6 +68,7 @@ public class TreeProfileFragment extends Fragment {
         return inflater.inflate(R.layout.tree_profile_fragment, container, false);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -89,6 +91,9 @@ public class TreeProfileFragment extends Fragment {
         UploadImageView1 = view.findViewById(R.id.UploadImageView1);
         UploadImageView2 = view.findViewById(R.id.UploadImageView2);
         UploadImageView3 = view.findViewById(R.id.UploadImageView3);
+        Img1Status=view.findViewById(R.id.Img1Status);
+        Img2Status=view.findViewById(R.id.Img2Status);
+        Img3Status=view.findViewById(R.id.Img3Status);
         mapView = view.findViewById(R.id.treeProfileMapView);
         mapView.onCreate(savedInstanceState);
 
@@ -149,20 +154,40 @@ public class TreeProfileFragment extends Fragment {
         if(!tree.image2.equals("null")){
             byte[] decodedStr = Base64.decode(tree.image2, Base64.DEFAULT);
             Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
-            UploadImageView1.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 113, 83, false));
+            UploadImageView1.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
+            if(tree.status1.equals("1")){
+                Img1Status.setText("Alive");
+                UploadImageView2.setImageAlpha(255);
+            }
+            else{
+                Img1Status.setText("Dead");
+            }
             UploadImageView1.setEnabled(false);
         }
 
         if(!tree.image3.equals("null")){
             byte[] decodedStr = Base64.decode(tree.image3, Base64.DEFAULT);
             Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
-            UploadImageView2.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 119, 80, false));
+            UploadImageView2.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
+            if(tree.status2.equals("1")){
+                Img2Status.setText("Alive");
+                UploadImageView3.setImageAlpha(255);
+            }
+            else{
+                Img2Status.setText("Dead");
+            }
             UploadImageView2.setEnabled(false);
         }
         if(!tree.image4.equals("null")){
             byte[] decodedStr = Base64.decode(tree.image4, Base64.DEFAULT);
             Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
-            UploadImageView3.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 110, 60, false));
+            UploadImageView3.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
+            if(tree.status3.equals("1")){
+                Img3Status.setText("Alive");
+            }
+            else{
+                Img3Status.setText("Dead");
+            }
             UploadImageView3.setEnabled(false);
         }
         if(tree.status1.equals("0") && !tree.image2.equals("null")){
@@ -357,16 +382,39 @@ public class TreeProfileFragment extends Fragment {
                 // Specifying a listener allows you to take an action before dismissing the dialog.
                 // The dialog is automatically dismissed when a dialog button is clicked.
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @SuppressLint("SetTextI18n")
                     public void onClick(DialogInterface dialog, int which) {
                         status = 1;
+                        if(reqCode==2){
+                            Img1Status.setText("Alive");
+                        }
+                        if(reqCode==3){
+                            Img2Status.setText("Alive");
+                        }
+                        if(reqCode==4){
+                            Img3Status.setText("Alive");
+                        }
                         startActivityForResult(takePictureIntent, reqCode);
 
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         status = 0;
-                        startActivityForResult(takePictureIntent, 2);
+                        if(reqCode==2){
+                            Img1Status.setText("Dead");
+                            tree.status1="Dead";
+                        }
+                        if(reqCode==3){
+                            Img2Status.setText("Dead");
+                            tree.status2="Dead";
+                        }
+                        if(reqCode==4){
+                            Img3Status.setText("Dead");
+                            tree.status3="Dead";
+                        }
+                        startActivityForResult(takePictureIntent, reqCode);
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_info);

@@ -40,8 +40,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class AdminFilterTreesFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     static int flag = 0;
@@ -56,6 +60,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
     String selectedVillage;
     String selectedSpecies;
     String selectedStatus;
+    static long startDate;
 
     Button search;
     TextView adminDistrictTextView;
@@ -141,7 +146,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                flag = 0;
+                flag = 1;
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getFragmentManager(), "datePicker");
             }
@@ -150,10 +155,15 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
             @Override
             public void onClick(View v) {
-                flag = 1;
-                // TODO Auto-generated method stub
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getFragmentManager(), "datePicker");
+                flag=0;
+                    // TODO Auto-generated method stub
+                if(startSelectedDate!=null) {
+                    DialogFragment newFragment = new DatePickerFragment();
+                    newFragment.show(getFragmentManager(), "datePicker");
+                }
+                else{
+                    Toast.makeText(getActivity(), "First Select start date", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -459,12 +469,25 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            DatePickerDialog datePicker=new DatePickerDialog(getActivity(), this, year, month, day);
+            datePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
+            Log.e("CurrentDate", String.valueOf(System.currentTimeMillis()));
+            long millis=0;
+            if(flag==0){
+                try {
+                    millis = new SimpleDateFormat("yyyy-MM-dd").parse(String.valueOf(startSelectedDate)).getTime();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Log.e("startSelectedDate", String.valueOf(millis));
+                datePicker.getDatePicker().setMinDate(millis);
+            }
+            return datePicker;
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen
-            if (flag == 0) {
+            if (flag == 1) {
                 if(month<10 && day<10){
                     startSelectedDate = new StringBuilder().append(year).append("-")
                             .append("0").append(month + 1).append("-").append("0").append(day);
@@ -481,10 +504,13 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                     startSelectedDate = new StringBuilder().append(year).append("-")
                             .append(month + 1).append("-").append(day);
                 }
+//                startDate=String.valueOf(startSelectedDate);
+//                Log.e("startSelectedDate", String.valueOf(startDate))
                 adminStartDateTextView.setText(String.valueOf(new StringBuilder().append(day).append("/")
                         .append(month).append("/").append(year)));
             }
-            if (flag == 1) {
+            if (flag == 0) {
+//                Log.e("startSelectedDate", String.valueOf(startDate));
                 if(month<10 && day<10){
                     endSelectedDate = new StringBuilder().append(year).append("-")
                             .append("0").append(month + 1).append("-").append("0").append(day);
