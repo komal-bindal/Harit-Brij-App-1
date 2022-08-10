@@ -227,6 +227,27 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                                     e.printStackTrace();
                                 }
                                 Toast.makeText(getActivity(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                                String myUrl1 = baseUrl + "getalluser.php";
+                                StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl1,
+                                        response1 -> {
+                                            try {
+                                                //Create a JSON object containing information from the API.
+                                                JSONObject myJsonObject = new JSONObject(response1);
+                                                JSONArray jsonArray = myJsonObject.getJSONArray("body");
+                                                for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+                                                    JSONObject indexedOrg = jsonArray.getJSONObject(jsonArrayIndex);
+                                                    Log.e("Target", Integer.parseInt(indexedOrg.getString("target")) + " " + Integer.parseInt(indexedOrg.getString("completed")));
+                                                    if (indexedOrg.getString("uid").equals(viewModel.sharedPreferences.getString("uid", "0")))
+                                                        treesPlantedTextView.setText(String.valueOf(Integer.parseInt(indexedOrg.getString("completed"))));
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        },
+                                        volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
+                                );
+
+                                VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
                             },
                             error -> {
                                 Log.d("errorRegister", error.toString());
@@ -236,27 +257,7 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
 
                     VolleySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
                 }
-                String myUrl = baseUrl + "getalluser.php";
-                StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
-                        response -> {
-                            try {
-                                //Create a JSON object containing information from the API.
-                                JSONObject myJsonObject = new JSONObject(response);
-                                JSONArray jsonArray = myJsonObject.getJSONArray("body");
-                                for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
-                                    JSONObject indexedOrg = jsonArray.getJSONObject(jsonArrayIndex);
-                                    Log.e("Target", Integer.parseInt(indexedOrg.getString("target")) + " " + Integer.parseInt(indexedOrg.getString("completed")));
-                                    if (indexedOrg.getString("uid").equals(viewModel.sharedPreferences.getString("uid", "0")))
-                                        treesPlantedTextView.setText(String.valueOf(Integer.parseInt(indexedOrg.getString("completed"))+1));
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        },
-                        volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
-                );
 
-                VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
             }
         });
     }
