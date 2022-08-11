@@ -17,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -25,6 +27,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haritbrij.haritBrij.models.Tree;
+import com.haritbrij.haritBrij.utils.VolleySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class AdminTreeProfileFragment extends Fragment {
@@ -36,6 +43,7 @@ public class AdminTreeProfileFragment extends Fragment {
     TextView villageTextView;
     MapView mapView;
     GoogleMap mGoogleMap;
+    TextView statusOfTree;
 
     Tree tree;
 
@@ -64,6 +72,7 @@ public class AdminTreeProfileFragment extends Fragment {
         uploadImageView1 = view.findViewById(R.id.UploadImageView1);
         uploadImageView2 = view.findViewById(R.id.UploadImageView2);
         uploadImageView3 = view.findViewById(R.id.UploadImageView3);
+        statusOfTree=view.findViewById(R.id.StatusTextView);
         uploadImageView2.setVisibility(View.INVISIBLE);
         uploadImageView3.setVisibility(View.INVISIBLE);
         uploadImageView1.setVisibility(View.INVISIBLE);
@@ -81,6 +90,92 @@ public class AdminTreeProfileFragment extends Fragment {
         byte[] decodedString = Base64.decode(tree.image1, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         treeProfileImageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 123, 110, false));
+//        String baseUrl = VolleySingleton.getBaseUrl();
+//        String myUrl = baseUrl + "getalltree.php";
+//        @SuppressLint("SetTextI18n") StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
+//                response -> {
+//                    try {
+//                        //Create a JSON object containing information from the API.
+//                        JSONObject myJsonObject = new JSONObject(response);
+//                        JSONArray jsonArray = myJsonObject.getJSONArray("body");
+//
+//
+//                        //save the from response in new tree object
+//                        for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
+//
+//                            JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
+//                            if(indexedTree.getString("strutid").equals(tree.id)) {
+//                                tree.image2 = indexedTree.getString("img2");
+//                                tree.image3 = indexedTree.getString("img3");
+//                                tree.image4 = indexedTree.getString("img4");
+//                                tree.status1=indexedTree.getString("status1");
+//                                tree.status2=indexedTree.getString("status2");
+//                                tree.status3=indexedTree.getString("status3");
+//                                Log.e("images", tree.image2+" "+tree.image3+" "+tree.image4);
+//
+//                                if(!tree.image2.equals("null")){
+//                                    byte[] decodedStr = Base64.decode(tree.image2, Base64.DEFAULT);
+//                                    Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
+//                                    uploadImageView1.setVisibility(View.VISIBLE);
+//                                    uploadImageView1.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
+//                                }
+//
+//                                if(!tree.image3.equals("null")){
+//                                    byte[] decodedStr = Base64.decode(tree.image3, Base64.DEFAULT);
+//                                    Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
+//                                    uploadImageView2.setVisibility(View.VISIBLE);
+//                                    uploadImageView2.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
+//                                }
+//                                if(!tree.image4.equals("null")){
+//                                    byte[] decodedStr = Base64.decode(tree.image4, Base64.DEFAULT);
+//                                    Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
+//                                    uploadImageView3.setVisibility(View.VISIBLE);
+//                                    uploadImageView3.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
+//                                }
+//                                if((tree.status1.equals("0") && !tree.image2.equals("null")) || (tree.status2.equals("0") && !tree.image3.equals("null")) || (tree.status3.equals("0") && !tree.image4.equals("null"))){
+//                                    statusOfTree.setText("Dead");
+//                                }
+//                                else{
+//                                    statusOfTree.setText("Alive");
+//                                }
+//                            }
+//                        }
+//                    }
+//                    catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                },
+//                volleyError -> Log.e(getClass().getSimpleName(), volleyError.toString())
+//        );
+//
+//        VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
+
+
+        if(!tree.image2.equals("null")){
+            byte[] decodedStr = Base64.decode(tree.image2, Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
+            uploadImageView1.setVisibility(View.VISIBLE);
+            uploadImageView1.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
+        }
+
+        if(!tree.image3.equals("null")){
+            byte[] decodedStr = Base64.decode(tree.image3, Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
+            uploadImageView2.setVisibility(View.VISIBLE);
+            uploadImageView2.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
+        }
+        if(!tree.image4.equals("null")){
+            byte[] decodedStr = Base64.decode(tree.image4, Base64.DEFAULT);
+            Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
+            uploadImageView3.setVisibility(View.VISIBLE);
+            uploadImageView3.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
+        }
+        if((tree.status1.equals("0") && !tree.image2.equals("null")) || (tree.status2.equals("0") && !tree.image3.equals("null")) || (tree.status3.equals("0") && !tree.image4.equals("null"))){
+            statusOfTree.setText("Dead");
+        }
+        else{
+            statusOfTree.setText("Alive");
+        }
 
 
         //setting up the mapView

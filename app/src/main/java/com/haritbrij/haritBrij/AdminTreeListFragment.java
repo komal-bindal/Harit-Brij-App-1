@@ -85,6 +85,12 @@ public class AdminTreeListFragment extends Fragment {
                             tree.village = indexedTree.getString("village");
                             tree.species = indexedTree.getString("species");
                             tree.image1 = indexedTree.getString("img1");
+                            tree.image2 = indexedTree.getString("img2");
+                            tree.image3 = indexedTree.getString("img3");
+                            tree.image4 = indexedTree.getString("img4");
+                            tree.status1=indexedTree.getString("status1");
+                            tree.status2=indexedTree.getString("status2");
+                            tree.status3=indexedTree.getString("status3");
                             tree.latitude = indexedTree.getDouble("lat");
                             tree.longitude = indexedTree.getDouble("long");
                             mData.add(tree);
