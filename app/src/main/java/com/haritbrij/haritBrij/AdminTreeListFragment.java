@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.haritbrij.haritBrij.models.Organisation;
 import com.haritbrij.haritBrij.models.Tree;
+import com.haritbrij.haritBrij.utils.LanguageTranslationHelper;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
 import org.json.JSONArray;
@@ -80,10 +81,7 @@ public class AdminTreeListFragment extends Fragment {
                             JSONObject indexedTree = jsonArray.getJSONObject(jsonArrayIndex);
                             Tree tree = new Tree();
                             tree.id = indexedTree.getString("strutid");
-                            tree.district = indexedTree.getString("district");
-                            tree.block = indexedTree.getString("block");
-                            tree.village = indexedTree.getString("village");
-                            tree.species = indexedTree.getString("species");
+
                             tree.image1 = indexedTree.getString("img1");
                             tree.image2 = indexedTree.getString("img2");
                             tree.image3 = indexedTree.getString("img3");
@@ -93,6 +91,19 @@ public class AdminTreeListFragment extends Fragment {
                             tree.status3=indexedTree.getString("status3");
                             tree.latitude = indexedTree.getDouble("lat");
                             tree.longitude = indexedTree.getDouble("long");
+
+                            if (viewModel.sharedPreferences.getString("user_language", null).equals("hi")) {
+                                tree.block = LanguageTranslationHelper.blockEnglishToHindi(indexedTree.getString("block"));
+                                tree.village = LanguageTranslationHelper.villageEnglishToHindi(indexedTree.getString("village"));
+                                tree.district = LanguageTranslationHelper.districtEnglishToHindi(indexedTree.getString("district"));
+                                tree.species = LanguageTranslationHelper.speciesEnglishToHindi(indexedTree.getString("species"));
+                            } else {
+                                tree.block = indexedTree.getString("block");
+                                tree.village = indexedTree.getString("village");
+                                tree.district = indexedTree.getString("district");
+                                tree.species = indexedTree.getString("species");
+                            }
+
                             mData.add(tree);
                         }
 

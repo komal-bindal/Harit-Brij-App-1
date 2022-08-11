@@ -34,6 +34,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.haritbrij.haritBrij.models.Tree;
+import com.haritbrij.haritBrij.utils.LanguageTranslationHelper;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
 import org.json.JSONArray;
@@ -44,14 +45,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 public class AdminFilterTreesFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     static int flag = 0;
     static StringBuilder startSelectedDate, endSelectedDate;
     static TextView adminStartDateTextView;
     static TextView adminEndDateTextView;
+    static long startDate;
     AdminViewModel viewModel;
     ArrayList<Tree> mData = new ArrayList<>();
     TreeListAdapter mTreeListAdapter;
@@ -60,8 +60,6 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
     String selectedVillage;
     String selectedSpecies;
     String selectedStatus;
-    static long startDate;
-
     Button search;
     TextView adminDistrictTextView;
     TextView adminBlockTextView;
@@ -140,7 +138,6 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         statusSpinner.setOnItemSelectedListener(this);
 
 
-
         adminstartDateSeletor.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -155,13 +152,12 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
             @Override
             public void onClick(View v) {
-                flag=0;
-                    // TODO Auto-generated method stub
-                if(startSelectedDate!=null) {
+                flag = 0;
+                // TODO Auto-generated method stub
+                if (startSelectedDate != null) {
                     DialogFragment newFragment = new DatePickerFragment();
                     newFragment.show(getFragmentManager(), "datePicker");
-                }
-                else{
+                } else {
                     Toast.makeText(getActivity(), "First Select start date", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -232,93 +228,139 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
 
                                     }
-                                        if (selectedStatus.equals("Alive") && indexedTree.getString("status2").equals("1") && (
-                                                selectedDistrict.equals("All(District)") ||
-                                                        selectedDistrict.equals(indexedTree.getString("district")))
-                                                && (selectedBlock.equals("All(Block)") ||
-                                                selectedBlock.equals(indexedTree.getString("block")))
-                                                && (selectedVillage.equals("All(Villages)") ||
-                                                selectedVillage.equals(indexedTree.getString("village")))
-                                                && (selectedSpecies.equals("All(Species)") ||
-                                                selectedSpecies.equals(indexedTree.getString("species")))) {
-                                            status[0]++;
-                                            if (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0){
+                                    if (selectedStatus.equals("Alive") && indexedTree.getString("status2").equals("1") && (
+                                            selectedDistrict.equals("All(District)") ||
+                                                    selectedDistrict.equals(indexedTree.getString("district")))
+                                            && (selectedBlock.equals("All(Block)") ||
+                                            selectedBlock.equals(indexedTree.getString("block")))
+                                            && (selectedVillage.equals("All(Villages)") ||
+                                            selectedVillage.equals(indexedTree.getString("village")))
+                                            && (selectedSpecies.equals("All(Species)") ||
+                                            selectedSpecies.equals(indexedTree.getString("species")))) {
+                                        status[0]++;
+                                        if (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0) {
 
-                                                Tree tree = new Tree();
-                                                tree.id = indexedTree.getString("strutid");
-                                                tree.district = indexedTree.getString("district");
+                                            Tree tree = new Tree();
+                                            tree.id = indexedTree.getString("strutid");
+                                            tree.image1 = indexedTree.getString("img1");
+                                            tree.image2 = indexedTree.getString("img2");
+                                            tree.image3 = indexedTree.getString("img3");
+                                            tree.image4 = indexedTree.getString("img4");
+                                            tree.latitude = indexedTree.getDouble("lat");
+                                            tree.longitude = indexedTree.getDouble("long");
+                                            tree.status1 = indexedTree.getString("status1");
+                                            tree.status2 = indexedTree.getString("status2");
+                                            tree.status3 = indexedTree.getString("status3");
+                                            if (viewModel.sharedPreferences.getString("user_language", null).equals("hi")) {
+                                                tree.block = LanguageTranslationHelper.blockEnglishToHindi(indexedTree.getString("block"));
+                                                tree.village = LanguageTranslationHelper.villageEnglishToHindi(indexedTree.getString("village"));
+                                                tree.district = LanguageTranslationHelper.districtEnglishToHindi(indexedTree.getString("district"));
+                                                tree.species = LanguageTranslationHelper.speciesEnglishToHindi(indexedTree.getString("species"));
+                                            } else {
                                                 tree.block = indexedTree.getString("block");
                                                 tree.village = indexedTree.getString("village");
-                                                tree.species = indexedTree.getString("species");
-                                                tree.image1 = indexedTree.getString("img1");
-                                                tree.image2 = indexedTree.getString("img2");
-                                                tree.image3 = indexedTree.getString("img3");
-                                                tree.image4 = indexedTree.getString("img4");
-                                                tree.latitude = indexedTree.getDouble("lat");
-                                                tree.longitude = indexedTree.getDouble("long");
-                                                Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
-                                                mData.add(tree);
-                                            }
-                                            if((startSelectedDate==null && endSelectedDate==null)) {
-                                                Tree tree = new Tree();
-                                                tree.id = indexedTree.getString("strutid");
                                                 tree.district = indexedTree.getString("district");
-                                                tree.block = indexedTree.getString("block");
-                                                tree.village = indexedTree.getString("village");
                                                 tree.species = indexedTree.getString("species");
-                                                tree.image1 = indexedTree.getString("img1");
-                                                tree.image2 = indexedTree.getString("img2");
-                                                tree.image3 = indexedTree.getString("img3");
-                                                tree.image4 = indexedTree.getString("img4");
-                                                tree.latitude = indexedTree.getDouble("lat");
-                                                tree.longitude = indexedTree.getDouble("long");
-                                                Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
-                                                mData.add(tree);
                                             }
-                                        } else if (selectedStatus.equals("Dead") && indexedTree.getString("status2").equals("0") && indexedTree.getString("img3") != null && (
-                                                selectedDistrict.equals("All(District)") ||
-                                                        selectedDistrict.equals(indexedTree.getString("district")))
-                                                && (selectedBlock.equals("All(Block)") ||
-                                                selectedBlock.equals(indexedTree.getString("block")))
-                                                && (selectedVillage.equals("All(Villages)") ||
-                                                selectedVillage.equals(indexedTree.getString("village")))
-                                                && (selectedSpecies.equals("All(Species)") ||
-                                                selectedSpecies.equals(indexedTree.getString("species")))) {
-                                            status[0]++;
-                                            if (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0){
-
-                                                Tree tree = new Tree();
-                                                tree.id = indexedTree.getString("strutid");
-                                                tree.district = indexedTree.getString("district");
-                                                tree.block = indexedTree.getString("block");
-                                                tree.village = indexedTree.getString("village");
-                                                tree.species = indexedTree.getString("species");
-                                                tree.image1 = indexedTree.getString("img1");
-                                                tree.image2 = indexedTree.getString("img2");
-                                                tree.image3 = indexedTree.getString("img3");
-                                                tree.image4 = indexedTree.getString("img4");
-                                                tree.latitude = indexedTree.getDouble("lat");
-                                                tree.longitude = indexedTree.getDouble("long");
-                                                Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
-                                                mData.add(tree);
-                                            }
-                                            if((startSelectedDate==null && endSelectedDate==null)) {
-                                                Tree tree = new Tree();
-                                                tree.id = indexedTree.getString("strutid");
-                                                tree.district = indexedTree.getString("district");
-                                                tree.block = indexedTree.getString("block");
-                                                tree.village = indexedTree.getString("village");
-                                                tree.species = indexedTree.getString("species");
-                                                tree.image1 = indexedTree.getString("img1");
-                                                tree.image2 = indexedTree.getString("img2");
-                                                tree.image3 = indexedTree.getString("img3");
-                                                tree.image4 = indexedTree.getString("img4");
-                                                tree.latitude = indexedTree.getDouble("lat");
-                                                tree.longitude = indexedTree.getDouble("long");
-                                                Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
-                                                mData.add(tree);
-                                            }
+                                            Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
+                                            mData.add(tree);
                                         }
+                                        if ((startSelectedDate == null && endSelectedDate == null)) {
+                                            Tree tree = new Tree();
+                                            tree.id = indexedTree.getString("strutid");
+
+                                            tree.image1 = indexedTree.getString("img1");
+                                            tree.image2 = indexedTree.getString("img2");
+                                            tree.image3 = indexedTree.getString("img3");
+                                            tree.image4 = indexedTree.getString("img4");
+                                            tree.latitude = indexedTree.getDouble("lat");
+                                            tree.longitude = indexedTree.getDouble("long");
+                                            tree.status1 = indexedTree.getString("status1");
+                                            tree.status2 = indexedTree.getString("status2");
+                                            tree.status3 = indexedTree.getString("status3");
+
+                                            if (viewModel.sharedPreferences.getString("user_language", null).equals("hi")) {
+                                                tree.block = LanguageTranslationHelper.blockEnglishToHindi(indexedTree.getString("block"));
+                                                tree.village = LanguageTranslationHelper.villageEnglishToHindi(indexedTree.getString("village"));
+                                                tree.district = LanguageTranslationHelper.districtEnglishToHindi(indexedTree.getString("district"));
+                                                tree.species = LanguageTranslationHelper.speciesEnglishToHindi(indexedTree.getString("species"));
+                                            } else {
+                                                tree.block = indexedTree.getString("block");
+                                                tree.village = indexedTree.getString("village");
+                                                tree.district = indexedTree.getString("district");
+                                                tree.species = indexedTree.getString("species");
+                                            }
+                                            Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
+                                            mData.add(tree);
+                                        }
+                                    } else if (selectedStatus.equals("Dead") && indexedTree.getString("status2").equals("0") && indexedTree.getString("img3") != null && (
+                                            selectedDistrict.equals("All(District)") ||
+                                                    selectedDistrict.equals(indexedTree.getString("district")))
+                                            && (selectedBlock.equals("All(Block)") ||
+                                            selectedBlock.equals(indexedTree.getString("block")))
+                                            && (selectedVillage.equals("All(Villages)") ||
+                                            selectedVillage.equals(indexedTree.getString("village")))
+                                            && (selectedSpecies.equals("All(Species)") ||
+                                            selectedSpecies.equals(indexedTree.getString("species")))) {
+                                        status[0]++;
+                                        if (indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(startSelectedDate)) > 0 && indexedTree.getString("time").split(" ")[0].compareTo(String.valueOf(endSelectedDate)) < 0) {
+
+                                            Tree tree = new Tree();
+                                            tree.id = indexedTree.getString("strutid");
+
+                                            tree.image1 = indexedTree.getString("img1");
+                                            tree.image2 = indexedTree.getString("img2");
+                                            tree.image3 = indexedTree.getString("img3");
+                                            tree.image4 = indexedTree.getString("img4");
+                                            tree.latitude = indexedTree.getDouble("lat");
+                                            tree.longitude = indexedTree.getDouble("long");
+                                            tree.status1 = indexedTree.getString("status1");
+                                            tree.status2 = indexedTree.getString("status2");
+                                            tree.status3 = indexedTree.getString("status3");
+
+                                            if (viewModel.sharedPreferences.getString("user_language", null).equals("hi")) {
+                                                tree.block = LanguageTranslationHelper.blockEnglishToHindi(indexedTree.getString("block"));
+                                                tree.village = LanguageTranslationHelper.villageEnglishToHindi(indexedTree.getString("village"));
+                                                tree.district = LanguageTranslationHelper.districtEnglishToHindi(indexedTree.getString("district"));
+                                                tree.species = LanguageTranslationHelper.speciesEnglishToHindi(indexedTree.getString("species"));
+                                            } else {
+                                                tree.block = indexedTree.getString("block");
+                                                tree.village = indexedTree.getString("village");
+                                                tree.district = indexedTree.getString("district");
+                                                tree.species = indexedTree.getString("species");
+                                            }
+                                            Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
+                                            mData.add(tree);
+                                        }
+                                        if ((startSelectedDate == null && endSelectedDate == null)) {
+                                            Tree tree = new Tree();
+                                            tree.id = indexedTree.getString("strutid");
+
+                                            tree.image1 = indexedTree.getString("img1");
+                                            tree.image2 = indexedTree.getString("img2");
+                                            tree.image3 = indexedTree.getString("img3");
+                                            tree.image4 = indexedTree.getString("img4");
+                                            tree.latitude = indexedTree.getDouble("lat");
+                                            tree.longitude = indexedTree.getDouble("long");
+                                            tree.status1 = indexedTree.getString("status1");
+                                            tree.status2 = indexedTree.getString("status2");
+                                            tree.status3 = indexedTree.getString("status3");
+
+                                            if (viewModel.sharedPreferences.getString("user_language", null).equals("hi")) {
+                                                tree.block = LanguageTranslationHelper.blockEnglishToHindi(indexedTree.getString("block"));
+                                                tree.village = LanguageTranslationHelper.villageEnglishToHindi(indexedTree.getString("village"));
+                                                tree.district = LanguageTranslationHelper.districtEnglishToHindi(indexedTree.getString("district"));
+                                                tree.species = LanguageTranslationHelper.speciesEnglishToHindi(indexedTree.getString("species"));
+                                            } else {
+                                                tree.block = indexedTree.getString("block");
+                                                tree.village = indexedTree.getString("village");
+                                                tree.district = indexedTree.getString("district");
+                                                tree.species = indexedTree.getString("species");
+                                            }
+                                            Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
+                                            mData.add(tree);
+                                        }
+                                    }
 
 
                                     Log.e("District", String.valueOf(district[0]));
@@ -356,7 +398,6 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                 mapView.setVisibility(View.VISIBLE);
 
 
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -365,10 +406,6 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                 );
 
                 VolleySingleton.getInstance(getContext()).addToRequestQueue(myRequest);
-
-
-
-
 
 
                 mTreeListAdapter.setOnItemClickListener(new TreeListAdapter.ItemClickListener() {
@@ -380,9 +417,6 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                         fragmentTransaction.replace(R.id.main_admin_fragment_container_view, admintreeProfileFragment).addToBackStack(null).commit();
                     }
                 });
-
-
-
 
 
             }
@@ -397,19 +431,19 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
         switch (adapterView.getId()) {
             case R.id.adminDistrictSpinner:
-                selectedDistrict = adapterViewSelectedItem;
+                selectedDistrict = LanguageTranslationHelper.districtHindiToEnglish(adapterViewSelectedItem);
                 break;
             case R.id.adminBlockSpinner:
-                selectedBlock = adapterViewSelectedItem;
+                selectedBlock = LanguageTranslationHelper.blockHindiToEnglish(adapterViewSelectedItem);
                 break;
             case R.id.adminVillageSpinner:
-                selectedVillage = adapterViewSelectedItem;
+                selectedVillage = LanguageTranslationHelper.villageHindiToEnglish(adapterViewSelectedItem);
                 break;
             case R.id.adminSpeciesSpinner:
-                selectedSpecies = adapterViewSelectedItem;
+                selectedSpecies = LanguageTranslationHelper.speciesHindiToEnglish(adapterViewSelectedItem);
                 break;
             case R.id.adminStatusSpinner:
-                selectedStatus=adapterViewSelectedItem;
+                selectedStatus = LanguageTranslationHelper.statusHindiToEnglish(adapterViewSelectedItem);
                 break;
         }
     }
@@ -418,11 +452,11 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         ArrayList<Tree> treeList = viewModel.getTreeList();
         Log.e("FilteredScreen", String.valueOf(treeList));
         for (Tree tree : treeList) {
-                double latitude = tree.latitude;
-                double longitude = tree.longitude;
-                LatLng treeMarker = new LatLng(latitude, longitude);
-                Log.e("ScreenFilter", String.valueOf(treeMarker));
-                mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
+            double latitude = tree.latitude;
+            double longitude = tree.longitude;
+            LatLng treeMarker = new LatLng(latitude, longitude);
+            Log.e("ScreenFilter", String.valueOf(treeMarker));
+            mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
             mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
         }
@@ -469,11 +503,11 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
-            DatePickerDialog datePicker=new DatePickerDialog(getActivity(), this, year, month, day);
+            DatePickerDialog datePicker = new DatePickerDialog(getActivity(), this, year, month, day);
             datePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
             Log.e("CurrentDate", String.valueOf(System.currentTimeMillis()));
-            long millis=0;
-            if(flag==0){
+            long millis = 0;
+            if (flag == 0) {
                 try {
                     millis = new SimpleDateFormat("yyyy-MM-dd").parse(String.valueOf(startSelectedDate)).getTime();
                 } catch (ParseException e) {
@@ -488,19 +522,19 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen
             if (flag == 1) {
-                if(month<10 && day<10){
+                if (month < 10 && day < 10) {
                     startSelectedDate = new StringBuilder().append(year).append("-")
                             .append("0").append(month + 1).append("-").append("0").append(day);
                 }
-                if(day<10 && month>10){
+                if (day < 10 && month > 10) {
                     startSelectedDate = new StringBuilder().append(year).append("-")
                             .append(month + 1).append("-").append("0").append(day);
                 }
-                if(month<10 && day>10){
+                if (month < 10 && day > 10) {
                     startSelectedDate = new StringBuilder().append(year).append("-")
                             .append("0").append(month + 1).append("-").append(day);
                 }
-                if(month>10 && day>10) {
+                if (month > 10 && day > 10) {
                     startSelectedDate = new StringBuilder().append(year).append("-")
                             .append(month + 1).append("-").append(day);
                 }
@@ -511,19 +545,19 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
             }
             if (flag == 0) {
 //                Log.e("startSelectedDate", String.valueOf(startDate));
-                if(month<10 && day<10){
+                if (month < 10 && day < 10) {
                     endSelectedDate = new StringBuilder().append(year).append("-")
                             .append("0").append(month + 1).append("-").append("0").append(day);
                 }
-                if(day<10 && month>10){
+                if (day < 10 && month > 10) {
                     endSelectedDate = new StringBuilder().append(year).append("-")
                             .append(month + 1).append("-").append("0").append(day);
                 }
-                if(month<10 && day>10){
+                if (month < 10 && day > 10) {
                     endSelectedDate = new StringBuilder().append(year).append("-")
                             .append("0").append(month + 1).append("-").append(day);
                 }
-                if(month>10 && day>10) {
+                if (month > 10 && day > 10) {
                     endSelectedDate = new StringBuilder().append(year).append("-")
                             .append(month + 1).append("-").append(day);
                 }

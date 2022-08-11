@@ -38,6 +38,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.haritbrij.haritBrij.models.Tree;
 import com.haritbrij.haritBrij.utils.ImageHelper;
+import com.haritbrij.haritBrij.utils.LanguageTranslationHelper;
 import com.haritbrij.haritBrij.utils.SharedPrefConstants;
 import com.haritbrij.haritBrij.utils.VolleySingleton;
 
@@ -88,8 +89,8 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
                         for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
                             JSONObject indexedOrg = jsonArray.getJSONObject(jsonArrayIndex);
-                            Log.e("Target", Integer.parseInt(indexedOrg.getString("target"))+" " +Integer.parseInt(indexedOrg.getString("completed")));
-                            if(indexedOrg.getString("uid").equals(viewModel.sharedPreferences.getString("uid", "0"))){
+                            Log.e("Target", Integer.parseInt(indexedOrg.getString("target")) + " " + Integer.parseInt(indexedOrg.getString("completed")));
+                            if (indexedOrg.getString("uid").equals(viewModel.sharedPreferences.getString("uid", "0"))) {
                                 if (Integer.parseInt(indexedOrg.getString("target")) <= Integer.parseInt(indexedOrg.getString("completed"))) {
 
                                     addTreeImageView.setEnabled(false);
@@ -193,15 +194,9 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                                             res -> {
                                                 try {
                                                     JSONObject myJsonObject = new JSONObject(res);
-                                                    Log.d("UTID", utid);
-                                                    Log.d("UTID", myJsonObject.getString("strutid"));
                                                     Tree tree = new Tree();
                                                     tree.id = utid;
                                                     tree.longitude = Double.parseDouble(myJsonObject.getString("long"));
-                                                    tree.block = myJsonObject.getString("block");
-                                                    tree.village = myJsonObject.getString("village");
-                                                    tree.district = myJsonObject.getString("district");
-                                                    tree.species = myJsonObject.getString("species");
                                                     tree.latitude = Double.parseDouble(myJsonObject.getString("lat"));
                                                     tree.image1 = myJsonObject.getString("img1");
                                                     tree.image2 = myJsonObject.getString("img2");
@@ -210,6 +205,18 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                                                     tree.status1 = myJsonObject.getString("status1");
                                                     tree.status2 = myJsonObject.getString("status2");
                                                     tree.status3 = myJsonObject.getString("status3");
+
+                                                    if (viewModel.sharedPreferences.getString("user_language", null).equals("hi")) {
+                                                        tree.block = LanguageTranslationHelper.blockEnglishToHindi(myJsonObject.getString("block"));
+                                                        tree.village = LanguageTranslationHelper.villageEnglishToHindi(myJsonObject.getString("village"));
+                                                        tree.district = LanguageTranslationHelper.districtEnglishToHindi(myJsonObject.getString("district"));
+                                                        tree.species = LanguageTranslationHelper.speciesEnglishToHindi(myJsonObject.getString("species"));
+                                                    } else {
+                                                        tree.block = myJsonObject.getString("block");
+                                                        tree.village = myJsonObject.getString("village");
+                                                        tree.district = myJsonObject.getString("district");
+                                                        tree.species = myJsonObject.getString("species");
+                                                    }
 
                                                     viewModel.setTree(tree);
                                                     TreeProfileFragment treeProfileFragment = new TreeProfileFragment();
@@ -284,16 +291,16 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
 
         switch (adapterView.getId()) {
             case R.id.districtSpinner:
-                selectedDistrict = adapterViewSelectedItem;
+                selectedDistrict = LanguageTranslationHelper.districtHindiToEnglish(adapterViewSelectedItem);
                 break;
             case R.id.blockSpinner:
-                selectedBlock = adapterViewSelectedItem;
+                selectedBlock = LanguageTranslationHelper.blockHindiToEnglish(adapterViewSelectedItem);
                 break;
             case R.id.villageSpinner:
-                selectedVillage = adapterViewSelectedItem;
+                selectedVillage = LanguageTranslationHelper.villageHindiToEnglish(adapterViewSelectedItem);
                 break;
             case R.id.speciesSpinner:
-                selectedSpecies = adapterViewSelectedItem;
+                selectedSpecies = LanguageTranslationHelper.speciesHindiToEnglish(adapterViewSelectedItem);
                 break;
         }
     }
