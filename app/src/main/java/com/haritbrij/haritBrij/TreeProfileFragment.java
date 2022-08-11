@@ -68,7 +68,7 @@ public class TreeProfileFragment extends Fragment {
         return inflater.inflate(R.layout.tree_profile_fragment, container, false);
     }
 
-    @SuppressLint("SetTextI18n")
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -184,10 +184,10 @@ public class TreeProfileFragment extends Fragment {
             UploadImageView3.setEnabled(false);
         }
        if((tree.status1.equals("0") && !tree.image2.equals("null")) || (tree.status2.equals("0") && !tree.image3.equals("null")) || (tree.status3.equals("0") && !tree.image4.equals("null"))){
-           statusOfTree.setText("Dead");
+           statusOfTree.setText(R.string.Dead);
        }
        else{
-           statusOfTree.setText("Alive");
+           statusOfTree.setText(R.string.Alive);
        }
 
         //setting up the mapView
@@ -378,7 +378,6 @@ public class TreeProfileFragment extends Fragment {
                 // Specifying a listener allows you to take an action before dismissing the dialog.
                 // The dialog is automatically dismissed when a dialog button is clicked.
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @SuppressLint("SetTextI18n")
                     public void onClick(DialogInterface dialog, int which) {
                         status = 1;
                         if(reqCode==2){
@@ -387,7 +386,7 @@ public class TreeProfileFragment extends Fragment {
                         if(reqCode==3){
                             UploadImageView3.setImageAlpha(255);
                         }
-                        statusOfTree.setText("Alive");
+                        statusOfTree.setText(R.string.Alive);
                         startActivityForResult(takePictureIntent, reqCode);
 
                     }
@@ -402,7 +401,7 @@ public class TreeProfileFragment extends Fragment {
                         if(reqCode==3){
                             UploadImageView3.setImageAlpha(50);
                         }
-                        statusOfTree.setText("Dead");
+                        statusOfTree.setText(R.string.Dead);
 
                         startActivityForResult(takePictureIntent, reqCode);
                     }

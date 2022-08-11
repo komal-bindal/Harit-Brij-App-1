@@ -48,7 +48,8 @@
     <string name="password">Password</string>
     <string name="upload">Upload</string>
     <string name="status">Status</string>
-
+    <string name="Dead">Dead</string>
+    <string name="Alive">Alive</string>
 
 
 </resources>

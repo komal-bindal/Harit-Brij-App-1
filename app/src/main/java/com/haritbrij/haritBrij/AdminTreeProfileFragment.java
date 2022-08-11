@@ -171,10 +171,10 @@ public class AdminTreeProfileFragment extends Fragment {
             uploadImageView3.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
         }
         if((tree.status1.equals("0") && !tree.image2.equals("null")) || (tree.status2.equals("0") && !tree.image3.equals("null")) || (tree.status3.equals("0") && !tree.image4.equals("null"))){
-            statusOfTree.setText("Dead");
+            statusOfTree.setText(R.string.Dead);
         }
         else{
-            statusOfTree.setText("Alive");
+            statusOfTree.setText(R.string.Alive);
         }
 
 

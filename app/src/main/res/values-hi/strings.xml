@@ -102,4 +102,7 @@
         <item>आरएसएस</item>
     </string-array>
 
+    <string name="Dead">मृत</string>
+    <string name="Alive">जीवित</string>
+
 </resources>
