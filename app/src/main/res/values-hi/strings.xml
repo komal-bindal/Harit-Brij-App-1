@@ -44,10 +44,10 @@
     <string name="Species">प्रजातियाँ</string>
     <string name="UTID">यूटीआईडी</string>
     <string name="download">डाउनलोड</string>
-
+<string name="status">स्थति</string>
     <string name="password">पासवर्ड दर्ज करें</string>
     <string name="upload">अपलोड</string>
-    <string name="plantedTrees" translatable="false">रोपित वृक्ष संख्या</string>
+    <string name="plantedTrees" translatable="false">रोपित वृक्ष संख्या :</string>
 
     <string-array name="District">
         <item>सभी (जिला)</item>

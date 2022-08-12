@@ -457,8 +457,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
             LatLng treeMarker = new LatLng(latitude, longitude);
             Log.e("ScreenFilter", String.valueOf(treeMarker));
             mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
-            mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
-            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(treeMarker, 8.0f));
         }
     }
 

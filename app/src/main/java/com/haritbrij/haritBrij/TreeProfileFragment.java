@@ -29,7 +29,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -91,7 +90,7 @@ public class TreeProfileFragment extends Fragment {
         UploadImageView1 = view.findViewById(R.id.UploadImageView1);
         UploadImageView2 = view.findViewById(R.id.UploadImageView2);
         UploadImageView3 = view.findViewById(R.id.UploadImageView3);
-        statusOfTree=view.findViewById(R.id.StatusTextView);
+        statusOfTree = view.findViewById(R.id.StatusTextView);
 
         mapView = view.findViewById(R.id.treeProfileMapView);
         mapView.onCreate(savedInstanceState);
@@ -150,45 +149,44 @@ public class TreeProfileFragment extends Fragment {
 
         treeProfileImageView.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 123, 110, false));
 
-        if(!tree.image2.equals("null")){
+        if (!tree.image2.equals("null")) {
             byte[] decodedStr = Base64.decode(tree.image2, Base64.DEFAULT);
             Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
             UploadImageView1.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
-            if(tree.status1.equals("1")){
+            if (tree.status1.equals("1")) {
                 UploadImageView2.setImageAlpha(255);
             }
             UploadImageView1.setEnabled(false);
         }
 
-        if(!tree.image3.equals("null")){
+        if (!tree.image3.equals("null")) {
             byte[] decodedStr = Base64.decode(tree.image3, Base64.DEFAULT);
             Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
             UploadImageView2.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
-            if(tree.status2.equals("1")){
+            if (tree.status2.equals("1")) {
                 UploadImageView3.setImageAlpha(255);
             }
             UploadImageView2.setEnabled(false);
         }
-        if(!tree.image4.equals("null")){
+        if (!tree.image4.equals("null")) {
             byte[] decodedStr = Base64.decode(tree.image4, Base64.DEFAULT);
             Bitmap decodeByte = BitmapFactory.decodeByteArray(decodedStr, 0, decodedStr.length);
             UploadImageView3.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
             UploadImageView3.setEnabled(false);
         }
-        if(tree.status1.equals("0") && !tree.image2.equals("null")){
+        if (tree.status1.equals("0") && !tree.image2.equals("null")) {
             UploadImageView2.setEnabled(false);
             UploadImageView3.setEnabled(false);
 
         }
-        if(tree.status2.equals("0") && !tree.image3.equals("null")){
+        if (tree.status2.equals("0") && !tree.image3.equals("null")) {
             UploadImageView3.setEnabled(false);
         }
-       if((tree.status1.equals("0") && !tree.image2.equals("null")) || (tree.status2.equals("0") && !tree.image3.equals("null")) || (tree.status3.equals("0") && !tree.image4.equals("null"))){
-           statusOfTree.setText(R.string.Dead);
-       }
-       else{
-           statusOfTree.setText(R.string.Alive);
-       }
+        if ((tree.status1.equals("0") && !tree.image2.equals("null")) || (tree.status2.equals("0") && !tree.image3.equals("null")) || (tree.status3.equals("0") && !tree.image4.equals("null"))) {
+            statusOfTree.setText(R.string.Dead);
+        } else {
+            statusOfTree.setText(R.string.Alive);
+        }
 
         //setting up the mapView
 
@@ -291,6 +289,7 @@ public class TreeProfileFragment extends Fragment {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                     response -> {
                         Toast.makeText(getActivity(), "Data uploaded", Toast.LENGTH_SHORT).show();
+                        UploadImageView1.setEnabled(false);
                         if (status == 0) {
                             UploadImageView2.setEnabled(false);
                             UploadImageView3.setEnabled(false);
@@ -328,6 +327,7 @@ public class TreeProfileFragment extends Fragment {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                     response -> {
                         Toast.makeText(getActivity(), "Data uploaded", Toast.LENGTH_SHORT).show();
+                        UploadImageView2.setEnabled(false);
                         if (status == 0) {
                             UploadImageView3.setEnabled(false);
                         }
@@ -360,6 +360,8 @@ public class TreeProfileFragment extends Fragment {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                     response -> {
                         Toast.makeText(getActivity(), "Data uploaded", Toast.LENGTH_SHORT).show();
+                        UploadImageView3.setEnabled(false
+                        );
                     },
                     error -> {
                         Toast.makeText(getActivity(), "Data not uploaded", Toast.LENGTH_SHORT).show();
@@ -380,10 +382,10 @@ public class TreeProfileFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         status = 1;
-                        if(reqCode==2){
+                        if (reqCode == 2) {
                             UploadImageView2.setImageAlpha(255);
                         }
-                        if(reqCode==3){
+                        if (reqCode == 3) {
                             UploadImageView3.setImageAlpha(255);
                         }
                         statusOfTree.setText(R.string.Alive);
@@ -395,10 +397,10 @@ public class TreeProfileFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         status = 0;
-                        if(reqCode==2){
+                        if (reqCode == 2) {
                             UploadImageView2.setImageAlpha(50);
                         }
-                        if(reqCode==3){
+                        if (reqCode == 3) {
                             UploadImageView3.setImageAlpha(50);
                         }
                         statusOfTree.setText(R.string.Dead);

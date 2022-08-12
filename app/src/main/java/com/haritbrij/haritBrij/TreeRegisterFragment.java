@@ -60,6 +60,7 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
     String selectedVillage;
     String selectedSpecies;
     TextView treesPlantedTextView;
+    boolean isImageSelected = false;
 
     public TreeRegisterFragment() {
         super(R.layout.fragment_tree_register);
@@ -158,8 +159,9 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                     getLocation();
                 }
 
-
-                if (addTreeImageView != null && selectedDistrict != null && selectedBlock != null && selectedVillage != null && selectedSpecies != null && latitude != null && longitude != null) {
+                if (!isImageSelected) {
+                    Toast.makeText(getContext(), "Please select an image", Toast.LENGTH_SHORT).show();
+                } else if (isImageSelected && selectedDistrict != null && selectedBlock != null && selectedVillage != null && selectedSpecies != null && latitude != null && longitude != null) {
                     //Construct the Json object
                     JSONObject object = new JSONObject();
                     try {
@@ -187,8 +189,9 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
                             response -> {
                                 try {
                                     String utid = response.getString("strutid");
-                                    Log.d("ResponseRegister", utid);
                                     viewModel.setUtid(utid);
+                                    isImageSelected = false;
+
                                     String myUrl1 = baseUrl + "searchbyutid.php/?strutid=" + utid;
                                     StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl1,
                                             res -> {
@@ -279,9 +282,10 @@ public class TreeRegisterFragment extends Fragment implements AdapterView.OnItem
             assert data != null;
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            Bitmap resizedImage = Bitmap.createScaledBitmap(imageBitmap, 500, 500, true);
+            Bitmap resizedImage = Bitmap.createScaledBitmap(imageBitmap, 128, 99, true);
             treeRegisterBitmap = resizedImage;
             addTreeImageView.setImageBitmap(resizedImage);
+            isImageSelected = true;
         }
     }
 
