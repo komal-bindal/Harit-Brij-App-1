@@ -35,6 +35,7 @@ public class AdminTreeListFragment extends Fragment {
     ArrayList<Tree> mData = new ArrayList<>();
     TreeListAdapter mTreeListAdapter;
     Organisation org;
+    int position;
 
     public AdminTreeListFragment() {
         // Required empty public constructor
@@ -51,7 +52,8 @@ public class AdminTreeListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(AdminViewModel.class);
+
+        viewModel = new ViewModelProvider(getActivity()).get(AdminViewModel.class);
 
         EditText searchTreeEditText = view.findViewById(R.id.searchTreeByUtid);
         ImageView searchTreeImageView = view.findViewById(R.id.searchTreeIcon);
@@ -61,8 +63,9 @@ public class AdminTreeListFragment extends Fragment {
         mTreeListAdapter = new TreeListAdapter(mData);
 
         String baseUrl = VolleySingleton.getBaseUrl();
-        int position = viewModel.getPosition();
+        position = viewModel.getPosition();
         org = viewModel.getOrgList().get(position);
+        Log.e("Organization", String.valueOf(org.id));
 
         //TODO: Commenting the below line for now. The api is not returning the correct trees according to the user id.
         String myUrl = baseUrl + "readusertree.php/?uid=" + org.id;
@@ -70,11 +73,11 @@ public class AdminTreeListFragment extends Fragment {
         StringRequest myRequest = new StringRequest(Request.Method.GET, myUrl,
                 response -> {
                     try {
+                        mData.clear();
                         //Create a JSON object containing information from the API.
                         JSONObject myJsonObject = new JSONObject(response);
                         JSONArray jsonArray = myJsonObject.getJSONArray("body");
 
-                        mData.clear();
                         //save the from response in new tree object
                         for (int jsonArrayIndex = 0; jsonArrayIndex < jsonArray.length(); jsonArrayIndex++) {
 
@@ -108,6 +111,7 @@ public class AdminTreeListFragment extends Fragment {
                         }
 
                         viewModel.setTreeList(mData);
+                        Log.e("list", String.valueOf(mData.size()));
 
                         mTreeListAdapter = new TreeListAdapter(mData);
                         searchRecyclerView.setAdapter(mTreeListAdapter);
@@ -125,7 +129,7 @@ public class AdminTreeListFragment extends Fragment {
         mTreeListAdapter.setOnItemClickListener(new TreeListAdapter.ItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                viewModel.setPosition(position);
+                viewModel.setTreePosition(position);
                 AdminTreeProfileFragment admintreeProfileFragment = new AdminTreeProfileFragment();
                 FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_admin_fragment_container_view, admintreeProfileFragment).addToBackStack(null).commit();

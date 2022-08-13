@@ -19,6 +19,7 @@ public class AdminViewModel extends AndroidViewModel {
     private final MutableLiveData<List<Organisation>> orgList = new MutableLiveData<List<Organisation>>();
     SharedPreferences sharedPreferences = getApplication().getSharedPreferences(getApplication().getString(R.string.preference_file_key), Context.MODE_PRIVATE);
     int mPosition;
+    int treePosition;
     private final SharedPreferences.Editor editor;
 
     public AdminViewModel(@NonNull Application application) {
@@ -53,9 +54,15 @@ public class AdminViewModel extends AndroidViewModel {
     public int getPosition() {
         return mPosition;
     }
+    public int getTreePosition() {
+        return treePosition;
+    }
 
     public void setPosition(int position) {
         mPosition = position;
+    }
+    public void setTreePosition(int position) {
+        treePosition = position;
     }
 
     public ArrayList<Tree> getTreeList() {

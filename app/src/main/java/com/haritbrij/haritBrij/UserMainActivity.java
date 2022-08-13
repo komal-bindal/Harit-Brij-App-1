@@ -63,6 +63,7 @@ public class UserMainActivity extends AppCompatActivity {
         treeTargetTextView.setText(viewModel.sharedPreferences.getString(SharedPrefConstants.target, ""));
         userNameTextView.setText(viewModel.sharedPreferences.getString(SharedPrefConstants.name, ""));
         bottomNavigationView = findViewById(R.id.main_user_bottom_navigation_view);
+//        Log.e("size", userImageView.getWidth()+" "+userImageView.getHeight());
 
         userImageView.setImageResource(R.drawable.ic_baseline_photo_camera_24);
 
@@ -102,7 +103,8 @@ public class UserMainActivity extends AppCompatActivity {
                         String display = myJsonObject.getString("display");
                         Bitmap image = ImageHelper.decodeImage(display);
                         if (image != null) {
-                            userImageView.setImageBitmap(getCroppedBitmap(image));
+                            Bitmap resized = Bitmap.createScaledBitmap(image, 500, 500, true);
+                            userImageView.setImageBitmap(getCroppedBitmap(resized));
                             flag = 1;
                         }
                         treesPlantedTextView.setText(myJsonObject.getString("completed"));
@@ -186,6 +188,8 @@ public class UserMainActivity extends AppCompatActivity {
         // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
         canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2,
                 bitmap.getWidth() / 2, paint);
+        Log.e("size of cropped image", bitmap.getWidth() / 2+" "+bitmap.getHeight() / 2);
+        Log.e("size of original image", bitmap.getWidth()+" "+bitmap.getHeight());
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
         //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);

@@ -101,6 +101,8 @@ public class TreeProfileFragment extends Fragment {
         villageTextView.setText(tree.village);
         UploadImageView2.setImageAlpha(50);
         UploadImageView3.setImageAlpha(50);
+        UploadImageView2.setEnabled(false);
+        UploadImageView3.setEnabled(false);
 
 //        treeProfileImageView.setEnabled(false);
 //            String baseUrl = VolleySingleton.getBaseUrl();
@@ -155,6 +157,7 @@ public class TreeProfileFragment extends Fragment {
             UploadImageView1.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
             if (tree.status1.equals("1")) {
                 UploadImageView2.setImageAlpha(255);
+                UploadImageView2.setEnabled(true);
             }
             UploadImageView1.setEnabled(false);
         }
@@ -165,6 +168,7 @@ public class TreeProfileFragment extends Fragment {
             UploadImageView2.setImageBitmap(Bitmap.createScaledBitmap(decodeByte, 500, 500, false));
             if (tree.status2.equals("1")) {
                 UploadImageView3.setImageAlpha(255);
+                UploadImageView3.setEnabled(true);
             }
             UploadImageView2.setEnabled(false);
         }
@@ -290,6 +294,7 @@ public class TreeProfileFragment extends Fragment {
                     response -> {
                         Toast.makeText(getActivity(), "Data uploaded", Toast.LENGTH_SHORT).show();
                         UploadImageView2.setImageAlpha(255);
+                        UploadImageView2.setEnabled(true);
                         UploadImageView1.setEnabled(false);
                         if (status == 0) {
                             UploadImageView2.setImageAlpha(50);
@@ -331,6 +336,7 @@ public class TreeProfileFragment extends Fragment {
                         Toast.makeText(getActivity(), "Data uploaded", Toast.LENGTH_SHORT).show();
                         UploadImageView2.setEnabled(false);
                         UploadImageView3.setImageAlpha(255);
+                        UploadImageView3.setEnabled(true);
                         if (status == 0) {
                             UploadImageView3.setImageAlpha(50);
                             UploadImageView3.setEnabled(false);
@@ -364,8 +370,7 @@ public class TreeProfileFragment extends Fragment {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                     response -> {
                         Toast.makeText(getActivity(), "Data uploaded", Toast.LENGTH_SHORT).show();
-                        UploadImageView3.setEnabled(false
-                        );
+                        UploadImageView3.setEnabled(false);
                     },
                     error -> {
                         Toast.makeText(getActivity(), "Data not uploaded", Toast.LENGTH_SHORT).show();

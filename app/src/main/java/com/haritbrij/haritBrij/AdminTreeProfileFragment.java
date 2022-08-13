@@ -61,7 +61,7 @@ public class AdminTreeProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(AdminViewModel.class);
 
-        int position = viewModel.getPosition();
+        int position = viewModel.getTreePosition();
         tree = viewModel.getTreeList().get(position);
 
         utIdTextView = view.findViewById(R.id.utidTextView);

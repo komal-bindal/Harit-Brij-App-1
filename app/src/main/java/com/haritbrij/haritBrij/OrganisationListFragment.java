@@ -99,6 +99,7 @@ public class OrganisationListFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 viewModel.setPosition(position);
+                Log.e("position", String.valueOf(position));
                 AdminTreeListFragment adminTreeListFragment = new AdminTreeListFragment();
                 FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.main_admin_fragment_container_view, adminTreeListFragment).addToBackStack(null).commit();

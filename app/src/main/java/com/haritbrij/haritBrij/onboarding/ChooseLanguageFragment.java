@@ -41,8 +41,8 @@ public class ChooseLanguageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 viewModel.setEnglishLanguage();
-                navigateToChooseUser();
                 setAppLocale("en");
+                navigateToChooseUser();
             }
         });
 
