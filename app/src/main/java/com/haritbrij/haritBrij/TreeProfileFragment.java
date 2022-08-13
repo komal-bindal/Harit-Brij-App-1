@@ -289,8 +289,10 @@ public class TreeProfileFragment extends Fragment {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, myUrl, object,
                     response -> {
                         Toast.makeText(getActivity(), "Data uploaded", Toast.LENGTH_SHORT).show();
+                        UploadImageView2.setImageAlpha(255);
                         UploadImageView1.setEnabled(false);
                         if (status == 0) {
+                            UploadImageView2.setImageAlpha(50);
                             UploadImageView2.setEnabled(false);
                             UploadImageView3.setEnabled(false);
                         }
@@ -328,7 +330,9 @@ public class TreeProfileFragment extends Fragment {
                     response -> {
                         Toast.makeText(getActivity(), "Data uploaded", Toast.LENGTH_SHORT).show();
                         UploadImageView2.setEnabled(false);
+                        UploadImageView3.setImageAlpha(255);
                         if (status == 0) {
+                            UploadImageView3.setImageAlpha(50);
                             UploadImageView3.setEnabled(false);
                         }
                     },
@@ -382,12 +386,6 @@ public class TreeProfileFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         status = 1;
-                        if (reqCode == 2) {
-                            UploadImageView2.setImageAlpha(255);
-                        }
-                        if (reqCode == 3) {
-                            UploadImageView3.setImageAlpha(255);
-                        }
                         statusOfTree.setText(R.string.Alive);
                         startActivityForResult(takePictureIntent, reqCode);
 
@@ -397,12 +395,6 @@ public class TreeProfileFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         status = 0;
-                        if (reqCode == 2) {
-                            UploadImageView2.setImageAlpha(50);
-                        }
-                        if (reqCode == 3) {
-                            UploadImageView3.setImageAlpha(50);
-                        }
                         statusOfTree.setText(R.string.Dead);
 
                         startActivityForResult(takePictureIntent, reqCode);

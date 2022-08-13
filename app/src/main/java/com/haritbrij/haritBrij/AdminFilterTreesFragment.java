@@ -79,9 +79,11 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        startSelectedDate=null;
+        endSelectedDate=null;
 
         viewModel = new ViewModelProvider(getActivity()).get(AdminViewModel.class);
-
+//        Log.e("dates", startSelectedDate+" "+endSelectedDate );
         Spinner districtSpinner = view.findViewById(R.id.adminDistrictSpinner);
         Spinner blockSpinner = view.findViewById(R.id.adminBlockSpinner);
         Spinner villageSpinner = view.findViewById(R.id.adminVillageSpinner);
@@ -195,7 +197,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
 
                                     if (selectedDistrict.equals("All(District)") && selectedBlock.equals("All(Block)") && selectedVillage.equals("All(Villages)") && selectedSpecies.equals("All(Species)")) {
                                         district[0] = jsonArray.length();
-                                    } else if (indexedTree.getString("district").equals(selectedDistrict)) {
+                                    } else if (selectedDistrict.equals("All(District)") || indexedTree.getString("district").equals(selectedDistrict)) {
                                         district[0]++;
                                     }
 
@@ -293,7 +295,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
                                             Log.d("TreeDetails", tree.latitude + " " + tree.longitude);
                                             mData.add(tree);
                                         }
-                                    } else if (selectedStatus.equals("Dead") && indexedTree.getString("status2").equals("0") && indexedTree.getString("img3") != null && (
+                                    } else if (selectedStatus.equals("Dead") && (indexedTree.getString("status2").equals("0") && indexedTree.getString("img3") != null) && (
                                             selectedDistrict.equals("All(District)") ||
                                                     selectedDistrict.equals(indexedTree.getString("district")))
                                             && (selectedBlock.equals("All(Block)") ||
@@ -449,6 +451,7 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
     }
 
     private void setTreeMarker() {
+        mGoogleMap.clear();
         ArrayList<Tree> treeList = viewModel.getTreeList();
         Log.e("FilteredScreen", String.valueOf(treeList));
         for (Tree tree : treeList) {
@@ -458,7 +461,8 @@ public class AdminFilterTreesFragment extends Fragment implements AdapterView.On
             Log.e("ScreenFilter", String.valueOf(treeMarker));
             mGoogleMap.addMarker(new MarkerOptions().position(treeMarker));
             mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(treeMarker));
-            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));        }
+            mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
+        }
     }
 
     @Override
